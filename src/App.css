@@ -1,0 +1,96 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat");
+
+.App {
+  width: 100vw;
+  height: 100vh;
+  scroll-behavior: smooth;
+}
+
+body {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Montserrat", sans-serif !important;
+  color: white;
+}
+
+header {
+  padding: 30px;
+  /* background: #191414; */
+  height: 30px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.sidenav {
+  width: 300px;
+  border: 1px solid blue;
+  position: absolute;
+  height: 100vh;
+  padding: 0 30px;
+  left: -100%;
+  transition: all 0.5s;
+}
+
+.sidenav.active {
+  left: 0;
+}
+
+ul {
+  padding-left: 0;
+}
+
+ul li {
+  list-style: none;
+  margin-top: 10px;
+  padding-left: 0 !important;
+  padding: 0;
+}
+
+ul li a {
+  color: #eaecef;
+  text-decoration: none;
+  font-size: 20px;
+  display: block;
+  padding: 10px 15px;
+  border-radius: 6px;
+}
+
+ul li a:hover {
+  background-color: darkgray;
+}
+
+ul li a:active {
+  background-color: darkgray;
+}
+
+header svg {
+  font-size: 30px;
+}
+
+header .hamburgerBtn {
+  cursor: pointer;
+}
+
+.loginDiv {
+  border: 1px solid red;
+  align-items: center;
+  justify-content: center;
+}
+
+/* .sideActive {
+  border: 1px solid white;
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
+} */
+
+.loginBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loginBtn a {
+  text-decoration: none;
+}

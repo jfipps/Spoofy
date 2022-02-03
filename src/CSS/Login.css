@@ -1,0 +1,199 @@
+/* header {
+  background-color: #191414;
+} */
+
+:root {
+  --spotify-green: #1dbc55;
+  --login-hover: #32cd32;
+  --spotify-black: #191414;
+  --list-header: #ddd9d9;
+}
+
+.Header {
+  background: rgb(25, 218, 226);
+  background: linear-gradient(to bottom, #6600ff 0%, #cc0099 100%);
+}
+
+#spoofy-link {
+  text-decoration: none;
+  color: white;
+}
+
+#button-green {
+  border-radius: 500px;
+  background-color: var(--spotify-green);
+  border: none;
+}
+
+#button-green:hover {
+  background-color: var(--login-hover);
+}
+
+#button-link {
+  text-decoration: none;
+  color: white;
+}
+
+.LandingRow {
+  margin-top: 8rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-bottom: 150px;
+}
+
+.LoginTextCol {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  color: white;
+  max-width: 33.3333%;
+  margin-right: 40px;
+}
+
+.LoginTextCol h1 {
+  margin-bottom: 30px;
+  font-size: 44px;
+}
+
+.LoginTextCol h3 {
+  margin-bottom: 30px;
+}
+
+.Row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+.albumGrid {
+  padding: 8px;
+}
+
+.albumImages {
+  max-width: 100%;
+  height: auto;
+}
+
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+
+.AlbumCol {
+  margin-left: 20px;
+}
+
+.ExampleSection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  margin-bottom: 30px;
+}
+
+.InfoSection {
+  background-color: white;
+  padding-top: 20px;
+}
+
+.InfoHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.InfoRow {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: row;
+  align-items: top;
+  justify-content: flex-start;
+  padding-bottom: 30px;
+}
+
+.InfoParagraph {
+  font-size: 20px;
+}
+
+#get-started-link {
+  text-decoration: none;
+  color: var(--spotify-green);
+}
+
+.Footer {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--spotify-black);
+  padding: 80px 0px 80px 0px;
+}
+
+.FooterRow {
+  display: flex;
+  border: 1px solid blue;
+}
+
+.FooterItem {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.FooterLinks {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid white;
+}
+
+.FooterList {
+  list-style-type: none;
+}
+
+#footer-link {
+  margin: 0;
+  padding: 0;
+}
+
+#footer-link:hover {
+  color: var(--spotify-green);
+  background-color: var(--spotify-black);
+}
+
+.ListHeader {
+  color: var(--spotify-green);
+}
+
+.AboutItem {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  color: white;
+  border: 1px solid white;
+}
+
+.AboutTitle {
+  color: var(--spotify-green);
+}
+
+.SocialRow {
+  padding-top: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.SocialIcons > a {
+  margin: 5px 20px;
+  color: white;
+  padding: 15px;
+  border: 2px solid white;
+  border-radius: 50%;
+}
+
+.SocialIcons > a:hover {
+  background-color: var(--spotify-green);
+  color: white;
+}
