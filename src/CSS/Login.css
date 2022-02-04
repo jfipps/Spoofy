@@ -12,6 +12,7 @@
 .Header {
   background: rgb(25, 218, 226);
   background: linear-gradient(to bottom, #6600ff 0%, #cc0099 100%);
+  padding-bottom: 80px;
 }
 
 #spoofy-link {
@@ -96,7 +97,8 @@
 
 .InfoSection {
   background-color: white;
-  padding-top: 20px;
+  padding-top: 80px;
+  padding-bottom: 80px;
 }
 
 .InfoHeader {
