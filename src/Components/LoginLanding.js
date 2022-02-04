@@ -77,7 +77,7 @@ export default function LoginLanding() {
           </section>
         </Container>
       </div>
-      <section id="Info" className="InfoSection">
+      {/* <section id="Info" className="InfoSection">
         <Container>
           <div className="InfoHeader">
             <h1>Year round stats</h1>
@@ -116,8 +116,8 @@ export default function LoginLanding() {
             </div>
           </div>
         </Container>
-      </section>
-      <footer id="About" className="Footer">
+      </section> */}
+      {/* <footer id="About" className="Footer">
         <Container>
           <div className="FooterRow">
             <div className="FooterItem">
@@ -184,7 +184,7 @@ export default function LoginLanding() {
             </div>
           </div>
         </Container>
-      </footer>
+      </footer> */}
     </>
   );
 }

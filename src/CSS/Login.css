@@ -132,7 +132,6 @@
 
 .FooterRow {
   display: flex;
-  border: 1px solid blue;
 }
 
 .FooterItem {
@@ -145,7 +144,6 @@
 .FooterLinks {
   display: flex;
   flex-direction: row;
-  border: 1px solid white;
 }
 
 .FooterList {
@@ -153,7 +151,6 @@
 }
 
 #footer-link {
-  margin: 0;
   padding: 0;
 }
 
@@ -171,7 +168,7 @@
   flex-direction: column;
   width: 50%;
   color: white;
-  border: 1px solid white;
+  margin-top: 10px;
 }
 
 .AboutTitle {
@@ -189,11 +186,8 @@
   margin: 5px 20px;
   color: white;
   padding: 15px;
-  border: 2px solid white;
-  border-radius: 50%;
 }
 
 .SocialIcons > a:hover {
-  background-color: var(--spotify-green);
-  color: white;
+  color: var(--spotify-green);
 }
