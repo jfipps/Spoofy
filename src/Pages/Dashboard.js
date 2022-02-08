@@ -3,6 +3,7 @@ import useAuth from "../Components/useAuth";
 import { useState, useEffect } from "react";
 import { Container, Form } from "react-bootstrap";
 import SpotifyWebApi from "spotify-web-api-node";
+import axios from "axios";
 import TrackSearchResult from "../Components/TrackSearchResult";
 import Player from "../Components/Player";
 
@@ -72,6 +73,27 @@ export default function Dashboard({ code }) {
       .catch((err) => {
         console.log(err);
       });
+
+    spotifyWebApi
+      .getMyTopArtists({ time_range: "long_term" })
+      .then((data) => {
+        console.log("Top Artists: ");
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    // axios("https://api.spotify.com/v1/me/top/artists", {
+    //   method: "GET",
+    //   headers: { Authorization: "Bearer" + accessToken },
+    // })
+    //   .then((data) => {
+    //     console.log(data);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   };
 
   return (

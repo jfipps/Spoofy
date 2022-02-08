@@ -11,7 +11,7 @@ import Zeppelin2 from "../Resources/Zeppelin2.jpg";
 import { FaHome, FaTwitter, FaGithub, FaLinkedinIn } from "react-icons/fa";
 
 const AUTH_URL =
-  "https://accounts.spotify.com/authorize?client_id=fd1fb953c28a42ab9fbe07099618dc50&response_type=code&redirect_uri=http://localhost:3000/Dashboard&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state%20user-read-recently-played";
+  "https://accounts.spotify.com/authorize?client_id=fd1fb953c28a42ab9fbe07099618dc50&response_type=code&redirect_uri=http://localhost:3000/Dashboard&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state%20user-read-recently-played%20user-top-read";
 
 export default function LoginLanding() {
   return (
