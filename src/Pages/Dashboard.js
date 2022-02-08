@@ -12,14 +12,14 @@ const spotifyWebApi = new SpotifyWebApi({
 
 export default function Dashboard({ code }) {
   const accessToken = useAuth(code);
-  const [search, setSearch] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
-  const [playingTrack, setPlayingTrack] = useState();
+  // const [search, setSearch] = useState("");
+  // const [searchResults, setSearchResults] = useState([]);
+  // const [playingTrack, setPlayingTrack] = useState();
 
-  const chooseTrack = (track) => {
-    setPlayingTrack(track);
-    setSearch("");
-  };
+  // const chooseTrack = (track) => {
+  //   setPlayingTrack(track);
+  //   setSearch("");
+  // };
 
   useEffect(() => {
     if (!accessToken) {
@@ -28,36 +28,36 @@ export default function Dashboard({ code }) {
     spotifyWebApi.setAccessToken(accessToken);
   }, [accessToken]);
 
-  useEffect(() => {
-    if (!search) return setSearchResults([]);
-    if (!accessToken) return;
-    let cancel = false;
+  // useEffect(() => {
+  //   if (!search) return setSearchResults([]);
+  //   if (!accessToken) return;
+  //   let cancel = false;
 
-    spotifyWebApi.searchTracks(search).then((res) => {
-      if (cancel) return;
-      setSearchResults(
-        res.body.tracks.items.map((track) => {
-          const smallAlbumImg = track.album.images.reduce(
-            (smallest, current) => {
-              if (current.height < smallest.height) {
-                return current;
-              }
-              return smallest;
-            },
-            track.album.images[0]
-          );
-          return {
-            album: track.album.name,
-            artist: track.artists[0].name,
-            title: track.name,
-            uri: track.uri,
-            albumUrl: smallAlbumImg.url,
-          };
-        })
-      );
-    });
-    return () => (cancel = true);
-  }, [search, accessToken]);
+  //   spotifyWebApi.searchTracks(search).then((res) => {
+  //     if (cancel) return;
+  //     setSearchResults(
+  //       res.body.tracks.items.map((track) => {
+  //         const smallAlbumImg = track.album.images.reduce(
+  //           (smallest, current) => {
+  //             if (current.height < smallest.height) {
+  //               return current;
+  //             }
+  //             return smallest;
+  //           },
+  //           track.album.images[0]
+  //         );
+  //         return {
+  //           album: track.album.name,
+  //           artist: track.artists[0].name,
+  //           title: track.name,
+  //           uri: track.uri,
+  //           albumUrl: smallAlbumImg.url,
+  //         };
+  //       })
+  //     );
+  //   });
+  //   return () => (cancel = true);
+  // }, [search, accessToken]);
 
   const showRecent = () => {
     if (!accessToken) return;
@@ -75,30 +75,9 @@ export default function Dashboard({ code }) {
   };
 
   return (
-    <Container className="d-flex flex-column py-2" style={{ height: "100vh" }}>
-      <Form.Control
-        type="search"
-        placeholder="Search Songs/Artists"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      ></Form.Control>
-      <button className="btn btn-success btn-lg" onClick={() => showRecent()}>
-        Show Recent
-      </button>
-      <div className="flex-grow-1 my-2" style={{ overflowY: "auto" }}>
-        {searchResults.map((track) => {
-          return (
-            <TrackSearchResult
-              track={track}
-              key={track.uri}
-              chooseTrack={chooseTrack}
-            />
-          );
-        })}
-      </div>
-      <div>
-        <Player accessToken={accessToken} trackUri={playingTrack?.uri} />
-      </div>
+    <Container>
+      <h1>Testing</h1>
+      <button onClick={() => showRecent()}>Click Me</button>
     </Container>
   );
 }
