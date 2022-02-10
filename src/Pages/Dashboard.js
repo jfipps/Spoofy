@@ -1,8 +1,10 @@
 import React from "react";
 import useAuth from "../Components/useAuth";
 import { useState, useEffect } from "react";
-import { Container, Form } from "react-bootstrap";
+import { Container, Form, Navbar } from "react-bootstrap";
 import SpotifyWebApi from "spotify-web-api-node";
+import "../CSS/Dashboard.css";
+import { FaBars } from "react-icons/fa";
 import axios from "axios";
 import TrackSearchResult from "../Components/TrackSearchResult";
 import Player from "../Components/Player";
@@ -12,6 +14,14 @@ const spotifyWebApi = new SpotifyWebApi({
 });
 
 export default function Dashboard({ code }) {
+  const [sidebarShow, setSidebarShow] = useState(false);
+
+  let sidebarValue = sidebarShow.toString();
+
+  useEffect(() => {
+    sidebarValue = sidebarShow.toString();
+  }, [sidebarShow]);
+
   const accessToken = useAuth(code);
   // const [search, setSearch] = useState("");
   // const [searchResults, setSearchResults] = useState([]);
@@ -39,26 +49,7 @@ export default function Dashboard({ code }) {
   //     setSearchResults(
   //       res.body.tracks.items.map((track) => {
   //         const smallAlbumImg = track.album.images.reduce(
-  //           (smallest, current) => {
-  //             if (current.height < smallest.height) {
-  //               return current;
-  //             }
-  //             return smallest;
-  //           },
-  //           track.album.images[0]
-  //         );
-  //         return {
-  //           album: track.album.name,
-  //           artist: track.artists[0].name,
-  //           title: track.name,
-  //           uri: track.uri,
-  //           albumUrl: smallAlbumImg.url,
-  //         };
-  //       })
-  //     );
-  //   });
-  //   return () => (cancel = true);
-  // }, [search, accessToken]);
+  //
 
   const showRecent = () => {
     if (!accessToken) return;
@@ -83,23 +74,19 @@ export default function Dashboard({ code }) {
       .catch((err) => {
         console.log(err);
       });
-
-    // axios("https://api.spotify.com/v1/me/top/artists", {
-    //   method: "GET",
-    //   headers: { Authorization: "Bearer" + accessToken },
-    // })
-    //   .then((data) => {
-    //     console.log(data);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
   };
 
   return (
-    <Container>
-      <h1>Testing</h1>
-      <button onClick={() => showRecent()}>Click Me</button>
-    </Container>
+    <>
+      <Navbar id="navbar">
+        <button id="spoofy-link" onClick={() => setSidebarShow(!sidebarShow)}>
+          <FaBars></FaBars>
+        </button>
+      </Navbar>
+      <Container>
+        <h1>{sidebarValue}</h1>
+        <button onClick={() => showRecent()}>Click Me</button>
+      </Container>
+    </>
   );
 }
