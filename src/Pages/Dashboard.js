@@ -4,10 +4,9 @@ import { useState, useEffect } from "react";
 import { Container, Form, Navbar } from "react-bootstrap";
 import SpotifyWebApi from "spotify-web-api-node";
 import "../CSS/Dashboard.css";
+import "../App.css";
 import { FaBars } from "react-icons/fa";
-import axios from "axios";
-import TrackSearchResult from "../Components/TrackSearchResult";
-import Player from "../Components/Player";
+import Sidebar from "../Components/Sidebar";
 
 const spotifyWebApi = new SpotifyWebApi({
   clientId: "fd1fb953c28a42ab9fbe07099618dc50",
@@ -15,9 +14,7 @@ const spotifyWebApi = new SpotifyWebApi({
 
 export default function Dashboard({ code }) {
   const [sidebarShow, setSidebarShow] = useState(false);
-
-  let sidebarValue = sidebarShow.toString();
-
+  const [sidebarClass, setSidebarClass] = useState("sidenav");
   useEffect(() => {
     sidebarValue = sidebarShow.toString();
   }, [sidebarShow]);
@@ -80,9 +77,10 @@ export default function Dashboard({ code }) {
     <>
       <Navbar id="navbar">
         <button id="spoofy-link" onClick={() => setSidebarShow(!sidebarShow)}>
-          <FaBars></FaBars>
+          <FaBars size={24}></FaBars>
         </button>
       </Navbar>
+      <Sidebar className={sidebarShow ? "sidenav active" : "sidenav"}></Sidebar>
       <Container>
         <h1>{sidebarValue}</h1>
         <button onClick={() => showRecent()}>Click Me</button>
