@@ -5,6 +5,18 @@
   --list-header: #ddd9d9;
 }
 
+.DashBody {
+  padding-top: 50px;
+  color: white;
+  height: 100vh;
+  background: rgb(14, 69, 93);
+  background: linear-gradient(
+    0deg,
+    rgba(14, 69, 93, 1) 0%,
+    rgba(25, 20, 20, 1) 100%
+  );
+}
+
 #navbar {
   background-color: var(--spotify-black);
   padding-left: 30px;
@@ -15,4 +27,44 @@
   color: white;
   background-color: var(--spotify-black);
   border: none;
+}
+
+#sidebar-list {
+  padding-left: 0;
+}
+
+#sidebar-link {
+  text-decoration: none;
+  color: white;
+}
+
+#spoofy-link:hover {
+  color: var(--spotify-green);
+}
+
+.DashNav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.NavbarStart {
+}
+
+.NavbarEnd {
+  display: flex;
+  flex-direction: row;
+}
+
+.NavbarEnd > button {
+  background-color: var(--spotify-black);
+  color: white;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  margin-right: 2rem;
+  border: none;
+}
+
+.NavbarEnd > button:hover {
+  color: var(--spotify-green);
 }

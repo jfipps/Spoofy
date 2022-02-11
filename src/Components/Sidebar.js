@@ -1,20 +1,24 @@
 import React from "react";
+import "../CSS/Dashboard.css";
 
 export default function Sidebar({ show }) {
   return (
     <div className={show ? "sidenav active" : "sidenav"}>
-      <ul>
+      <ul id="sidebar-list">
         <li>
-          <a href="/">Home</a>
+          <a id="sidebar-link" href="/Tracks">
+            Tracks
+          </a>
         </li>
         <li>
-          <a href="/Tracks">Tracks</a>
+          <a id="sidebar-link" href="/Dashboard">
+            Artists
+          </a>
         </li>
         <li>
-          <a href="/Dashboard">Artists</a>
-        </li>
-        <li>
-          <a href="/Recents">Recents</a>
+          <a id="sidebar-link" href="/Recents">
+            Recents
+          </a>
         </li>
       </ul>
     </div>

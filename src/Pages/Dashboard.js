@@ -1,7 +1,8 @@
 import React from "react";
 import useAuth from "../Components/useAuth";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Container, Form, Navbar } from "react-bootstrap";
+import { SpoofyContext } from "../context";
 import SpotifyWebApi from "spotify-web-api-node";
 import "../CSS/Dashboard.css";
 import "../App.css";
@@ -13,7 +14,7 @@ const spotifyWebApi = new SpotifyWebApi({
 });
 
 export default function Dashboard({ code }) {
-  const [sidebarShow, setSidebarShow] = useState(false);
+  const { showSidebar, setShowSidebar } = useContext(SpoofyContext);
 
   const accessToken = useAuth(code);
   // const [search, setSearch] = useState("");
@@ -71,16 +72,24 @@ export default function Dashboard({ code }) {
 
   return (
     <>
-      <Navbar id="navbar">
-        <button id="spoofy-link" onClick={() => setSidebarShow(!sidebarShow)}>
-          <FaBars size={24}></FaBars>
-        </button>
+      <Navbar id="navbar" className="DashNav">
+        <div className="NavbarStart">
+          <button id="spoofy-link" onClick={() => setShowSidebar(!showSidebar)}>
+            <FaBars size={24}></FaBars>
+          </button>
+        </div>
+        <div className="NavbarEnd">
+          <button>Home</button>
+          <button>Logout</button>
+        </div>
       </Navbar>
-      <Sidebar className={sidebarShow ? "sidenav active" : "sidenav"}></Sidebar>
-      <Container>
-        <h1>{sidebarValue}</h1>
-        <button onClick={() => showRecent()}>Click Me</button>
-      </Container>
+      <Sidebar show={showSidebar}></Sidebar>
+      <section className="DashBody">
+        <Container>
+          <h1>{showSidebar.toString()}</h1>
+          <button onClick={() => showRecent()}>Click Me</button>
+        </Container>
+      </section>
     </>
   );
 }
