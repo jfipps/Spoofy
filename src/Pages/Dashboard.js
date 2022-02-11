@@ -14,10 +14,6 @@ const spotifyWebApi = new SpotifyWebApi({
 
 export default function Dashboard({ code }) {
   const [sidebarShow, setSidebarShow] = useState(false);
-  const [sidebarClass, setSidebarClass] = useState("sidenav");
-  useEffect(() => {
-    sidebarValue = sidebarShow.toString();
-  }, [sidebarShow]);
 
   const accessToken = useAuth(code);
   // const [search, setSearch] = useState("");

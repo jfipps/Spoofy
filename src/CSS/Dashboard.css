@@ -13,4 +13,6 @@
 
 #spoofy-link {
   color: white;
+  background-color: var(--spotify-black);
+  border: none;
 }

@@ -1,13 +1,22 @@
 import React from "react";
-import "../App.css";
-import { SidebarData } from "./SidebarData";
 
-function Sidebar() {
+export default function Sidebar({ show }) {
   return (
-    <>
-      <h1>Content</h1>
-    </>
+    <div className={show ? "sidenav active" : "sidenav"}>
+      <ul>
+        <li>
+          <a href="/">Home</a>
+        </li>
+        <li>
+          <a href="/Tracks">Tracks</a>
+        </li>
+        <li>
+          <a href="/Dashboard">Artists</a>
+        </li>
+        <li>
+          <a href="/Recents">Recents</a>
+        </li>
+      </ul>
+    </div>
   );
 }
-
-export default Sidebar;
