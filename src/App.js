@@ -8,11 +8,11 @@ import Dashboard from "./Pages/Dashboard";
 import { SpoofyContext } from "./context";
 
 const code = new URLSearchParams(window.location.search).get("code");
-console.log(code);
 
 const App = () => {
-  const { showSidebar, setShowSidebar } = useContext(SpoofyContext);
-  // return code ? <Dashboard code={code} /> : <Login />;
+  const { showSidebar, setShowSidebar, apiCode, setAPICode } =
+    useContext(SpoofyContext);
+
   return (
     <div className="App">
       {/* <Navbar show={showSidebar}></Navbar> */}

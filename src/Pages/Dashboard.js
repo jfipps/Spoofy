@@ -1,30 +1,24 @@
 import React from "react";
 import useAuth from "../Components/useAuth";
 import { useState, useEffect, useContext } from "react";
-import { Container, Form, Navbar } from "react-bootstrap";
+import { Container, Navbar } from "react-bootstrap";
 import { SpoofyContext } from "../context";
 import SpotifyWebApi from "spotify-web-api-node";
 import "../CSS/Dashboard.css";
 import "../App.css";
 import { FaBars } from "react-icons/fa";
 import Sidebar from "../Components/Sidebar";
+import DashNav from "../Components/DashNav";
 
 const spotifyWebApi = new SpotifyWebApi({
   clientId: "fd1fb953c28a42ab9fbe07099618dc50",
 });
 
 export default function Dashboard({ code }) {
-  const { showSidebar, setShowSidebar } = useContext(SpoofyContext);
+  const { showSidebar, setShowSidebar, apiCode, setAPICode, printCode } =
+    useContext(SpoofyContext);
 
   const accessToken = useAuth(code);
-  // const [search, setSearch] = useState("");
-  // const [searchResults, setSearchResults] = useState([]);
-  // const [playingTrack, setPlayingTrack] = useState();
-
-  // const chooseTrack = (track) => {
-  //   setPlayingTrack(track);
-  //   setSearch("");
-  // };
 
   useEffect(() => {
     if (!accessToken) {
@@ -72,17 +66,7 @@ export default function Dashboard({ code }) {
 
   return (
     <>
-      <Navbar id="navbar" className="DashNav">
-        <div className="NavbarStart">
-          <button id="spoofy-link" onClick={() => setShowSidebar(!showSidebar)}>
-            <FaBars size={24}></FaBars>
-          </button>
-        </div>
-        <div className="NavbarEnd">
-          <button>Home</button>
-          <button>Logout</button>
-        </div>
-      </Navbar>
+      <DashNav></DashNav>
       <Sidebar show={showSidebar}></Sidebar>
       <section className="DashBody">
         <Container>
