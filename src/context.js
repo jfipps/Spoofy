@@ -12,6 +12,7 @@ const SpoofyProvider = ({ children }) => {
   const [showSidebar, setShowSidebar] = useState(false);
   const [apiCode, setApiCode] = useState();
   const [access, setAccess] = useState();
+  const [activeTab, setActiveTab] = useState("oneMonth");
 
   useEffect(() => {
     if (!access) {
@@ -46,6 +47,18 @@ const SpoofyProvider = ({ children }) => {
       });
   };
 
+  // useEffect(() => {
+  //   if (!search) return setSearchResults([]);
+  //   if (!accessToken) return;
+  //   let cancel = false;
+
+  //   spotifyWebApi.searchTracks(search).then((res) => {
+  //     if (cancel) return;
+  //     setSearchResults(
+  //       res.body.tracks.items.map((track) => {
+  //         const smallAlbumImg = track.album.images.reduce(
+  //
+
   return (
     <SpoofyContext.Provider
       value={{
@@ -55,6 +68,8 @@ const SpoofyProvider = ({ children }) => {
         setApiCode,
         setAccess,
         showRecent,
+        activeTab,
+        setActiveTab,
       }}
     >
       {children}

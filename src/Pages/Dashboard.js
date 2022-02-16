@@ -9,6 +9,7 @@ import "../App.css";
 import { FaBars } from "react-icons/fa";
 import Sidebar from "../Components/Sidebar";
 import DashNav from "../Components/DashNav";
+import DashTimePeriod from "../Components/DashTimePeriod";
 
 const spotifyWebApi = new SpotifyWebApi({
   clientId: "fd1fb953c28a42ab9fbe07099618dc50",
@@ -20,26 +21,13 @@ export default function Dashboard({ code }) {
 
   setAccess(useAuth(code));
 
-  // useEffect(() => {
-  //   if (!search) return setSearchResults([]);
-  //   if (!accessToken) return;
-  //   let cancel = false;
-
-  //   spotifyWebApi.searchTracks(search).then((res) => {
-  //     if (cancel) return;
-  //     setSearchResults(
-  //       res.body.tracks.items.map((track) => {
-  //         const smallAlbumImg = track.album.images.reduce(
-  //
-
   return (
     <>
       <DashNav></DashNav>
       <Sidebar show={showSidebar}></Sidebar>
       <section className="DashBody">
         <Container>
-          <h1>{showSidebar.toString()}</h1>
-          <button onClick={() => showRecent()}>Click Me</button>
+          <DashTimePeriod></DashTimePeriod>
         </Container>
       </section>
     </>

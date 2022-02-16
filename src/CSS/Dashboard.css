@@ -3,6 +3,7 @@
   --login-hover: #32cd32;
   --spotify-black: #191414;
   --list-header: #ddd9d9;
+  --hover-text: #beb5b3;
 }
 
 .DashBody {
@@ -67,4 +68,28 @@
 
 .NavbarEnd > button:hover {
   color: var(--spotify-green);
+}
+
+.DashTime {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.TimeButtons > button {
+  padding: 10px;
+  margin-right: 20px;
+  background: none;
+  font-weight: bold;
+  color: white;
+  border: none;
+}
+
+.TimeButtons > button:hover {
+  color: var(--hover-text);
+  /* border-bottom: 2px solid var(--spotify-green); */
+}
+
+#active {
+  border-bottom: 2px solid var(--spotify-green);
 }
