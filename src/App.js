@@ -10,8 +10,7 @@ import { SpoofyContext } from "./context";
 const code = new URLSearchParams(window.location.search).get("code");
 
 const App = () => {
-  const { showSidebar, setShowSidebar, apiCode, setAPICode } =
-    useContext(SpoofyContext);
+  const { showSidebar, setShowSidebar } = useContext(SpoofyContext);
 
   return (
     <div className="App">

@@ -15,17 +15,10 @@ const spotifyWebApi = new SpotifyWebApi({
 });
 
 export default function Dashboard({ code }) {
-  const { showSidebar, setShowSidebar, apiCode, setAPICode, printCode } =
+  const { showSidebar, setShowSidebar, setApiCode, setAccess, showRecent } =
     useContext(SpoofyContext);
 
-  const accessToken = useAuth(code);
-
-  useEffect(() => {
-    if (!accessToken) {
-      return;
-    }
-    spotifyWebApi.setAccessToken(accessToken);
-  }, [accessToken]);
+  setAccess(useAuth(code));
 
   // useEffect(() => {
   //   if (!search) return setSearchResults([]);
@@ -38,31 +31,6 @@ export default function Dashboard({ code }) {
   //       res.body.tracks.items.map((track) => {
   //         const smallAlbumImg = track.album.images.reduce(
   //
-
-  const showRecent = () => {
-    if (!accessToken) return;
-    spotifyWebApi
-      .getMyRecentlyPlayedTracks({ limit: 20 })
-      .then((data) => {
-        console.log("20 most current tracks played : ");
-        data.body.items.forEach((item) =>
-          console.log(item.track.name + " by " + item.track.artists[0].name)
-        );
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    spotifyWebApi
-      .getMyTopArtists({ time_range: "long_term" })
-      .then((data) => {
-        console.log("Top Artists: ");
-        console.log(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
 
   return (
     <>
