@@ -3,7 +3,7 @@ import "../CSS/Dashboard.css";
 
 export default function Sidebar({ show }) {
   return (
-    <div className={show ? "sidenav active" : "sidenav"}>
+    <div className="sidenav">
       <ul id="sidebar-list">
         <li>
           <a id="sidebar-link" href="/Tracks">

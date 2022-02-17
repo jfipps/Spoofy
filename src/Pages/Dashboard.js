@@ -23,12 +23,13 @@ export default function Dashboard({ code }) {
 
   return (
     <>
-      <DashNav></DashNav>
-      <Sidebar show={showSidebar}></Sidebar>
-      <section className="DashBody">
-        <Container>
-          <DashTimePeriod></DashTimePeriod>
-        </Container>
+      <section className="DashPage">
+        <Sidebar></Sidebar>
+        <section className="DashBody">
+          <Container>
+            <DashTimePeriod></DashTimePeriod>
+          </Container>
+        </section>
       </section>
     </>
   );
