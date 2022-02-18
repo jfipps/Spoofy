@@ -99,6 +99,7 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+  margin-right: 50px;
 }
 
 .TimeButtons > button {
@@ -119,14 +120,49 @@
   border-bottom: 2px solid var(--spotify-green);
 }
 
-img {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
+.TopArtists {
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  padding-left: 50px;
 }
 
-.TopArtists {
+.TopArtistsTitle {
+  padding-left: 20px;
+}
+
+.TopArtistsRow {
   display: flex;
   flex-direction: row;
   overflow: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.TopArtistsRow::-webkit-scrollbar {
+  display: none;
+}
+
+.ArtistCard {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+#artist-image {
+  width: 200px;
+  height: 200px;
+}
+
+#artist-name {
+  font-size: 18px;
+  text-align: center;
+  padding-top: 10px;
+}
+
+#artist-followers {
+  font-size: 16px;
+  padding-top: 10px;
 }

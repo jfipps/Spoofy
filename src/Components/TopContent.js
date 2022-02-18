@@ -5,15 +5,24 @@ import "../CSS/Dashboard.css";
 export default function TopContent() {
   const { topArtists } = useContext(SpoofyContext);
   return (
-    <article className="TopArtists">
-      {topArtists.map((item, index) => {
-        return (
-          <div className="ArtistCard">
-            <img src={item.images[0].url} alt={item.name} />
-            <h2>{item.name}</h2>
-          </div>
-        );
-      })}
-    </article>
+    <section className="TopArtists">
+      <h1 className="TopArtistsTitle">Top Artists</h1>
+      <article className="TopArtistsRow">
+        {topArtists.map((item, index) => {
+          return (
+            <div className="ArtistCard">
+              <img id="artist-image" src={item.images[0].url} alt={item.name} />
+              <h2 id="artist-name">{item.name}</h2>
+              <h3 id="artist-followers">
+                Followers:{" "}
+                {item.followers.total.toLocaleString(undefined, {
+                  maximumFractionDigits: 2,
+                })}
+              </h3>
+            </div>
+          );
+        })}
+      </article>
+    </section>
   );
 }

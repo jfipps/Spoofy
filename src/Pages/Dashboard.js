@@ -33,10 +33,8 @@ export default function Dashboard({ code }) {
       <section className="DashPage">
         <Sidebar></Sidebar>
         <section className="DashBody">
-          <Container>
-            <DashTimePeriod></DashTimePeriod>
-            <TopContent></TopContent>
-          </Container>
+          <DashTimePeriod></DashTimePeriod>
+          <TopContent></TopContent>
         </section>
       </section>
     </>

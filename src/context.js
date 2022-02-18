@@ -47,6 +47,15 @@ const SpoofyProvider = ({ children }) => {
       .catch((err) => {
         console.log("Failure" + err);
       });
+
+    spotifyWebApi
+      .getMyTopTracks({ time_range: "long_term" })
+      .then((data) => {
+        console.log(data.body);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   useEffect(() => {
