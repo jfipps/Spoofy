@@ -13,9 +13,11 @@ const SpoofyProvider = ({ children }) => {
   const [apiCode, setApiCode] = useState();
   const [access, setAccess] = useState();
   const [activeTab, setActiveTab] = useState("oneMonth");
+  const [topArtists, setTopArtists] = useState([]);
 
   useEffect(() => {
     if (!access) {
+      console.log("No API");
       return;
     }
     spotifyWebApi.setAccessToken(access);
@@ -24,28 +26,32 @@ const SpoofyProvider = ({ children }) => {
 
   const showRecent = () => {
     if (!access) return;
-    spotifyWebApi
-      .getMyRecentlyPlayedTracks({ limit: 20 })
-      .then((data) => {
-        console.log("20 most current tracks played : ");
-        data.body.items.forEach((item) =>
-          console.log(item.track.name + " by " + item.track.artists[0].name)
-        );
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // spotifyWebApi
+    //   .getMyRecentlyPlayedTracks({ limit: 20 })
+    //   .then((data) => {
+    //     console.log("20 most current tracks played : ");
+    //     data.body.items.forEach((item) =>
+    //       console.log(item.track.name + " by " + item.track.artists[0].name)
+    //     );
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
 
     spotifyWebApi
-      .getMyTopArtists({ time_range: "long_term" })
+      .getMyTopArtists({ time_range: "short_term" })
       .then((data) => {
-        console.log("Top Artists: ");
-        console.log(data);
+        console.log(data.body.items);
+        setTopArtists(data.body.items);
       })
       .catch((err) => {
-        console.log(err);
+        console.log("Failure" + err);
       });
   };
+
+  useEffect(() => {
+    showRecent();
+  }, [access]);
 
   // useEffect(() => {
   //   if (!search) return setSearchResults([]);
@@ -66,10 +72,12 @@ const SpoofyProvider = ({ children }) => {
         setShowSidebar,
         spotifyWebApi,
         setApiCode,
+        access,
         setAccess,
         showRecent,
         activeTab,
         setActiveTab,
+        topArtists,
       }}
     >
       {children}

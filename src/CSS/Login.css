@@ -13,6 +13,12 @@
   background: rgb(25, 218, 226);
   background: linear-gradient(to bottom, #6600ff 0%, #cc0099 100%);
   padding-bottom: 80px;
+  padding-top: 20px;
+}
+
+.HeadphonesIcon {
+  margin-right: 10px;
+  margin-bottom: 5px;
 }
 
 #spoofy-link {
@@ -154,6 +160,8 @@
 
 #footer-link {
   padding: 0;
+  text-decoration: none;
+  color: white;
 }
 
 #footer-link:hover {

@@ -10,14 +10,21 @@ import { FaBars } from "react-icons/fa";
 import Sidebar from "../Components/Sidebar";
 import DashNav from "../Components/DashNav";
 import DashTimePeriod from "../Components/DashTimePeriod";
+import TopContent from "../Components/TopContent";
 
 const spotifyWebApi = new SpotifyWebApi({
   clientId: "fd1fb953c28a42ab9fbe07099618dc50",
 });
 
 export default function Dashboard({ code }) {
-  const { showSidebar, setShowSidebar, setApiCode, setAccess, showRecent } =
-    useContext(SpoofyContext);
+  const {
+    showSidebar,
+    setShowSidebar,
+    setApiCode,
+    access,
+    setAccess,
+    showRecent,
+  } = useContext(SpoofyContext);
 
   setAccess(useAuth(code));
 
@@ -28,6 +35,7 @@ export default function Dashboard({ code }) {
         <section className="DashBody">
           <Container>
             <DashTimePeriod></DashTimePeriod>
+            <TopContent></TopContent>
           </Container>
         </section>
       </section>

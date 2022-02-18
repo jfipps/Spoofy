@@ -44,8 +44,14 @@
   padding-top: 50px;
 }
 
+.ListHeader {
+  color: white;
+  padding-bottom: 30px;
+}
+
 #sidebar-list {
   padding-left: 0;
+  list-style-type: none;
 }
 
 #sidebar-link {
@@ -111,4 +117,16 @@
 
 #active {
   border-bottom: 2px solid var(--spotify-green);
+}
+
+img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
+
+.TopArtists {
+  display: flex;
+  flex-direction: row;
+  overflow: auto;
 }
