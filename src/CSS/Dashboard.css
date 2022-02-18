@@ -137,6 +137,7 @@
   overflow: auto;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  max-width: 95%;
 }
 
 .TopArtistsRow::-webkit-scrollbar {
