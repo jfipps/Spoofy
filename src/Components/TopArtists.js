@@ -8,9 +8,10 @@ export default function TopContent() {
     <section className="TopArtists">
       <h1 className="TopArtistsTitle">Top Artists</h1>
       <article className="TopArtistsRow">
+        {/* Creates cards for Top Artists */}
         {topArtists.map((item, index) => {
           return (
-            <div className="ArtistCard">
+            <button className="ArtistCard">
               <img id="artist-image" src={item.images[0].url} alt={item.name} />
               <h2 id="artist-name">{item.name}</h2>
               <h3 id="artist-followers">
@@ -19,7 +20,7 @@ export default function TopContent() {
                   maximumFractionDigits: 2,
                 })}
               </h3>
-            </div>
+            </button>
           );
         })}
       </article>

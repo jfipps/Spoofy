@@ -9,20 +9,20 @@ export default function DashTimePeriod() {
     <section className="DashTime">
       <div className="TimeButtons">
         <button
-          onClick={() => setActiveTab("oneMonth")}
-          id={activeTab === "oneMonth" && "active"}
+          onClick={() => setActiveTab("short_term")}
+          id={activeTab === "short_term" && "active"}
         >
           One Month
         </button>
         <button
-          onClick={() => setActiveTab("sixMonths")}
-          id={activeTab === "sixMonths" && "active"}
+          onClick={() => setActiveTab("medium_term")}
+          id={activeTab === "medium_term" && "active"}
         >
           Six Months
         </button>
         <button
-          onClick={() => setActiveTab("oneYear")}
-          id={activeTab === "oneYear" && "active"}
+          onClick={() => setActiveTab("long_term")}
+          id={activeTab === "long_term" && "active"}
         >
           One Year
         </button>

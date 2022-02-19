@@ -12,46 +12,37 @@ const SpoofyProvider = ({ children }) => {
   const [showSidebar, setShowSidebar] = useState(false);
   const [apiCode, setApiCode] = useState();
   const [access, setAccess] = useState();
-  const [activeTab, setActiveTab] = useState("oneMonth");
+  const [activeTab, setActiveTab] = useState("short_term");
   const [topArtists, setTopArtists] = useState([]);
+  const [topTracks, setTopTracks] = useState([]);
 
   useEffect(() => {
     if (!access) {
-      console.log("No API");
       return;
     }
     spotifyWebApi.setAccessToken(access);
-    console.log(spotifyWebApi);
-  }, [access]);
+  }, [access, activeTab]);
 
-  const showRecent = () => {
+  const showTop = () => {
     if (!access) return;
-    // spotifyWebApi
-    //   .getMyRecentlyPlayedTracks({ limit: 20 })
-    //   .then((data) => {
-    //     console.log("20 most current tracks played : ");
-    //     data.body.items.forEach((item) =>
-    //       console.log(item.track.name + " by " + item.track.artists[0].name)
-    //     );
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-
     spotifyWebApi
-      .getMyTopArtists({ time_range: "short_term" })
+      .getMyTopArtists({ time_range: activeTab })
       .then((data) => {
         console.log(data.body.items);
         setTopArtists(data.body.items);
       })
       .catch((err) => {
-        console.log("Failure" + err);
+        console.log("Failure " + err);
       });
+  };
 
+  const showTopTracks = () => {
+    if (!access) return;
     spotifyWebApi
-      .getMyTopTracks({ time_range: "long_term" })
+      .getMyTopTracks({ time_range: activeTab })
       .then((data) => {
-        console.log(data.body);
+        console.log(data.body.items);
+        setTopTracks(data.body.items);
       })
       .catch((err) => {
         console.log(err);
@@ -59,8 +50,9 @@ const SpoofyProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    showRecent();
-  }, [access]);
+    showTop();
+    showTopTracks();
+  }, [access, activeTab]);
 
   // useEffect(() => {
   //   if (!search) return setSearchResults([]);
@@ -74,6 +66,27 @@ const SpoofyProvider = ({ children }) => {
   //         const smallAlbumImg = track.album.images.reduce(
   //
 
+  // spotifyWebApi
+  //   .getMyRecentlyPlayedTracks({ limit: 20 })
+  //   .then((data) => {
+  //     console.log("20 most current tracks played : ");
+  //     data.body.items.forEach((item) =>
+  //       console.log(item.track.name + " by " + item.track.artists[0].name)
+  //     );
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
+
+  // spotifyWebApi
+  //   .getMyTopTracks({ time_range: "long_term" })
+  //   .then((data) => {
+  //     console.log(data.body);
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
+
   return (
     <SpoofyContext.Provider
       value={{
@@ -83,10 +96,11 @@ const SpoofyProvider = ({ children }) => {
         setApiCode,
         access,
         setAccess,
-        showRecent,
+        showTop,
         activeTab,
         setActiveTab,
         topArtists,
+        topTracks,
       }}
     >
       {children}
