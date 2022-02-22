@@ -149,6 +149,18 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
   max-width: 95%;
+  scroll-behavior: smooth;
+}
+
+#top-artists-row {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.ArrowDiv {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .TopTracksRow {

@@ -15,6 +15,10 @@ const SpoofyProvider = ({ children }) => {
   const [activeTab, setActiveTab] = useState("short_term");
   const [topArtists, setTopArtists] = useState([]);
   const [topTracks, setTopTracks] = useState([]);
+  const [scrollXArtists, setScrollXArtists] = useState(0);
+  const [scrollEndArtists, setScrollEndArtists] = useState(false);
+  const [scrollXTracks, setScrollXTracks] = useState(0);
+  const [scrollEndTracks, setScrollEndTracks] = useState(false);
 
   useEffect(() => {
     if (!access) {
@@ -101,6 +105,14 @@ const SpoofyProvider = ({ children }) => {
         setActiveTab,
         topArtists,
         topTracks,
+        scrollXArtists,
+        setScrollXArtists,
+        scrollEndArtists,
+        setScrollEndArtists,
+        scrollXTracks,
+        setScrollXTracks,
+        scrollEndTracks,
+        setScrollEndTracks,
       }}
     >
       {children}
