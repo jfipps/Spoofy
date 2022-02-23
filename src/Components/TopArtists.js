@@ -12,25 +12,28 @@ export default function TopContent() {
     setScrollEndArtists,
   } = useContext(SpoofyContext);
 
-  useContext(() => {
-    setScrollXArtists(document.getElementById("top-artists-row").scrollLeft);
-  }, []);
-
   const slide = (shift) => {
     const test = document.getElementById("top-artists-row");
-    console.log("Scroll : " + test.scrollLeft);
-    setScrollXArtists(scrollXArtists + shift);
-    test.scrollTo(scrollXArtists, 0);
+    test.scroll(scrollXArtists + shift, 0);
+    setScrollXArtists(test.scrollLeft + shift);
+    if (scrollXArtists < test.offsetWidth) {
+      setScrollEndArtists(false);
+    } else {
+      setScrollXArtists(test.offsetWidth);
+      setScrollEndArtists(true);
+    }
   };
 
   return (
     <section className="TopArtists">
       <h1 className="TopArtistsTitle">Top Artists</h1>
       <div className="ArrowDiv">
-        <MdKeyboardArrowLeft
-          size={24}
-          onClick={() => slide(-350)}
-        ></MdKeyboardArrowLeft>
+        {setScrollXArtists !== 0 && (
+          <MdKeyboardArrowLeft
+            size={24}
+            onClick={() => slide(-550)}
+          ></MdKeyboardArrowLeft>
+        )}
         <ul id="top-artists-row" className="TopArtistsRow">
           {/* Creates cards for Top Artists */}
           {topArtists.map((item, index) => {
@@ -54,10 +57,12 @@ export default function TopContent() {
             );
           })}
         </ul>
-        <MdKeyboardArrowRight
-          size={24}
-          onClick={() => slide(350)}
-        ></MdKeyboardArrowRight>
+        {!scrollEndArtists && (
+          <MdKeyboardArrowRight
+            size={24}
+            onClick={() => slide(550)}
+          ></MdKeyboardArrowRight>
+        )}
       </div>
     </section>
   );

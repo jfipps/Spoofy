@@ -157,6 +157,11 @@
   padding-left: 0;
 }
 
+#top-tracks-row {
+  list-style-type: none;
+  padding-left: 0;
+}
+
 .ArrowDiv {
   display: flex;
   flex-direction: row;
@@ -169,6 +174,7 @@
   overflow: auto;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  scroll-behavior: smooth;
   max-width: 95%;
 }
 
