@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { SpoofyContext } from "../context";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import "../CSS/Dashboard.css";
@@ -12,15 +12,22 @@ export default function TopContent() {
     setScrollEndArtists,
   } = useContext(SpoofyContext);
 
-  const slide = (shift) => {
-    const test = document.getElementById("top-artists-row");
-    setScrollXArtists(test.scrollLeft + shift);
-    console.log(scrollXArtists + " " + test.scrollLeft + " " + shift);
-    test.scroll(scrollXArtists, 0);
-    if (scrollXArtists > test.offsetWidth) {
-      setScrollXArtists(test.offsetWidth);
+  const [initRend, setInitRend] = useState(false);
+  const scrollRow = document.getElementById("top-artists-row");
+
+  useEffect(() => {
+    if (!initRend) {
+      setInitRend(true);
+      return;
     }
-  };
+    if (scrollRow.scrollWidth - scrollRow.offsetWidth < scrollXArtists) {
+      setScrollXArtists(scrollRow.scrollWidth - scrollRow.offsetWidth);
+    }
+    if (scrollXArtists < 0) {
+      setScrollXArtists(0);
+    }
+    scrollRow.scroll(scrollXArtists, 0);
+  }, [scrollXArtists]);
 
   return (
     <section className="TopArtists">
@@ -28,7 +35,7 @@ export default function TopContent() {
       <div className="ArrowDiv">
         <MdKeyboardArrowLeft
           size={24}
-          onClick={() => slide(-550)}
+          onClick={() => setScrollXArtists(scrollXArtists - 550)}
         ></MdKeyboardArrowLeft>
         <ul id="top-artists-row" className="TopArtistsRow">
           {/* Creates cards for Top Artists */}
@@ -55,7 +62,7 @@ export default function TopContent() {
         </ul>
         <MdKeyboardArrowRight
           size={24}
-          onClick={() => slide(550)}
+          onClick={() => setScrollXArtists(scrollXArtists + 550)}
         ></MdKeyboardArrowRight>
       </div>
     </section>

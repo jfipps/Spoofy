@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { SpoofyContext } from "../context";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import "../CSS/Dashboard.css";
@@ -12,19 +12,29 @@ export default function TopTracks() {
     setScrollEndTracks,
   } = useContext(SpoofyContext);
 
-  const slide = (shift) => {
-    const test = document.getElementById("top-tracks-row");
-    console.log(test.scrollWidth);
-    test.scroll(scrollXTracks + shift, 0);
-    setScrollXTracks(test.scrollLeft + shift);
-  };
+  const [initRend, setInitRend] = useState(false);
+  const scrollRow = document.getElementById("top-tracks-row");
+
+  useEffect(() => {
+    if (!initRend) {
+      setInitRend(true);
+      return;
+    }
+    if (scrollRow.scrollWidth - scrollRow.offsetWidth < scrollXTracks) {
+      setScrollXTracks(scrollRow.scrollWidth - scrollRow.offsetWidth);
+    }
+    if (scrollXTracks < 0) {
+      setScrollXTracks(0);
+    }
+    scrollRow.scroll(scrollXTracks, 0);
+  }, [scrollXTracks]);
 
   return (
     <section className="TopTracks">
       <h1 className="TopTracksTitle">Top Tracks</h1>
       <div className="ArrowDiv">
         <MdKeyboardArrowLeft
-          onClick={() => slide(-550)}
+          onClick={() => setScrollXTracks(scrollXTracks - 550)}
           size={24}
         ></MdKeyboardArrowLeft>
         <ul id="top-tracks-row" className="TopTracksRow">
@@ -46,7 +56,7 @@ export default function TopTracks() {
           })}
         </ul>
         <MdKeyboardArrowRight
-          onClick={() => slide(550)}
+          onClick={() => setScrollXTracks(scrollXTracks + 550)}
           size={24}
         ></MdKeyboardArrowRight>
       </div>
