@@ -36,6 +36,7 @@ export default function TopTracks() {
         <MdKeyboardArrowLeft
           onClick={() => setScrollXTracks(scrollXTracks - 550)}
           size={24}
+          className="scrollBtn"
         ></MdKeyboardArrowLeft>
         <ul id="top-tracks-row" className="TopTracksRow">
           {/* Creates cards for Top Tracks */}
@@ -58,6 +59,7 @@ export default function TopTracks() {
         <MdKeyboardArrowRight
           onClick={() => setScrollXTracks(scrollXTracks + 550)}
           size={24}
+          className="scrollBtn"
         ></MdKeyboardArrowRight>
       </div>
     </section>

@@ -12,13 +12,14 @@ import DashNav from "../Components/DashNav";
 import DashTimePeriod from "../Components/DashTimePeriod";
 import TopArtists from "../Components/TopArtists";
 import TopTracks from "../Components/TopTracks";
+import Player from "../Components/Player";
 
 const spotifyWebApi = new SpotifyWebApi({
   clientId: "fd1fb953c28a42ab9fbe07099618dc50",
 });
 
 export default function Dashboard({ code }) {
-  const { setAccess } = useContext(SpoofyContext);
+  const { access, setAccess } = useContext(SpoofyContext);
 
   setAccess(useAuth(code));
 
@@ -27,9 +28,14 @@ export default function Dashboard({ code }) {
       <section className="DashPage">
         <Sidebar></Sidebar>
         <section className="DashBody">
-          <DashTimePeriod></DashTimePeriod>
-          <TopArtists></TopArtists>
-          <TopTracks></TopTracks>
+          <div className="Body">
+            <DashTimePeriod></DashTimePeriod>
+            <TopArtists></TopArtists>
+            <TopTracks></TopTracks>
+          </div>
+          <div>
+            <Player accessToken={access} />
+          </div>
         </section>
       </section>
     </>

@@ -12,6 +12,8 @@
 }
 
 .DashBody {
+  display: flex;
+  flex-direction: column;
   padding-top: 50px;
   color: white;
   height: 100vh;
@@ -22,6 +24,10 @@
     rgba(14, 69, 93, 1) 0%,
     rgba(25, 20, 20, 1) 100%
   );
+}
+
+.Body {
+  margin-bottom: auto;
 }
 
 #navbar {
@@ -118,6 +124,11 @@
 
 #active {
   border-bottom: 2px solid var(--spotify-green);
+}
+
+.scrollBtn:hover {
+  cursor: pointer;
+  color: var(--spotify-green);
 }
 
 .TopArtists {

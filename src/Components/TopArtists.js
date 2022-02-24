@@ -36,6 +36,7 @@ export default function TopContent() {
         <MdKeyboardArrowLeft
           size={24}
           onClick={() => setScrollXArtists(scrollXArtists - 550)}
+          className="scrollBtn"
         ></MdKeyboardArrowLeft>
         <ul id="top-artists-row" className="TopArtistsRow">
           {/* Creates cards for Top Artists */}
@@ -63,6 +64,7 @@ export default function TopContent() {
         <MdKeyboardArrowRight
           size={24}
           onClick={() => setScrollXArtists(scrollXArtists + 550)}
+          className="scrollBtn"
         ></MdKeyboardArrowRight>
       </div>
     </section>
