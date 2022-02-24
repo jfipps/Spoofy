@@ -14,13 +14,11 @@ export default function TopContent() {
 
   const slide = (shift) => {
     const test = document.getElementById("top-artists-row");
-    test.scroll(scrollXArtists + shift, 0);
     setScrollXArtists(test.scrollLeft + shift);
-    if (scrollXArtists < test.offsetWidth) {
-      setScrollEndArtists(false);
-    } else {
+    console.log(scrollXArtists + " " + test.scrollLeft + " " + shift);
+    test.scroll(scrollXArtists, 0);
+    if (scrollXArtists > test.offsetWidth) {
       setScrollXArtists(test.offsetWidth);
-      setScrollEndArtists(true);
     }
   };
 
@@ -28,12 +26,10 @@ export default function TopContent() {
     <section className="TopArtists">
       <h1 className="TopArtistsTitle">Top Artists</h1>
       <div className="ArrowDiv">
-        {setScrollXArtists !== 0 && (
-          <MdKeyboardArrowLeft
-            size={24}
-            onClick={() => slide(-550)}
-          ></MdKeyboardArrowLeft>
-        )}
+        <MdKeyboardArrowLeft
+          size={24}
+          onClick={() => slide(-550)}
+        ></MdKeyboardArrowLeft>
         <ul id="top-artists-row" className="TopArtistsRow">
           {/* Creates cards for Top Artists */}
           {topArtists.map((item, index) => {
@@ -57,12 +53,10 @@ export default function TopContent() {
             );
           })}
         </ul>
-        {!scrollEndArtists && (
-          <MdKeyboardArrowRight
-            size={24}
-            onClick={() => slide(550)}
-          ></MdKeyboardArrowRight>
-        )}
+        <MdKeyboardArrowRight
+          size={24}
+          onClick={() => slide(550)}
+        ></MdKeyboardArrowRight>
       </div>
     </section>
   );
