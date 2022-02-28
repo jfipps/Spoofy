@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { SpoofyContext } from "../context";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import "../CSS/Dashboard.css";
@@ -43,20 +44,25 @@ export default function TopContent() {
           {topArtists.map((item, index) => {
             return (
               <li key={index}>
-                <button className="ArtistCard">
-                  <img
-                    id="artist-image"
-                    src={item.images[0].url}
-                    alt={item.name}
-                  />
-                  <h2 id="artist-name">{item.name}</h2>
-                  <h3 id="artist-followers">
-                    Followers:{" "}
-                    {item.followers.total.toLocaleString(undefined, {
-                      maximumFractionDigits: 2,
-                    })}
-                  </h3>
-                </button>
+                <Link
+                  id="artist-link"
+                  to={{ pathname: "/artistpage", search: `?name=${item.name}` }}
+                >
+                  <button className="ArtistCard">
+                    <img
+                      id="artist-image"
+                      src={item.images[0].url}
+                      alt={item.name}
+                    />
+                    <h2 id="artist-name">{item.name}</h2>
+                    <h3 id="artist-followers">
+                      Followers:{" "}
+                      {item.followers.total.toLocaleString(undefined, {
+                        maximumFractionDigits: 2,
+                      })}
+                    </h3>
+                  </button>
+                </Link>
               </li>
             );
           })}

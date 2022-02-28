@@ -19,6 +19,7 @@ const SpoofyProvider = ({ children }) => {
   const [scrollEndArtists, setScrollEndArtists] = useState(false);
   const [scrollXTracks, setScrollXTracks] = useState(0);
   const [scrollEndTracks, setScrollEndTracks] = useState(false);
+  const [trackURI, setTrackURI] = useState();
 
   useEffect(() => {
     if (!access) {
@@ -113,6 +114,8 @@ const SpoofyProvider = ({ children }) => {
         setScrollXTracks,
         scrollEndTracks,
         setScrollEndTracks,
+        trackURI,
+        setTrackURI,
       }}
     >
       {children}

@@ -36,6 +36,10 @@
   padding-right: 30px;
 }
 
+#artist-link {
+  text-decoration: none;
+}
+
 #spoofy-link {
   color: white;
   background-color: var(--spotify-black);

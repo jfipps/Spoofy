@@ -10,6 +10,8 @@ export default function TopTracks() {
     setScrollXTracks,
     scrollEndTracks,
     setScrollEndTracks,
+    trackURI,
+    setTrackURI,
   } = useContext(SpoofyContext);
 
   const [initRend, setInitRend] = useState(false);
@@ -43,7 +45,10 @@ export default function TopTracks() {
           {topTracks.map((item, index) => {
             return (
               <li key={index}>
-                <button className="TrackCard">
+                <button
+                  className="TrackCard"
+                  onClick={() => setTrackURI(item.uri)}
+                >
                   <img
                     id="album-image"
                     src={item.album.images[0].url}
