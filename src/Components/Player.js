@@ -7,7 +7,6 @@ export default function Player({ accessToken }) {
   const [play, setPlay] = useState(false);
 
   useEffect(() => {
-    console.log(trackURI);
     setPlay(true);
   }, [trackURI]);
 

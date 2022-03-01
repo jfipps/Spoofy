@@ -15,6 +15,10 @@ const App = () => {
   const { showSidebar, setShowSidebar, setApiCode, setAccess, showRecent } =
     useContext(SpoofyContext);
 
+  useEffect(() => {
+    console.log("Code " + code);
+  }, [code]);
+
   return (
     <div className="App">
       <Router>

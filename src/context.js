@@ -33,7 +33,7 @@ const SpoofyProvider = ({ children }) => {
     spotifyWebApi
       .getMyTopArtists({ time_range: activeTab })
       .then((data) => {
-        console.log(data.body.items);
+        //console.log(data.body.items);
         setTopArtists(data.body.items);
       })
       .catch((err) => {
@@ -46,7 +46,7 @@ const SpoofyProvider = ({ children }) => {
     spotifyWebApi
       .getMyTopTracks({ time_range: activeTab })
       .then((data) => {
-        console.log(data.body.items);
+        //console.log(data.body.items);
         setTopTracks(data.body.items);
       })
       .catch((err) => {

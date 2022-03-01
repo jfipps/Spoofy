@@ -7,6 +7,7 @@ export default function useAuth(code) {
   const [refreshToken, setRefreshToken] = useState();
   const [expiresIn, setExpiresIn] = useState();
 
+  // runs on login, gets access token
   useEffect(() => {
     axios
       .post("http://localhost:3001/login", {
@@ -16,6 +17,10 @@ export default function useAuth(code) {
         setAccessToken(res.data.accessToken);
         setRefreshToken(res.data.refreshToken);
         setExpiresIn(res.data.expiresIn);
+        localStorage.setItem("accessToken", res.data.accessToken);
+        localStorage.setItem("refreshToken", res.data.refreshToken);
+        localStorage.setItem("expiresIn", res.data.expiresIn);
+        localStorage.setItem("currentTime", Math.floor(Date.now() / 1000));
         window.history.pushState({}, null, "/Dashboard");
       })
       .catch(() => {
@@ -23,6 +28,7 @@ export default function useAuth(code) {
       });
   }, [code]);
 
+  // runs when refresh token is about to expire, resets auth token
   useEffect(() => {
     if (!refreshToken || !expiresIn) return;
     const interval = setInterval(() => {
