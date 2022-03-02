@@ -14,14 +14,20 @@ import TopArtists from "../Components/TopArtists";
 import TopTracks from "../Components/TopTracks";
 import Player from "../Components/Player";
 
-const spotifyWebApi = new SpotifyWebApi({
-  clientId: "fd1fb953c28a42ab9fbe07099618dc50",
-});
-
 export default function Dashboard({ code }) {
-  const { access, setAccess } = useContext(SpoofyContext);
+  const { access, setAccess, apiCode, setApiCode } = useContext(SpoofyContext);
 
-  setAccess(useAuth(code));
+  const accessToken = useAuth(code);
+
+  useEffect(() => {
+    if (localStorage.getItem("loggedIn") === "true") {
+      console.log("Logged In Prev");
+      setAccess(localStorage.getItem("accessToken"));
+    } else {
+      console.log("Not Logged In");
+      setAccess(accessToken);
+    }
+  }, [accessToken]);
 
   return (
     <>

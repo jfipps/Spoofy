@@ -50,7 +50,7 @@ app.post("/login", (req, res) => {
       });
     })
     .catch((err) => {
-      console.log(err);
+      console.log("Failure " + err);
       res.sendStatus(400);
     });
 });

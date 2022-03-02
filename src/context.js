@@ -10,7 +10,6 @@ const SpoofyProvider = ({ children }) => {
   });
 
   const [showSidebar, setShowSidebar] = useState(false);
-  const [apiCode, setApiCode] = useState();
   const [access, setAccess] = useState();
   const [activeTab, setActiveTab] = useState("short_term");
   const [topArtists, setTopArtists] = useState([]);
@@ -98,7 +97,6 @@ const SpoofyProvider = ({ children }) => {
         showSidebar,
         setShowSidebar,
         spotifyWebApi,
-        setApiCode,
         access,
         setAccess,
         showTop,

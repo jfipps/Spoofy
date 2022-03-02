@@ -2,7 +2,13 @@ import logo from "./logo.svg";
 import "./App.css";
 import "./CSS/Login.css";
 import React, { useState, useEffect, useContext } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  UseNavigate,
+  Navigate,
+} from "react-router-dom";
 import Login from "./Pages/Login";
 import Dashboard from "./Pages/Dashboard";
 import ArtistPage from "./Pages/ArtistPage";
@@ -16,14 +22,34 @@ const App = () => {
     useContext(SpoofyContext);
 
   useEffect(() => {
-    console.log("Code " + code);
-  }, [code]);
+    if (localStorage.getItem("currentTime") === null) {
+      console.log(code);
+      return;
+    }
+    if (
+      Math.floor(Date.now() / 1000) - localStorage.getItem("currentTime") <
+      localStorage.getItem("expiresIn")
+    ) {
+      localStorage.setItem("loggedIn", "true");
+    } else {
+      localStorage.setItem("loggedIn", "false");
+    }
+  }, []);
 
   return (
     <div className="App">
       <Router>
         <Routes>
-          <Route path="/" element={<Login />}></Route>
+          <Route
+            path="/"
+            element={
+              localStorage.getItem("loggedIn") === "true" ? (
+                <Dashboard code={code} />
+              ) : (
+                <Login />
+              )
+            }
+          ></Route>
           <Route path="/Dashboard" element={<Dashboard code={code} />}></Route>
           <Route path="/ArtistPage" element={<ArtistPage></ArtistPage>} />
         </Routes>

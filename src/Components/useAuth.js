@@ -7,8 +7,11 @@ export default function useAuth(code) {
   const [refreshToken, setRefreshToken] = useState();
   const [expiresIn, setExpiresIn] = useState();
 
-  // runs on login, gets access token
+  // runs on login click, gets access token
   useEffect(() => {
+    if (localStorage.getItem("loggedIn") === "true") {
+      return;
+    }
     axios
       .post("http://localhost:3001/login", {
         code,
