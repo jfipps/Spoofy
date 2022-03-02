@@ -23,7 +23,6 @@ const App = () => {
 
   useEffect(() => {
     if (localStorage.getItem("currentTime") === null) {
-      console.log(code);
       return;
     }
     if (

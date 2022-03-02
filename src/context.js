@@ -53,9 +53,22 @@ const SpoofyProvider = ({ children }) => {
       });
   };
 
+  const getCurrentPlayingTrack = () => {
+    if (!access) return;
+    spotifyWebApi.getMyCurrentPlayingTrack().then(
+      function (data) {
+        console.log(data.body.item);
+      },
+      function (err) {
+        console.log("Something went wrong!", err);
+      }
+    );
+  };
+
   useEffect(() => {
     showTop();
     showTopTracks();
+    getCurrentPlayingTrack();
   }, [access, activeTab]);
 
   // useEffect(() => {
@@ -114,6 +127,7 @@ const SpoofyProvider = ({ children }) => {
         setScrollEndTracks,
         trackURI,
         setTrackURI,
+        getCurrentPlayingTrack,
       }}
     >
       {children}

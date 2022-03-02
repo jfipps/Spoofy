@@ -15,7 +15,8 @@ import TopTracks from "../Components/TopTracks";
 import Player from "../Components/Player";
 
 export default function Dashboard({ code }) {
-  const { access, setAccess, apiCode, setApiCode } = useContext(SpoofyContext);
+  const { access, setAccess, apiCode, setApiCode, getCurrentPlayingTrack } =
+    useContext(SpoofyContext);
 
   const accessToken = useAuth(code);
 
