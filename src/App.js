@@ -52,7 +52,6 @@ const App = () => {
       Math.floor(Date.now() / 1000) - LOCALSTORAGE_VALUES.timestamp <
       LOCALSTORAGE_VALUES.expireTime
     ) {
-      console.log("Successful");
       setLoggedIn(true);
     }
   }, []);
