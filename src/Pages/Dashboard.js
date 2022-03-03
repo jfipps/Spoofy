@@ -20,16 +20,6 @@ export default function Dashboard({ code }) {
 
   const accessToken = useAuth(code);
 
-  useEffect(() => {
-    if (localStorage.getItem("loggedIn") === "true") {
-      console.log("Logged In Prev");
-      setAccess(localStorage.getItem("accessToken"));
-    } else {
-      console.log("Not Logged In");
-      setAccess(accessToken);
-    }
-  }, [accessToken]);
-
   return (
     <>
       <section className="DashPage">

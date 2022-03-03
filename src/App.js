@@ -17,37 +17,43 @@ import { SpoofyContext } from "./context";
 
 const code = new URLSearchParams(window.location.search).get("code");
 
+// Map for localStorage keys
+const LOCALSTORAGE_KEYS = {
+  accessToken: "accessToken",
+  refreshToken: "refreshToken",
+  expireTime: "expiresIn",
+  timestamp: "currentTime",
+};
+
+// Map to retrieve localStorage values
+const LOCALSTORAGE_VALUES = {
+  accessToken: window.localStorage.getItem(LOCALSTORAGE_KEYS.accessToken),
+  refreshToken: window.localStorage.getItem(LOCALSTORAGE_KEYS.refreshToken),
+  expireTime: window.localStorage.getItem(LOCALSTORAGE_KEYS.expireTime),
+  timestamp: window.localStorage.getItem(LOCALSTORAGE_KEYS.timestamp),
+};
+
 const App = () => {
   const { showSidebar, setShowSidebar, setApiCode, setAccess, showRecent } =
     useContext(SpoofyContext);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
-    if (localStorage.getItem("currentTime") === null) {
-      return;
-    }
     if (
-      Math.floor(Date.now() / 1000) - localStorage.getItem("currentTime") <
-      localStorage.getItem("expiresIn")
+      Math.floor(Date.now() / 1000) - LOCALSTORAGE_VALUES.timestamp <
+      LOCALSTORAGE_VALUES.expireTime
     ) {
-      localStorage.setItem("loggedIn", "true");
-    } else {
-      localStorage.setItem("loggedIn", "false");
+      console.log("Successful");
+      setLoggedIn(true);
     }
   }, []);
-
   return (
     <div className="App">
       <Router>
         <Routes>
           <Route
             path="/"
-            element={
-              localStorage.getItem("loggedIn") === "true" ? (
-                <Dashboard code={code} />
-              ) : (
-                <Login />
-              )
-            }
+            element={loggedIn ? <Dashboard code={code} /> : <Login />}
           ></Route>
           <Route path="/Dashboard" element={<Dashboard code={code} />}></Route>
           <Route path="/ArtistPage" element={<ArtistPage></ArtistPage>} />

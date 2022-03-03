@@ -6,10 +6,18 @@ export default function useAuth(code) {
   const [accessToken, setAccessToken] = useState();
   const [refreshToken, setRefreshToken] = useState();
   const [expiresIn, setExpiresIn] = useState();
+  const [useLocal, setUseLocal] = useState();
 
   // runs on login click, gets access token
   useEffect(() => {
-    if (localStorage.getItem("loggedIn") === "true") {
+    if (localStorage.getItem("accessToken") !== null) {
+      setAccessToken(localStorage.getItem("accessToken"));
+      window.history.pushState({}, null, "/Dashboard");
+      console.log("in local");
+      return;
+    }
+    if (code === null) {
+      console.log("no code");
       return;
     }
     axios
@@ -40,9 +48,12 @@ export default function useAuth(code) {
           refreshToken,
         })
         .then((res) => {
+          console.log("Refresh");
           setAccessToken(res.data.accessToken);
           setExpiresIn(res.data.expiresIn);
-          window.history.pushState({}, null, "/");
+          localStorage.setItem("accessToken", res.data.accessToken);
+          localStorage.setItem("currentTime", Math.floor(Date.now() / 1000));
+          window.history.pushState({}, null, "/Dashboard");
         })
         .catch(() => {
           window.location = "/";
@@ -50,6 +61,5 @@ export default function useAuth(code) {
     }, (expiresIn - 60) * 1000);
     return () => clearInterval(interval);
   }, [refreshToken, expiresIn]);
-
   return accessToken;
 }
