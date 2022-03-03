@@ -18,7 +18,7 @@ export default function Dashboard({ code }) {
   const { access, setAccess, apiCode, setApiCode, getCurrentPlayingTrack } =
     useContext(SpoofyContext);
 
-  const accessToken = useAuth(code);
+  setAccess(useAuth(code));
 
   return (
     <>

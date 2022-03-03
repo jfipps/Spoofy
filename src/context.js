@@ -22,6 +22,7 @@ const SpoofyProvider = ({ children }) => {
 
   useEffect(() => {
     if (!access) {
+      console.log("Test");
       return;
     }
     spotifyWebApi.setAccessToken(access);
