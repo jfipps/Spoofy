@@ -9,7 +9,7 @@ const SpoofyProvider = ({ children }) => {
     clientId: "fd1fb953c28a42ab9fbe07099618dc50",
   });
 
-  const [showSidebar, setShowSidebar] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
   const [access, setAccess] = useState();
   const [activeTab, setActiveTab] = useState("short_term");
   const [topArtists, setTopArtists] = useState([]);
@@ -108,8 +108,8 @@ const SpoofyProvider = ({ children }) => {
   return (
     <SpoofyContext.Provider
       value={{
-        showSidebar,
-        setShowSidebar,
+        loggedIn,
+        setLoggedIn,
         spotifyWebApi,
         access,
         setAccess,

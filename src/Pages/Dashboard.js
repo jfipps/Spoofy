@@ -8,7 +8,6 @@ import "../CSS/Dashboard.css";
 import "../App.css";
 import { FaBars } from "react-icons/fa";
 import Sidebar from "../Components/Sidebar";
-import DashNav from "../Components/DashNav";
 import DashTimePeriod from "../Components/DashTimePeriod";
 import TopArtists from "../Components/TopArtists";
 import TopTracks from "../Components/TopTracks";

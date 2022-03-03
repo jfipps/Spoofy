@@ -15,9 +15,10 @@ import ArtistPage from "./Pages/ArtistPage";
 import useAuth from "./Components/useAuth";
 import { SpoofyContext } from "./context";
 
+// grabs code from url after login button click if available
 const code = new URLSearchParams(window.location.search).get("code");
 
-// Map for localStorage keys
+// map for localStorage keys
 const LOCALSTORAGE_KEYS = {
   accessToken: "accessToken",
   refreshToken: "refreshToken",
@@ -25,7 +26,7 @@ const LOCALSTORAGE_KEYS = {
   timestamp: "currentTime",
 };
 
-// Map to retrieve localStorage values
+// map to retrieve localStorage values
 const LOCALSTORAGE_VALUES = {
   accessToken: window.localStorage.getItem(LOCALSTORAGE_KEYS.accessToken),
   refreshToken: window.localStorage.getItem(LOCALSTORAGE_KEYS.refreshToken),
@@ -34,10 +35,18 @@ const LOCALSTORAGE_VALUES = {
 };
 
 const App = () => {
-  const { showSidebar, setShowSidebar, setApiCode, setAccess, showRecent } =
-    useContext(SpoofyContext);
-  const [loggedIn, setLoggedIn] = useState(false);
+  // context calls
+  const {
+    showSidebar,
+    setShowSidebar,
+    setApiCode,
+    setAccess,
+    showRecent,
+    loggedIn,
+    setLoggedIn,
+  } = useContext(SpoofyContext);
 
+  // checks to see if expiresIn time for API has been reached
   useEffect(() => {
     if (
       Math.floor(Date.now() / 1000) - LOCALSTORAGE_VALUES.timestamp <
@@ -51,6 +60,7 @@ const App = () => {
     <div className="App">
       <Router>
         <Routes>
+          {/* Auto pushes to Dashboard if logged in already */}
           <Route
             path="/"
             element={loggedIn ? <Dashboard code={code} /> : <Login />}
