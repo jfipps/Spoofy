@@ -12,12 +12,26 @@ export default function ArtistPage() {
     getArtistAlbums(artistName);
   }, []);
 
+  const uniqueNames = new Set();
+
+  const albums = artistAlbums
+    .filter((album) => {
+      if (album.album_type === "album") {
+        return album;
+      }
+    })
+    .filter((album) => {
+      const isPresent = uniqueNames.has(album.name);
+      uniqueNames.add(album.name);
+      return !isPresent;
+    });
+
   return (
     <>
-      {artistAlbums.map((item) => {
+      {albums.map((item) => {
         return (
           <h1>
-            {item.name} {item.album_type}
+            {item.name} {item.artists[0].name}
           </h1>
         );
       })}

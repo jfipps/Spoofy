@@ -109,21 +109,16 @@ const SpoofyProvider = ({ children }) => {
     if (!access) {
       if (LOCALSTORAGE_VALUES.accessToken !== null) {
         spotifyWebApi.setAccessToken(LOCALSTORAGE_VALUES.accessToken);
+        console.log(spotifyWebApi);
       } else {
         console.log("No Access");
         return;
       }
     }
-    // spotifyWebApi.getArtist("7Ln80lUS6He07XvHI8qqHH").then(
-    //   function (data) {
-    //     console.log("Artist information", data.body);
-    //   },
-    //   function (err) {
-    //     console.error(err);
-    //   }
-    // );
-    spotifyWebApi.getArtistAlbums(id).then(
+    console.log("Getting Artists");
+    spotifyWebApi.getArtistAlbums(id, { limit: 50 }).then(
       function (data) {
+        console.log(data.body);
         setArtistAlbums(data.body.items);
       },
       function (err) {
@@ -171,6 +166,15 @@ const SpoofyProvider = ({ children }) => {
   //   .catch((err) => {
   //     console.log(err);
   //   });
+
+  // spotifyWebApi.getArtist("7Ln80lUS6He07XvHI8qqHH").then(
+  //   function (data) {
+  //     console.log("Artist information", data.body);
+  //   },
+  //   function (err) {
+  //     console.error(err);
+  //   }
+  // );
 
   return (
     <SpoofyContext.Provider
