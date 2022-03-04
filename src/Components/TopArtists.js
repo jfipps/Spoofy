@@ -46,7 +46,10 @@ export default function TopContent() {
               <li key={index}>
                 <Link
                   id="artist-link"
-                  to={{ pathname: "/artistpage", search: `?name=${item.name}` }}
+                  to={{
+                    pathname: "/artistpage",
+                    search: `?name=${item.name}&id=${item.id}`,
+                  }}
                 >
                   <button className="ArtistCard">
                     <img

@@ -3,6 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import { SpoofyContext } from "../context";
 import axios from "axios";
 
+// map for localStorage keys
 const LOCALSTORAGE_KEYS = {
   accessToken: "accessToken",
   refreshToken: "refreshToken",
@@ -54,7 +55,7 @@ export default function useAuth(code) {
       .then((res) => {
         setAccessToken(res.data.accessToken);
         setRefreshToken(res.data.refreshToken);
-        setExpiresIn(res.data.expiresIn);
+        setExpiresIn(70);
         localStorage.setItem("accessToken", res.data.accessToken);
         localStorage.setItem("refreshToken", res.data.refreshToken);
         localStorage.setItem("expiresIn", res.data.expiresIn);

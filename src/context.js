@@ -3,6 +3,22 @@ import { useNavigate } from "react-router-dom";
 import SpotifyWebApi from "spotify-web-api-node";
 import useAuth from "./Components/useAuth";
 
+// map for localStorage keys
+const LOCALSTORAGE_KEYS = {
+  accessToken: "accessToken",
+  refreshToken: "refreshToken",
+  expireTime: "expiresIn",
+  timestamp: "currentTime",
+};
+
+// map to retrieve localStorage values
+const LOCALSTORAGE_VALUES = {
+  accessToken: window.localStorage.getItem(LOCALSTORAGE_KEYS.accessToken),
+  refreshToken: window.localStorage.getItem(LOCALSTORAGE_KEYS.refreshToken),
+  expireTime: window.localStorage.getItem(LOCALSTORAGE_KEYS.expireTime),
+  timestamp: window.localStorage.getItem(LOCALSTORAGE_KEYS.timestamp),
+};
+
 const SpoofyContext = React.createContext();
 
 const SpoofyProvider = ({ children }) => {
@@ -16,6 +32,7 @@ const SpoofyProvider = ({ children }) => {
   const [activeTab, setActiveTab] = useState("short_term");
   const [topArtists, setTopArtists] = useState([]);
   const [topTracks, setTopTracks] = useState([]);
+  const [artistAlbums, setArtistAlbums] = useState([]);
   const [scrollXArtists, setScrollXArtists] = useState(0);
   const [scrollEndArtists, setScrollEndArtists] = useState(false);
   const [scrollXTracks, setScrollXTracks] = useState(0);
@@ -23,6 +40,16 @@ const SpoofyProvider = ({ children }) => {
   const [trackURI, setTrackURI] = useState();
 
   let nav = useNavigate();
+
+  // checks to see if expiresIn time for API has been reached
+  useEffect(() => {
+    if (
+      Math.floor(Date.now() / 1000) - LOCALSTORAGE_VALUES.timestamp <
+      LOCALSTORAGE_VALUES.expireTime
+    ) {
+      spotifyWebApi.setAccessToken(LOCALSTORAGE_VALUES.accessToken);
+    }
+  }, []);
 
   useEffect(() => {
     if (loggingOut) {
@@ -35,6 +62,7 @@ const SpoofyProvider = ({ children }) => {
 
   useEffect(() => {
     if (!access) {
+      console.log("No");
       return;
     }
     spotifyWebApi.setAccessToken(access);
@@ -45,7 +73,7 @@ const SpoofyProvider = ({ children }) => {
     spotifyWebApi
       .getMyTopArtists({ time_range: activeTab })
       .then((data) => {
-        //console.log(data.body.items);
+        console.log(data.body.items);
         setTopArtists(data.body.items);
       })
       .catch((err) => {
@@ -78,10 +106,34 @@ const SpoofyProvider = ({ children }) => {
     );
   };
 
+  const getArtistAlbums = (id) => {
+    if (!access) {
+      console.log("No Access");
+      return;
+    }
+    // spotifyWebApi.getArtist("7Ln80lUS6He07XvHI8qqHH").then(
+    //   function (data) {
+    //     console.log("Artist information", data.body);
+    //   },
+    //   function (err) {
+    //     console.error(err);
+    //   }
+    // );
+    spotifyWebApi.getArtistAlbums(id).then(
+      function (data) {
+        setArtistAlbums(data.body.items);
+      },
+      function (err) {
+        console.error(err);
+      }
+    );
+  };
+
   useEffect(() => {
     showTop();
     showTopTracks();
-    getCurrentPlayingTrack();
+    getArtistAlbums();
+    //getCurrentPlayingTrack();
   }, [access, activeTab]);
 
   // useEffect(() => {
@@ -143,6 +195,9 @@ const SpoofyProvider = ({ children }) => {
         getCurrentPlayingTrack,
         loggingOut,
         setLoggingOut,
+        getArtistAlbums,
+        artistAlbums,
+        setArtistAlbums,
       }}
     >
       {children}
