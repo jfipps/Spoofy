@@ -62,7 +62,6 @@ const SpoofyProvider = ({ children }) => {
 
   useEffect(() => {
     if (!access) {
-      console.log("No");
       return;
     }
     spotifyWebApi.setAccessToken(access);
@@ -108,8 +107,12 @@ const SpoofyProvider = ({ children }) => {
 
   const getArtistAlbums = (id) => {
     if (!access) {
-      console.log("No Access");
-      return;
+      if (LOCALSTORAGE_VALUES.accessToken !== null) {
+        spotifyWebApi.setAccessToken(LOCALSTORAGE_VALUES.accessToken);
+      } else {
+        console.log("No Access");
+        return;
+      }
     }
     // spotifyWebApi.getArtist("7Ln80lUS6He07XvHI8qqHH").then(
     //   function (data) {

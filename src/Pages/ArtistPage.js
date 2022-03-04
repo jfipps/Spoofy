@@ -12,7 +12,15 @@ export default function ArtistPage() {
     getArtistAlbums(artistName);
   }, []);
 
-  console.log(artistAlbums);
-
-  return <div>ArtistPage</div>;
+  return (
+    <>
+      {artistAlbums.map((item) => {
+        return (
+          <h1>
+            {item.name} {item.album_type}
+          </h1>
+        );
+      })}
+    </>
+  );
 }
