@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import SpotifyWebApi from "spotify-web-api-node";
 import useAuth from "./Components/useAuth";
 
@@ -10,6 +11,7 @@ const SpoofyProvider = ({ children }) => {
   });
 
   const [loggedIn, setLoggedIn] = useState(false);
+  const [loggingOut, setLoggingOut] = useState();
   const [access, setAccess] = useState();
   const [activeTab, setActiveTab] = useState("short_term");
   const [topArtists, setTopArtists] = useState([]);
@@ -20,9 +22,19 @@ const SpoofyProvider = ({ children }) => {
   const [scrollEndTracks, setScrollEndTracks] = useState(false);
   const [trackURI, setTrackURI] = useState();
 
+  let nav = useNavigate();
+
+  useEffect(() => {
+    if (loggingOut) {
+      localStorage.clear();
+      setLoggedIn(false);
+      nav("/");
+      console.log("Logging Out");
+    }
+  }, [loggingOut]);
+
   useEffect(() => {
     if (!access) {
-      console.log("Test");
       return;
     }
     spotifyWebApi.setAccessToken(access);
@@ -129,6 +141,8 @@ const SpoofyProvider = ({ children }) => {
         trackURI,
         setTrackURI,
         getCurrentPlayingTrack,
+        loggingOut,
+        setLoggingOut,
       }}
     >
       {children}

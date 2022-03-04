@@ -2,14 +2,17 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import { SpoofyProvider } from "./context";
+import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
   <React.StrictMode>
-    <SpoofyProvider>
-      <App />
-    </SpoofyProvider>
+    <BrowserRouter>
+      <SpoofyProvider>
+        <App />
+      </SpoofyProvider>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
 );

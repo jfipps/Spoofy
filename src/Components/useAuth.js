@@ -3,8 +3,23 @@ import { useState, useEffect, useContext } from "react";
 import { SpoofyContext } from "../context";
 import axios from "axios";
 
+const LOCALSTORAGE_KEYS = {
+  accessToken: "accessToken",
+  refreshToken: "refreshToken",
+  expireTime: "expiresIn",
+  timestamp: "currentTime",
+};
+
+// map to retrieve localStorage values
+const LOCALSTORAGE_VALUES = {
+  accessToken: window.localStorage.getItem(LOCALSTORAGE_KEYS.accessToken),
+  refreshToken: window.localStorage.getItem(LOCALSTORAGE_KEYS.refreshToken),
+  expireTime: window.localStorage.getItem(LOCALSTORAGE_KEYS.expireTime),
+  timestamp: window.localStorage.getItem(LOCALSTORAGE_KEYS.timestamp),
+};
+
 export default function useAuth(code) {
-  const { loggedIn, setLoggedIn } = useContext(SpoofyContext);
+  const { loggingOut, setLoggingOut } = useContext(SpoofyContext);
   const [accessToken, setAccessToken] = useState();
   const [refreshToken, setRefreshToken] = useState();
   const [expiresIn, setExpiresIn] = useState();
@@ -12,16 +27,23 @@ export default function useAuth(code) {
 
   // runs on login click, gets access token
   useEffect(() => {
+    let loggedIn = false;
+    if (
+      Math.floor(Date.now() / 1000) - LOCALSTORAGE_VALUES.timestamp <
+      LOCALSTORAGE_VALUES.expireTime
+    ) {
+      loggedIn = true;
+    }
     // checks if access token already exists and time limit has not been reached
     if (localStorage.getItem("accessToken") !== null && loggedIn) {
       setAccessToken(localStorage.getItem("accessToken"));
       window.history.pushState({}, null, "/Dashboard");
-      console.log(loggedIn);
       return;
     }
     // skips initial code pull if already logged in as login button is not clicked
     if (code === null) {
       console.log("no code");
+      setLoggingOut(true);
       return;
     }
     // server.js call with code to get AccessToken, RefreshToken, and ExpiresIn time

@@ -57,17 +57,15 @@ const App = () => {
   }, []);
   return (
     <div className="App">
-      <Router>
-        <Routes>
-          {/* Auto pushes to Dashboard if logged in already */}
-          <Route
-            path="/"
-            element={loggedIn ? <Dashboard code={code} /> : <Login />}
-          ></Route>
-          <Route path="/Dashboard" element={<Dashboard code={code} />}></Route>
-          <Route path="/ArtistPage" element={<ArtistPage></ArtistPage>} />
-        </Routes>
-      </Router>
+      <Routes>
+        {/* Auto pushes to Dashboard if logged in already */}
+        <Route
+          path="/"
+          element={loggedIn ? <Dashboard code={code} /> : <Login />}
+        ></Route>
+        <Route path="/Dashboard" element={<Dashboard code={code} />}></Route>
+        <Route path="/ArtistPage" element={<ArtistPage></ArtistPage>} />
+      </Routes>
     </div>
   );
 };
