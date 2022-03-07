@@ -109,17 +109,39 @@ const SpoofyProvider = ({ children }) => {
     if (!access) {
       if (LOCALSTORAGE_VALUES.accessToken !== null) {
         spotifyWebApi.setAccessToken(LOCALSTORAGE_VALUES.accessToken);
-        console.log(spotifyWebApi);
       } else {
         console.log("No Access");
         return;
       }
+    } else {
+      spotifyWebApi.setAccessToken(access);
     }
-    console.log("Getting Artists");
+    console.log("Getting Albums");
     spotifyWebApi.getArtistAlbums(id, { limit: 50 }).then(
       function (data) {
-        console.log(data.body);
         setArtistAlbums(data.body.items);
+      },
+      function (err) {
+        console.error(err);
+      }
+    );
+  };
+
+  const getArtist = (id) => {
+    if (!access) {
+      if (LOCALSTORAGE_VALUES.accessToken !== null) {
+        spotifyWebApi.setAccessToken(LOCALSTORAGE_VALUES.accessToken);
+      } else {
+        console.log("No Access");
+        return;
+      }
+    } else {
+      spotifyWebApi.setAccessToken(access);
+    }
+    console.log("Getting Artist");
+    spotifyWebApi.getArtist(id).then(
+      function (data) {
+        console.log(data.body);
       },
       function (err) {
         console.error(err);
@@ -130,7 +152,6 @@ const SpoofyProvider = ({ children }) => {
   useEffect(() => {
     showTop();
     showTopTracks();
-    getArtistAlbums();
     //getCurrentPlayingTrack();
   }, [access, activeTab]);
 
@@ -205,6 +226,7 @@ const SpoofyProvider = ({ children }) => {
         getArtistAlbums,
         artistAlbums,
         setArtistAlbums,
+        getArtist,
       }}
     >
       {children}

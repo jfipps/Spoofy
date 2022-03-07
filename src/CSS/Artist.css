@@ -1,0 +1,71 @@
+/* Variables */
+:root {
+  --spotify-green: #1dbc55;
+  --login-hover: #32cd32;
+  --spotify-black: #191414;
+  --list-header: #ddd9d9;
+  --hover-text: #beb5b3;
+}
+
+/* ArtistPage.js */
+
+.ArtistPage {
+  display: flex;
+  flex-direction: row;
+}
+
+/* Formatting the main page outside of the sidebar */
+
+.ArtistBody {
+  display: flex;
+  flex-direction: column;
+  padding-top: 50px;
+  color: white;
+  height: 100vh;
+  width: 85%;
+  background: rgb(14, 69, 93);
+  background: linear-gradient(
+    0deg,
+    rgba(14, 69, 93, 1) 0%,
+    rgba(25, 20, 20, 1) 100%
+  );
+}
+
+/* Used to put player at bottom of screen */
+
+.Body {
+  margin-bottom: auto;
+}
+
+/*---Sidebar.js---*/
+
+.sidenav {
+  width: 15%;
+  background-color: var(--spotify-black);
+  height: 100vh;
+  padding: 0 30px;
+  padding-top: 50px;
+}
+
+.ListHeader {
+  color: white;
+  padding-bottom: 30px;
+}
+
+#sidebar-list {
+  padding-left: 0;
+  list-style-type: none;
+}
+
+#sidebar-link {
+  color: #eaecef;
+  text-decoration: none;
+  font-size: 20px;
+  display: block;
+  padding: 10px 15px;
+  border-radius: 6px;
+}
+
+#sidebar-link:hover {
+  color: var(--spotify-green);
+}

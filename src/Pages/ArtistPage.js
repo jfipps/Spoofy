@@ -2,9 +2,14 @@ import React from "react";
 import { useState, useEffect, useContext } from "react";
 import { SpoofyContext } from "../context";
 import { useSearchParams } from "react-router-dom";
+import "../CSS/Artist.css";
+import Sidebar from "../Components/Sidebar";
+import Player from "../Components/Player";
+import ArtistHeader from "../Components/ArtistHeader";
 
 export default function ArtistPage() {
-  const { getArtistAlbums, artistAlbums } = useContext(SpoofyContext);
+  const { access, setAccess, getArtistAlbums, artistAlbums } =
+    useContext(SpoofyContext);
   const artistName = new URLSearchParams(window.location.search).get("id");
 
   useEffect(() => {
@@ -28,13 +33,17 @@ export default function ArtistPage() {
 
   return (
     <>
-      {albums.map((item) => {
-        return (
-          <h1>
-            {item.name} {item.artists[0].name}
-          </h1>
-        );
-      })}
+      <section className="ArtistPage">
+        <Sidebar></Sidebar>
+        <section className="ArtistBody">
+          <div className="Body">
+            <ArtistHeader></ArtistHeader>
+          </div>
+          <div className="Player">
+            <Player accessToken={access}></Player>
+          </div>
+        </section>
+      </section>
     </>
   );
 }

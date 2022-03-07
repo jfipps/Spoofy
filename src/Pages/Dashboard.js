@@ -37,7 +37,7 @@ export default function Dashboard({ code }) {
             <TopArtists></TopArtists>
             <TopTracks></TopTracks>
           </div>
-          <div>
+          <div className="Player">
             <Player accessToken={access} />
           </div>
         </section>
