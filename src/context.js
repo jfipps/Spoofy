@@ -38,6 +38,8 @@ const SpoofyProvider = ({ children }) => {
   const [scrollXTracks, setScrollXTracks] = useState(0);
   const [scrollEndTracks, setScrollEndTracks] = useState(false);
   const [trackURI, setTrackURI] = useState();
+  const [artistID, setArtistID] = useState();
+  const [artist, setArtist] = useState();
 
   let nav = useNavigate();
 
@@ -142,6 +144,7 @@ const SpoofyProvider = ({ children }) => {
     spotifyWebApi.getArtist(id).then(
       function (data) {
         console.log(data.body);
+        setArtist(data.body);
       },
       function (err) {
         console.error(err);
@@ -154,6 +157,11 @@ const SpoofyProvider = ({ children }) => {
     showTopTracks();
     //getCurrentPlayingTrack();
   }, [access, activeTab]);
+
+  useEffect(() => {
+    console.log("Changed");
+    getArtist(artistID);
+  }, [artistID]);
 
   // useEffect(() => {
   //   if (!search) return setSearchResults([]);
@@ -227,6 +235,9 @@ const SpoofyProvider = ({ children }) => {
         artistAlbums,
         setArtistAlbums,
         getArtist,
+        artist,
+        setArtist,
+        setArtistID,
       }}
     >
       {children}

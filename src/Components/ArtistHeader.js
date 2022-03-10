@@ -3,12 +3,16 @@ import { SpoofyContext } from "../context";
 import "../CSS/Artist.css";
 
 export default function ArtistHeader() {
-  const { getArtist } = useContext(SpoofyContext);
-  const artistID = new URLSearchParams(window.location.search).get("id");
+  const { artist } = useContext(SpoofyContext);
 
-  useEffect(() => {
-    getArtist(artistID);
-  }, [artistID]);
+  console.log(artist);
 
-  return <div>{artistID}</div>;
+  return (
+    <section className="ArtistHeader">
+      <div>
+        <img src={artist.images[0].url} alt={artist.name} />
+        <h1>{artist.name}</h1>
+      </div>
+    </section>
+  );
 }

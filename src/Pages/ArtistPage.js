@@ -8,28 +8,27 @@ import Player from "../Components/Player";
 import ArtistHeader from "../Components/ArtistHeader";
 
 export default function ArtistPage() {
-  const { access, setAccess, getArtistAlbums, artistAlbums } =
-    useContext(SpoofyContext);
-  const artistName = new URLSearchParams(window.location.search).get("id");
+  const { access, setAccess, setArtistID } = useContext(SpoofyContext);
+  setArtistID(new URLSearchParams(window.location.search).get("id"));
 
-  useEffect(() => {
-    if (!artistName) return;
-    getArtistAlbums(artistName);
-  }, []);
+  // useEffect(() => {
+  //   if (!artistName) return;
+  //   getArtistAlbums(artistName);
+  // }, []);
 
-  const uniqueNames = new Set();
+  // const uniqueNames = new Set();
 
-  const albums = artistAlbums
-    .filter((album) => {
-      if (album.album_type === "album") {
-        return album;
-      }
-    })
-    .filter((album) => {
-      const isPresent = uniqueNames.has(album.name);
-      uniqueNames.add(album.name);
-      return !isPresent;
-    });
+  // const albums = artistAlbums
+  //   .filter((album) => {
+  //     if (album.album_type === "album") {
+  //       return album;
+  //     }
+  //   })
+  //   .filter((album) => {
+  //     const isPresent = uniqueNames.has(album.name);
+  //     uniqueNames.add(album.name);
+  //     return !isPresent;
+  //   });
 
   return (
     <>
