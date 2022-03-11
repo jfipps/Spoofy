@@ -8,7 +8,8 @@ import Player from "../Components/Player";
 import ArtistHeader from "../Components/ArtistHeader";
 
 export default function ArtistPage() {
-  const { access, setAccess, setArtistID } = useContext(SpoofyContext);
+  const { access, setAccess, artist, setArtistID } = useContext(SpoofyContext);
+
   setArtistID(new URLSearchParams(window.location.search).get("id"));
 
   // useEffect(() => {

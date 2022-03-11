@@ -69,3 +69,15 @@
 #sidebar-link:hover {
   color: var(--spotify-green);
 }
+
+/* ArtistHeader.js */
+
+.ArtistHeader {
+  display: flex;
+  flex-direction: row;
+}
+
+.ArtistImage {
+  max-width: 240px;
+  max-height: 240px;
+}

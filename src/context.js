@@ -26,13 +26,13 @@ const SpoofyProvider = ({ children }) => {
     clientId: "fd1fb953c28a42ab9fbe07099618dc50",
   });
 
+  // state variables
   const [loggedIn, setLoggedIn] = useState(false);
   const [loggingOut, setLoggingOut] = useState();
   const [access, setAccess] = useState();
   const [activeTab, setActiveTab] = useState("short_term");
   const [topArtists, setTopArtists] = useState([]);
   const [topTracks, setTopTracks] = useState([]);
-  const [artistAlbums, setArtistAlbums] = useState([]);
   const [scrollXArtists, setScrollXArtists] = useState(0);
   const [scrollEndArtists, setScrollEndArtists] = useState(false);
   const [scrollXTracks, setScrollXTracks] = useState(0);
@@ -40,6 +40,7 @@ const SpoofyProvider = ({ children }) => {
   const [trackURI, setTrackURI] = useState();
   const [artistID, setArtistID] = useState();
   const [artist, setArtist] = useState();
+  const [artistAlbums, setArtistAlbums] = useState([]);
 
   let nav = useNavigate();
 
@@ -121,7 +122,19 @@ const SpoofyProvider = ({ children }) => {
     console.log("Getting Albums");
     spotifyWebApi.getArtistAlbums(id, { limit: 50 }).then(
       function (data) {
-        setArtistAlbums(data.body.items);
+        const uniqueNames = new Set();
+        const albums = data.body.items
+          .filter((album) => {
+            if (album.album_type === "album") {
+              return album;
+            }
+          })
+          .filter((album) => {
+            const isPresent = uniqueNames.has(album.name);
+            uniqueNames.add(album.name);
+            return !isPresent;
+          });
+        setArtistAlbums(albums);
       },
       function (err) {
         console.error(err);
@@ -159,8 +172,8 @@ const SpoofyProvider = ({ children }) => {
   }, [access, activeTab]);
 
   useEffect(() => {
-    console.log("Changed");
     getArtist(artistID);
+    getArtistAlbums(artistID);
   }, [artistID]);
 
   // useEffect(() => {
