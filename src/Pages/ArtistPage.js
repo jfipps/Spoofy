@@ -6,30 +6,12 @@ import "../CSS/Artist.css";
 import Sidebar from "../Components/Sidebar";
 import Player from "../Components/Player";
 import ArtistHeader from "../Components/ArtistHeader";
+import ArtistAlbums from "../Components/ArtistAlbums";
 
 export default function ArtistPage() {
   const { access, setAccess, artist, setArtistID } = useContext(SpoofyContext);
 
   setArtistID(new URLSearchParams(window.location.search).get("id"));
-
-  // useEffect(() => {
-  //   if (!artistName) return;
-  //   getArtistAlbums(artistName);
-  // }, []);
-
-  // const uniqueNames = new Set();
-
-  // const albums = artistAlbums
-  //   .filter((album) => {
-  //     if (album.album_type === "album") {
-  //       return album;
-  //     }
-  //   })
-  //   .filter((album) => {
-  //     const isPresent = uniqueNames.has(album.name);
-  //     uniqueNames.add(album.name);
-  //     return !isPresent;
-  //   });
 
   return (
     <>
@@ -38,6 +20,7 @@ export default function ArtistPage() {
         <section className="ArtistBody">
           <div className="Body">
             <ArtistHeader></ArtistHeader>
+            <ArtistAlbums></ArtistAlbums>
           </div>
           <div className="Player">
             <Player accessToken={access}></Player>

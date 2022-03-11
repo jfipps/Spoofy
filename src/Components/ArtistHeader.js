@@ -5,12 +5,9 @@ import "../CSS/Artist.css";
 export default function ArtistHeader() {
   const { artist, artistAlbums } = useContext(SpoofyContext);
 
-  console.log("Albums: ");
-  console.log(artistAlbums);
-
   return (
     <section className="ArtistHeader">
-      <div>
+      <div className="ImageDiv">
         {artist && (
           <img
             className="ArtistImage"
@@ -19,19 +16,16 @@ export default function ArtistHeader() {
           />
         )}
       </div>
-      <div>
-        {artist && <h1>{artist.name}</h1>}
+      <div className="NameDiv">
+        {artist && <h1 className="ArtistName">{artist.name}</h1>}
         {artist && (
-          <h3>
+          <h5>
             Followers:{" "}
             {artist.followers.total.toLocaleString(undefined, {
               maximumFractionDigits: 2,
             })}
-          </h3>
+          </h5>
         )}
-        {artistAlbums.map((album) => {
-          return <h1>{album.name}</h1>;
-        })}
       </div>
     </section>
   );

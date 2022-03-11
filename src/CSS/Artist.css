@@ -29,12 +29,19 @@
     rgba(14, 69, 93, 1) 0%,
     rgba(25, 20, 20, 1) 100%
   );
+  overflow: auto;
 }
 
 /* Used to put player at bottom of screen */
 
-.Body {
+/* .Body {
   margin-bottom: auto;
+} */
+
+.Player {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }
 
 /*---Sidebar.js---*/
@@ -75,9 +82,36 @@
 .ArtistHeader {
   display: flex;
   flex-direction: row;
+  padding-top: 15px;
+  border: 1px solid white;
 }
 
 .ArtistImage {
   max-width: 240px;
   max-height: 240px;
+  border-radius: 50%;
+}
+
+.ArtistName {
+  font-weight: bold;
+}
+
+.ImageDiv {
+  padding-left: 50px;
+}
+
+.NameDiv {
+  padding-left: 50px;
+}
+
+/* ArtistAlbums.js */
+
+.ArtistAlbums {
+  display: flex;
+  flex-direction: column;
+}
+
+.AlbumImage {
+  max-width: 120px;
+  max-height: 120px;
 }

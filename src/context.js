@@ -41,6 +41,7 @@ const SpoofyProvider = ({ children }) => {
   const [artistID, setArtistID] = useState();
   const [artist, setArtist] = useState();
   const [artistAlbums, setArtistAlbums] = useState([]);
+  const [albumTracks, setAlbumTracks] = useState([]);
 
   let nav = useNavigate();
 
@@ -135,11 +136,38 @@ const SpoofyProvider = ({ children }) => {
             return !isPresent;
           });
         setArtistAlbums(albums);
+        const tracklists = [];
+        albums.forEach((album) => tracklists.push(getAlbumTracks(album.id)));
+        setAlbumTracks(tracklists);
       },
       function (err) {
         console.error(err);
       }
     );
+  };
+
+  const getAlbumTracks = (id) => {
+    const tracks = [];
+    if (!access) {
+      if (LOCALSTORAGE_VALUES.accessToken !== null) {
+        spotifyWebApi.setAccessToken(LOCALSTORAGE_VALUES.accessToken);
+      } else {
+        console.log("No Access");
+        return;
+      }
+    } else {
+      spotifyWebApi.setAccessToken(access);
+    }
+
+    spotifyWebApi.getAlbumTracks(id).then(
+      function (data) {
+        data.body.items.forEach((item) => tracks.push(item));
+      },
+      function (err) {
+        console.log("Something went wrong!", err);
+      }
+    );
+    return tracks;
   };
 
   const getArtist = (id) => {
@@ -251,6 +279,8 @@ const SpoofyProvider = ({ children }) => {
         artist,
         setArtist,
         setArtistID,
+        getAlbumTracks,
+        albumTracks,
       }}
     >
       {children}
