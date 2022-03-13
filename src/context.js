@@ -76,7 +76,6 @@ const SpoofyProvider = ({ children }) => {
     spotifyWebApi
       .getMyTopArtists({ time_range: activeTab })
       .then((data) => {
-        console.log(data.body.items);
         setTopArtists(data.body.items);
       })
       .catch((err) => {
@@ -89,7 +88,6 @@ const SpoofyProvider = ({ children }) => {
     spotifyWebApi
       .getMyTopTracks({ time_range: activeTab })
       .then((data) => {
-        //console.log(data.body.items);
         setTopTracks(data.body.items);
       })
       .catch((err) => {
@@ -136,9 +134,6 @@ const SpoofyProvider = ({ children }) => {
             return !isPresent;
           });
         setArtistAlbums(albums);
-        const tracklists = [];
-        albums.forEach((album) => tracklists.push(getAlbumTracks(album.id)));
-        setAlbumTracks(tracklists);
       },
       function (err) {
         console.error(err);
@@ -159,6 +154,8 @@ const SpoofyProvider = ({ children }) => {
       spotifyWebApi.setAccessToken(access);
     }
 
+    console.log("Getting Tracks");
+
     spotifyWebApi.getAlbumTracks(id).then(
       function (data) {
         data.body.items.forEach((item) => tracks.push(item));
@@ -167,7 +164,7 @@ const SpoofyProvider = ({ children }) => {
         console.log("Something went wrong!", err);
       }
     );
-    return tracks;
+    setAlbumTracks((albumTracks) => [...albumTracks, tracks]);
   };
 
   const getArtist = (id) => {
@@ -184,7 +181,6 @@ const SpoofyProvider = ({ children }) => {
     console.log("Getting Artist");
     spotifyWebApi.getArtist(id).then(
       function (data) {
-        console.log(data.body);
         setArtist(data.body);
       },
       function (err) {
@@ -203,6 +199,13 @@ const SpoofyProvider = ({ children }) => {
     getArtist(artistID);
     getArtistAlbums(artistID);
   }, [artistID]);
+
+  useEffect(() => {
+    if (artistAlbums) {
+      setAlbumTracks([]);
+      artistAlbums.forEach((album) => getAlbumTracks(album.id));
+    }
+  }, [artistAlbums]);
 
   // useEffect(() => {
   //   if (!search) return setSearchResults([]);

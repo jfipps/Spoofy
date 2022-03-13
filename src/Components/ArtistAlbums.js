@@ -11,21 +11,30 @@ export default function ArtistAlbums() {
 
   return (
     <section className="ArtistAlbums">
-      {artistAlbums.map((album, index) => {
-        return (
-          <>
-            <img
-              onClick={() => getAlbumTracks(album.id)}
-              className="AlbumImage"
-              src={album.images[0].url}
-              alt={album.name}
-            />
-            {albumTracks[index].map((track, index) => {
-              return <p>{track.name}</p>;
+      {artistAlbums && (
+        <div className="Albums">
+          {artistAlbums &&
+            artistAlbums.map((album, index) => {
+              return (
+                <>
+                  <img
+                    className="AlbumImage"
+                    src={album.images[0].url}
+                    alt={album.name}
+                  />
+                  {/* {albumTracks && (
+                    <div>
+                      {albumTracks &&
+                        albumTracks[index].map((track, index) => {
+                          return <p>{track.name}</p>;
+                        })}
+                    </div>
+                  )} */}
+                </>
+              );
             })}
-          </>
-        );
-      })}
+        </div>
+      )}
     </section>
   );
 }

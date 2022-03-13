@@ -111,6 +111,11 @@
   flex-direction: column;
 }
 
+.Albums {
+  display: flex;
+  flex-direction: column;
+}
+
 .AlbumImage {
   max-width: 120px;
   max-height: 120px;
