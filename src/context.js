@@ -41,7 +41,6 @@ const SpoofyProvider = ({ children }) => {
   const [artistID, setArtistID] = useState();
   const [artist, setArtist] = useState();
   const [artistAlbums, setArtistAlbums] = useState([]);
-  const [albumTracks, setAlbumTracks] = useState([]);
 
   let nav = useNavigate();
 
@@ -118,7 +117,6 @@ const SpoofyProvider = ({ children }) => {
     } else {
       spotifyWebApi.setAccessToken(access);
     }
-    console.log("Getting Albums");
     spotifyWebApi.getArtistAlbums(id, { limit: 50 }).then(
       function (data) {
         const uniqueNames = new Set();
@@ -153,9 +151,6 @@ const SpoofyProvider = ({ children }) => {
     } else {
       spotifyWebApi.setAccessToken(access);
     }
-
-    console.log("Getting Tracks");
-
     spotifyWebApi.getAlbumTracks(id).then(
       function (data) {
         data.body.items.forEach((item) => tracks.push(item));
@@ -164,7 +159,7 @@ const SpoofyProvider = ({ children }) => {
         console.log("Something went wrong!", err);
       }
     );
-    setAlbumTracks((albumTracks) => [...albumTracks, tracks]);
+    return tracks;
   };
 
   const getArtist = (id) => {
@@ -178,7 +173,6 @@ const SpoofyProvider = ({ children }) => {
     } else {
       spotifyWebApi.setAccessToken(access);
     }
-    console.log("Getting Artist");
     spotifyWebApi.getArtist(id).then(
       function (data) {
         setArtist(data.body);
@@ -192,62 +186,12 @@ const SpoofyProvider = ({ children }) => {
   useEffect(() => {
     showTop();
     showTopTracks();
-    //getCurrentPlayingTrack();
   }, [access, activeTab]);
 
   useEffect(() => {
     getArtist(artistID);
     getArtistAlbums(artistID);
   }, [artistID]);
-
-  useEffect(() => {
-    if (artistAlbums) {
-      setAlbumTracks([]);
-      artistAlbums.forEach((album) => getAlbumTracks(album.id));
-    }
-  }, [artistAlbums]);
-
-  // useEffect(() => {
-  //   if (!search) return setSearchResults([]);
-  //   if (!accessToken) return;
-  //   let cancel = false;
-
-  //   spotifyWebApi.searchTracks(search).then((res) => {
-  //     if (cancel) return;
-  //     setSearchResults(
-  //       res.body.tracks.items.map((track) => {
-  //         const smallAlbumImg = track.album.images.reduce(
-  //
-
-  // spotifyWebApi
-  //   .getMyRecentlyPlayedTracks({ limit: 20 })
-  //   .then((data) => {
-  //     console.log("20 most current tracks played : ");
-  //     data.body.items.forEach((item) =>
-  //       console.log(item.track.name + " by " + item.track.artists[0].name)
-  //     );
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
-
-  // spotifyWebApi
-  //   .getMyTopTracks({ time_range: "long_term" })
-  //   .then((data) => {
-  //     console.log(data.body);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
-
-  // spotifyWebApi.getArtist("7Ln80lUS6He07XvHI8qqHH").then(
-  //   function (data) {
-  //     console.log("Artist information", data.body);
-  //   },
-  //   function (err) {
-  //     console.error(err);
-  //   }
-  // );
 
   return (
     <SpoofyContext.Provider
@@ -283,7 +227,6 @@ const SpoofyProvider = ({ children }) => {
         setArtist,
         setArtistID,
         getAlbumTracks,
-        albumTracks,
       }}
     >
       {children}

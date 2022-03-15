@@ -9,7 +9,8 @@ import ArtistHeader from "../Components/ArtistHeader";
 import ArtistAlbums from "../Components/ArtistAlbums";
 
 export default function ArtistPage() {
-  const { access, setAccess, artist, setArtistID } = useContext(SpoofyContext);
+  const { access, setAccess, artist, setArtistID, artistAlbums } =
+    useContext(SpoofyContext);
 
   setArtistID(new URLSearchParams(window.location.search).get("id"));
 
@@ -20,7 +21,7 @@ export default function ArtistPage() {
         <section className="ArtistBody">
           <div className="Body">
             <ArtistHeader></ArtistHeader>
-            <ArtistAlbums></ArtistAlbums>
+            {artistAlbums && <ArtistAlbums></ArtistAlbums>}
           </div>
           <div className="Player">
             <Player accessToken={access}></Player>
