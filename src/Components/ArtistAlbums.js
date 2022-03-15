@@ -1,11 +1,17 @@
 import React from "react";
 import { useState, useEffect, useContext } from "react";
 import { SpoofyContext } from "../context";
+import { MdKeyboardArrowRight } from "react-icons/md";
 import "../CSS/Artist.css";
 
 export default function ArtistAlbums({ albumTracks }) {
   const { artistAlbums, getAlbumTracks, loading, setLoading } =
     useContext(SpoofyContext);
+  const [rotate, setRotate] = useState(false);
+
+  const handleRotate = () => {
+    setRotate(!rotate);
+  };
 
   return (
     <section className="ArtistAlbums">
@@ -13,8 +19,16 @@ export default function ArtistAlbums({ albumTracks }) {
         <div>Loading</div>
       ) : (
         <div className="Albums">
+          <div className="Head">
+            <h1>Albums </h1>
+            <MdKeyboardArrowRight
+              size={30}
+              className={rotate ? "ExpandIcon Rotate" : "ExpandIcon"}
+              onClick={handleRotate}
+            />
+          </div>
           {artistAlbums && (
-            <div className="Albums">
+            <div className={rotate ? "AlbumList Expanded" : "AlbumList"}>
               {artistAlbums.map((album, index) => {
                 return (
                   <article key={index}>

@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect, useContext } from "react";
 import { SpoofyContext } from "../context";
 import { useSearchParams } from "react-router-dom";
+import { Circles } from "react-loader-spinner";
 import "../CSS/Artist.css";
 import Sidebar from "../Components/Sidebar";
 import Player from "../Components/Player";
@@ -45,7 +46,9 @@ export default function ArtistPage() {
         <Sidebar></Sidebar>
         <section className="ArtistBody">
           {loading ? (
-            <div>Loading</div>
+            <div className="Loader">
+              <Circles type="Circles" color="#00BFFF" height={80} width={80} />
+            </div>
           ) : (
             <div className="Body">
               <ArtistHeader></ArtistHeader>

@@ -116,7 +116,36 @@
   flex-direction: column;
 }
 
+.AlbumList {
+  visibility: hidden;
+}
+
+.Expanded {
+  visibility: visible;
+}
+
 .AlbumImage {
   max-width: 120px;
   max-height: 120px;
+}
+
+.ExpandIcon {
+  transition: all 2 linear;
+}
+.Rotate {
+  transform: rotate(90deg);
+}
+
+.Head {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.Loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 }
