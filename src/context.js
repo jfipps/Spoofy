@@ -27,6 +27,7 @@ const SpoofyProvider = ({ children }) => {
   });
 
   // state variables
+  const [loading, setLoading] = useState(true);
   const [loggedIn, setLoggedIn] = useState(false);
   const [loggingOut, setLoggingOut] = useState();
   const [access, setAccess] = useState();
@@ -227,6 +228,8 @@ const SpoofyProvider = ({ children }) => {
         setArtist,
         setArtistID,
         getAlbumTracks,
+        loading,
+        setLoading,
       }}
     >
       {children}

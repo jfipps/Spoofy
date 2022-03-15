@@ -3,25 +3,9 @@ import { useState, useEffect, useContext } from "react";
 import { SpoofyContext } from "../context";
 import "../CSS/Artist.css";
 
-export default function ArtistAlbums() {
-  const { artistAlbums, getAlbumTracks } = useContext(SpoofyContext);
-
-  const [loading, setLoading] = useState(true);
-  const [albumTracks, setAlbumTracks] = useState([]);
-
-  useEffect(() => {
-    if (artistAlbums.length > 0) {
-      artistAlbums.forEach((album, index) =>
-        setAlbumTracks((albumTracks) => [
-          ...albumTracks,
-          getAlbumTracks(album.id),
-        ])
-      );
-    }
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-  }, [artistAlbums]);
+export default function ArtistAlbums({ albumTracks }) {
+  const { artistAlbums, getAlbumTracks, loading, setLoading } =
+    useContext(SpoofyContext);
 
   return (
     <section className="ArtistAlbums">
