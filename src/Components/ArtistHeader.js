@@ -3,13 +3,15 @@ import { SpoofyContext } from "../context";
 import "../CSS/Artist.css";
 
 export default function ArtistHeader() {
-  const { artist, artistAlbums } = useContext(SpoofyContext);
+  const { artist, artistAlbums, getArtistTopTracks } =
+    useContext(SpoofyContext);
 
   return (
     <section className="ArtistHeader">
       <div className="ImageDiv">
         {artist && (
           <img
+            onClick={() => getArtistTopTracks(artist.id)}
             className="ArtistImage"
             src={artist.images[0].url}
             alt={artist.name}

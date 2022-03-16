@@ -43,6 +43,7 @@ const SpoofyProvider = ({ children }) => {
   const [artistID, setArtistID] = useState();
   const [artist, setArtist] = useState();
   const [artistAlbums, setArtistAlbums] = useState([]);
+  const [artistTopTracks, setArtistTopTracks] = useState([]);
 
   let nav = useNavigate();
 
@@ -185,6 +186,29 @@ const SpoofyProvider = ({ children }) => {
     );
   };
 
+  const getArtistTopTracks = (id) => {
+    if (!access) {
+      if (LOCALSTORAGE_VALUES.accessToken !== null) {
+        spotifyWebApi.setAccessToken(LOCALSTORAGE_VALUES.accessToken);
+      } else {
+        console.log("No Access");
+        return;
+      }
+    } else {
+      spotifyWebApi.setAccessToken(access);
+    }
+
+    // Get an artist's top tracks
+    spotifyWebApi.getArtistTopTracks(id, "US").then(
+      function (data) {
+        setArtistTopTracks(data.body.tracks);
+      },
+      function (err) {
+        console.log("Something went wrong!", err);
+      }
+    );
+  };
+
   useEffect(() => {
     showTop();
     showTopTracks();
@@ -227,12 +251,15 @@ const SpoofyProvider = ({ children }) => {
         getArtist,
         artist,
         setArtist,
+        artistID,
         setArtistID,
         getAlbumTracks,
         loading,
         setLoading,
         dashLoading,
         setDashLoading,
+        getArtistTopTracks,
+        artistTopTracks,
       }}
     >
       {children}

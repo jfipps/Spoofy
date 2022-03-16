@@ -19,6 +19,7 @@ export default function ArtistAlbums({ albumTracks }) {
 
   return (
     <section className="ArtistAlbums">
+      <h1>Albums</h1>
       <div className="Albums">
         {artistAlbums && (
           <div className="AlbumList">
@@ -31,15 +32,18 @@ export default function ArtistAlbums({ albumTracks }) {
                       src={album.images[0].url}
                       alt={album.name}
                     />
-                    <MdKeyboardArrowRight
-                      size={30}
-                      className={
-                        activeItem === index
-                          ? "ExpandIcon Rotate"
-                          : "ExpandIcon"
-                      }
-                      onClick={() => handleRotate(index)}
-                    />
+                    <div className="Divider">
+                      <h2>{album.name}</h2>
+                      <MdKeyboardArrowRight
+                        size={30}
+                        className={
+                          activeItem === index
+                            ? "ExpandIcon Rotate"
+                            : "ExpandIcon"
+                        }
+                        onClick={() => handleRotate(index)}
+                      />
+                    </div>
                   </div>
                   <div
                     className={
@@ -48,9 +52,9 @@ export default function ArtistAlbums({ albumTracks }) {
                   >
                     {albumTracks[index].map((currAlbum) => {
                       return (
-                        <h2 onClick={() => console.log(currAlbum.uri)}>
+                        <h4 onClick={() => console.log(currAlbum.uri)}>
                           {currAlbum.name}
-                        </h2>
+                        </h4>
                       );
                     })}
                   </div>

@@ -8,6 +8,7 @@ import Sidebar from "../Components/Sidebar";
 import Player from "../Components/Player";
 import ArtistHeader from "../Components/ArtistHeader";
 import ArtistAlbums from "../Components/ArtistAlbums";
+import ArtistTopTracks from "../Components/ArtistTopTracks";
 
 export default function ArtistPage() {
   const {
@@ -19,6 +20,7 @@ export default function ArtistPage() {
     loading,
     setLoading,
     getAlbumTracks,
+    artistTopTracks,
   } = useContext(SpoofyContext);
 
   const [albumTracks, setAlbumTracks] = useState([]);
@@ -50,11 +52,12 @@ export default function ArtistPage() {
               <Circles type="Circles" color="#00BFFF" height={80} width={80} />
             </div>
           ) : (
-            <div className="Body">
+            <div>
               <ArtistHeader></ArtistHeader>
-              {artistAlbums && (
+              <div className="Content">
                 <ArtistAlbums albumTracks={albumTracks}></ArtistAlbums>
-              )}
+                <ArtistTopTracks></ArtistTopTracks>
+              </div>
             </div>
           )}
           <div className="Player">
