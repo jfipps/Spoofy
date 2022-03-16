@@ -7,6 +7,7 @@ import SpotifyWebApi from "spotify-web-api-node";
 import "../CSS/Dashboard.css";
 import "../App.css";
 import { FaBars } from "react-icons/fa";
+import { Circles } from "react-loader-spinner";
 import Sidebar from "../Components/Sidebar";
 import DashTimePeriod from "../Components/DashTimePeriod";
 import TopArtists from "../Components/TopArtists";
@@ -23,23 +24,40 @@ export default function Dashboard({ code }) {
     loggedIn,
     setLoggedIn,
     logout,
+    dashLoading,
+    setDashLoading,
   } = useContext(SpoofyContext);
 
   setAccess(useAuth(code));
+
+  useEffect(() => {
+    setTimeout(() => {
+      setDashLoading(false);
+    }, 1000);
+    clearTimeout();
+  }, []);
 
   return (
     <>
       <section className="DashPage">
         <Sidebar></Sidebar>
         <section className="DashBody">
-          <div className="Body">
-            <DashTimePeriod></DashTimePeriod>
-            <TopArtists></TopArtists>
-            <TopTracks></TopTracks>
-          </div>
-          <div className="Player">
-            <Player accessToken={access} />
-          </div>
+          {dashLoading ? (
+            <div className="Loader">
+              <Circles type="Circles" color="#00BFFF" height={80} width={80} />
+            </div>
+          ) : (
+            <>
+              <div className="Body">
+                <DashTimePeriod></DashTimePeriod>
+                <TopArtists></TopArtists>
+                <TopTracks></TopTracks>
+              </div>
+              <div className="Player">
+                <Player accessToken={access} />
+              </div>
+            </>
+          )}
         </section>
       </section>
     </>

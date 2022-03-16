@@ -7,36 +7,45 @@ import "../CSS/Artist.css";
 export default function ArtistAlbums({ albumTracks }) {
   const { artistAlbums, getAlbumTracks, loading, setLoading } =
     useContext(SpoofyContext);
-  const [rotate, setRotate] = useState(false);
+  const [activeItem, setActiveItem] = useState();
 
-  const handleRotate = () => {
-    setRotate(!rotate);
+  const handleRotate = (index) => {
+    if (index === activeItem) {
+      setActiveItem(null);
+    } else {
+      setActiveItem(index);
+    }
   };
 
   return (
     <section className="ArtistAlbums">
-      {loading ? (
-        <div>Loading</div>
-      ) : (
-        <div className="Albums">
-          <div className="Head">
-            <h1>Albums </h1>
-            <MdKeyboardArrowRight
-              size={30}
-              className={rotate ? "ExpandIcon Rotate" : "ExpandIcon"}
-              onClick={handleRotate}
-            />
-          </div>
-          {artistAlbums && (
-            <div className={rotate ? "AlbumList Expanded" : "AlbumList"}>
-              {artistAlbums.map((album, index) => {
-                return (
-                  <article key={index}>
+      <div className="Albums">
+        {artistAlbums && (
+          <div className="AlbumList">
+            {artistAlbums.map((album, index) => {
+              return (
+                <article key={index}>
+                  <div className="AlbumHeader">
                     <img
                       className="AlbumImage"
                       src={album.images[0].url}
                       alt={album.name}
                     />
+                    <MdKeyboardArrowRight
+                      size={30}
+                      className={
+                        activeItem === index
+                          ? "ExpandIcon Rotate"
+                          : "ExpandIcon"
+                      }
+                      onClick={() => handleRotate(index)}
+                    />
+                  </div>
+                  <div
+                    className={
+                      activeItem === index ? "SongListShown" : "SongListHidden"
+                    }
+                  >
                     {albumTracks[index].map((currAlbum) => {
                       return (
                         <h2 onClick={() => console.log(currAlbum.uri)}>
@@ -44,13 +53,14 @@ export default function ArtistAlbums({ albumTracks }) {
                         </h2>
                       );
                     })}
-                  </article>
-                );
-              })}
-            </div>
-          )}
-        </div>
-      )}
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        )}
+      </div>
+      )
     </section>
   );
 }
