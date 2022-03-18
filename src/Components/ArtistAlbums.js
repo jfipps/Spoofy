@@ -5,7 +5,7 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 import "../CSS/Artist.css";
 
 export default function ArtistAlbums({ albumTracks }) {
-  const { artistAlbums, getAlbumTracks, loading, setLoading } =
+  const { artistAlbums, getAlbumTracks, loading, setLoading, setTrackURI } =
     useContext(SpoofyContext);
   const [activeItem, setActiveItem] = useState();
 
@@ -15,6 +15,14 @@ export default function ArtistAlbums({ albumTracks }) {
     } else {
       setActiveItem(index);
     }
+  };
+
+  const addAlbumToPlayer = (album) => {
+    let tracklist = [];
+    album.map((track) => {
+      tracklist.push(track.uri);
+    });
+    setTrackURI(tracklist);
   };
 
   return (
@@ -28,6 +36,7 @@ export default function ArtistAlbums({ albumTracks }) {
                 <article key={index}>
                   <div className="AlbumHeader">
                     <img
+                      onClick={() => addAlbumToPlayer(albumTracks[index])}
                       className="AlbumImage"
                       src={album.images[0].url}
                       alt={album.name}

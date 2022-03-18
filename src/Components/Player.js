@@ -8,9 +8,12 @@ export default function Player({ accessToken }) {
 
   useEffect(() => {
     setPlay(true);
+    console.log(play);
   }, [trackURI]);
 
   if (!accessToken) return null;
+
+  console.log(trackURI);
 
   return (
     <SpotifyPlayer
@@ -26,7 +29,7 @@ export default function Player({ accessToken }) {
         if (!state.isPlaying) setPlay(false);
       }}
       play={play}
-      uris={trackURI ? [trackURI] : []}
+      uris={trackURI ? trackURI : []}
     />
   );
 }

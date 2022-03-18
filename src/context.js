@@ -217,6 +217,7 @@ const SpoofyProvider = ({ children }) => {
   useEffect(() => {
     getArtist(artistID);
     getArtistAlbums(artistID);
+    getArtistTopTracks(artistID);
   }, [artistID]);
 
   return (
