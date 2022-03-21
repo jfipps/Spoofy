@@ -4,7 +4,7 @@ import "../CSS/Dashboard.css";
 
 export default function Sidebar({ show }) {
   return (
-    <div className="sidenav">
+    <section className="sidenav">
       <ul id="sidebar-list">
         <li className="ListHeader">
           <a id="sidebar-link" href="/Dashboard">
@@ -30,6 +30,6 @@ export default function Sidebar({ show }) {
           </a>
         </li>
       </ul>
-    </div>
+    </section>
   );
 }

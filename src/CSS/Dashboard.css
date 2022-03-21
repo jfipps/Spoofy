@@ -23,7 +23,6 @@
   flex-direction: column;
   padding-top: 50px;
   color: white;
-  height: 100vh;
   width: 85%;
   background: rgb(14, 69, 93);
   background: linear-gradient(
@@ -31,6 +30,7 @@
     rgba(14, 69, 93, 1) 0%,
     rgba(25, 20, 20, 1) 100%
   );
+  background-attachment: fixed;
 }
 
 .Loader {
@@ -38,7 +38,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  height: 100vh;
 }
 
 /* Used to put player at bottom of screen */
@@ -51,8 +51,7 @@
 
 .sidenav {
   width: 15%;
-  background-color: var(--spotify-black);
-  height: 100vh;
+  background-color: var(--login-hover);
   padding: 0 30px;
   padding-top: 50px;
 }
@@ -247,4 +246,21 @@
 #album-image {
   width: 200px;
   height: 200px;
+}
+
+/* TopArtistTable.js */
+
+.Table {
+  width: 100%;
+}
+
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: var(--spotify-black);
 }

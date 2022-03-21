@@ -13,6 +13,7 @@ import DashTimePeriod from "../Components/DashTimePeriod";
 import TopArtists from "../Components/TopArtists";
 import TopTracks from "../Components/TopTracks";
 import Player from "../Components/Player";
+import TopArtistTable from "../Components/TopArtistTable";
 
 export default function Dashboard({ code }) {
   const {
@@ -38,28 +39,27 @@ export default function Dashboard({ code }) {
   }, []);
 
   return (
-    <>
-      <section className="DashPage">
-        <Sidebar></Sidebar>
-        <section className="DashBody">
-          {dashLoading ? (
-            <div className="Loader">
-              <Circles type="Circles" color="#00BFFF" height={80} width={80} />
+    <section className="DashPage">
+      <Sidebar></Sidebar>
+      <section className="DashBody col">
+        {dashLoading ? (
+          <div className="Loader">
+            <Circles type="Circles" color="#00BFFF" height={80} width={80} />
+          </div>
+        ) : (
+          <>
+            <div className="Body">
+              <DashTimePeriod></DashTimePeriod>
+              <TopArtists></TopArtists>
+              {/* <TopTracks></TopTracks> */}
+              <TopArtistTable></TopArtistTable>
             </div>
-          ) : (
-            <>
-              <div className="Body">
-                <DashTimePeriod></DashTimePeriod>
-                <TopArtists></TopArtists>
-                <TopTracks></TopTracks>
-              </div>
-              <div className="Player">
+            {/* <div className="Player">
                 <Player accessToken={access} />
-              </div>
-            </>
-          )}
-        </section>
+              </div> */}
+          </>
+        )}
       </section>
-    </>
+    </section>
   );
 }
