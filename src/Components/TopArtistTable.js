@@ -7,7 +7,7 @@ export default function TopArtistTable() {
   const { topArtists } = useContext(SpoofyContext);
   console.log(topArtists);
   return (
-    <section className="TopArtistTable">
+    <section className="TopTable">
       <table className="Table">
         <tr>
           <th>Rank</th>
@@ -18,9 +18,16 @@ export default function TopArtistTable() {
         {topArtists.map((artist, index) => {
           return (
             <tr>
-              <td>{index}</td>
+              <td>{index + 1}</td>
               <td>{artist.name}</td>
-              <td>{`${artist.genres[0]}, ${artist.genres[1]}, ${artist.genres[2]}`}</td>
+              <td>
+                {artist.genres.map((genre, index) => {
+                  if (index === artist.genres.length - 1) {
+                    return genre;
+                  }
+                  return `${genre}, `;
+                })}
+              </td>
               <td>
                 {artist.followers.total.toLocaleString(undefined, {
                   maximumFractionDigits: 2,

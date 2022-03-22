@@ -250,6 +250,11 @@
 
 /* TopArtistTable.js */
 
+.TopTable {
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
 .Table {
   width: 100%;
 }

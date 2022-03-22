@@ -12,6 +12,7 @@ import {
 import Login from "./Pages/Login";
 import Dashboard from "./Pages/Dashboard";
 import ArtistPage from "./Pages/ArtistPage";
+import Tracks from "./Pages/Tracks";
 import useAuth from "./Components/useAuth";
 import { SpoofyContext } from "./context";
 
@@ -64,6 +65,7 @@ const App = () => {
           element={loggedIn ? <Dashboard code={code} /> : <Login />}
         ></Route>
         <Route path="/Dashboard" element={<Dashboard code={code} />}></Route>
+        <Route path="/Tracks" element={<Tracks code={code} />}></Route>
         <Route path="/ArtistPage" element={<ArtistPage></ArtistPage>} />
       </Routes>
     </div>

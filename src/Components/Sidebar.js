@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { FaHeadphonesAlt } from "react-icons/fa";
 import "../CSS/Dashboard.css";
 
@@ -20,9 +21,9 @@ export default function Sidebar({ show }) {
           </a>
         </li>
         <li>
-          <a id="sidebar-link" href="/Tracks">
+          <Link id="sidebar-link" to={{ pathname: "/tracks" }}>
             Tracks
-          </a>
+          </Link>
         </li>
         <li>
           <a id="sidebar-link" href="/Recents">

@@ -1,16 +1,16 @@
 import React from "react";
-import useAuth from "../Components/useAuth";
 import { useState, useEffect, useContext } from "react";
+import useAuth from "../Components/useAuth";
 import { SpoofyContext } from "../context";
+import TopTracks from "../Components/TopTracks";
+import TopTracksTable from "../Components/TopTracksTable";
+import Player from "../Components/Player";
 import "../CSS/Dashboard.css";
 import "../App.css";
 import { Circles } from "react-loader-spinner";
 import Sidebar from "../Components/Sidebar";
 import DashTimePeriod from "../Components/DashTimePeriod";
-import TopArtists from "../Components/TopArtists";
-import TopArtistTable from "../Components/TopArtistTable";
-
-export default function Dashboard({ code }) {
+export default function Tracks({ code }) {
   const {
     access,
     setAccess,
@@ -45,13 +45,12 @@ export default function Dashboard({ code }) {
           <>
             <div className="Body">
               <DashTimePeriod></DashTimePeriod>
-              <TopArtists></TopArtists>
-              {/* <TopTracks></TopTracks> */}
-              <TopArtistTable></TopArtistTable>
+              <TopTracks></TopTracks>
+              <TopTracksTable></TopTracksTable>
             </div>
-            {/* <div className="Player">
-                <Player accessToken={access} />
-              </div> */}
+            <div className="Player">
+              <Player accessToken={access} />
+            </div>
           </>
         )}
       </section>
