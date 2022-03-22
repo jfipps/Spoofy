@@ -24,7 +24,9 @@ export default function Sidebar({ show }) {
               activePage === "Artists" ? "sidebar-link-active" : "sidebar-link"
             }
             to={{ pathname: "/dashboard" }}
-            onClick={() => setActivePage("Artists")}
+            onClick={() => {
+              setActivePage("Artists");
+            }}
           >
             Artists
           </Link>
@@ -35,7 +37,9 @@ export default function Sidebar({ show }) {
               activePage === "Tracks" ? "sidebar-link-active" : "sidebar-link"
             }
             to={{ pathname: "/tracks" }}
-            onClick={() => setActivePage("Tracks")}
+            onClick={() => {
+              setActivePage("Tracks");
+            }}
           >
             Tracks
           </Link>
@@ -48,7 +52,7 @@ export default function Sidebar({ show }) {
             to={{ pathname: "/recents" }}
             onClick={() => setActivePage("Recents")}
           >
-            Tracks
+            Recents
           </Link>
         </li>
       </ul>

@@ -22,11 +22,13 @@ export default function Dashboard({ code }) {
     logout,
     dashLoading,
     setDashLoading,
+    setActivePage,
   } = useContext(SpoofyContext);
 
   setAccess(useAuth(code));
 
   useEffect(() => {
+    setActivePage("Artists");
     setTimeout(() => {
       setDashLoading(false);
     }, 1000);

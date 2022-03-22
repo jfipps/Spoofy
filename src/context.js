@@ -87,7 +87,16 @@ const SpoofyProvider = ({ children }) => {
   };
 
   const showTopTracks = () => {
-    if (!access) return;
+    if (!access) {
+      if (LOCALSTORAGE_VALUES.accessToken !== null) {
+        spotifyWebApi.setAccessToken(LOCALSTORAGE_VALUES.accessToken);
+      } else {
+        console.log("No Access");
+        return;
+      }
+    } else {
+      spotifyWebApi.setAccessToken(access);
+    }
     spotifyWebApi
       .getMyTopTracks({ time_range: activeTab })
       .then((data) => {
@@ -234,6 +243,7 @@ const SpoofyProvider = ({ children }) => {
         access,
         setAccess,
         showTop,
+        showTopTracks,
         activeTab,
         setActiveTab,
         topArtists,

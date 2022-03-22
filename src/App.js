@@ -13,6 +13,7 @@ import Login from "./Pages/Login";
 import Dashboard from "./Pages/Dashboard";
 import ArtistPage from "./Pages/ArtistPage";
 import Tracks from "./Pages/Tracks";
+import Recents from "./Pages/Recents";
 import useAuth from "./Components/useAuth";
 import { SpoofyContext } from "./context";
 
@@ -66,6 +67,7 @@ const App = () => {
         ></Route>
         <Route path="/Dashboard" element={<Dashboard code={code} />}></Route>
         <Route path="/Tracks" element={<Tracks code={code} />}></Route>
+        <Route path="/Recents" element={<Recents></Recents>}></Route>
         <Route path="/ArtistPage" element={<ArtistPage></ArtistPage>} />
       </Routes>
     </div>

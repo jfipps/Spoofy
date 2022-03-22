@@ -11,20 +11,12 @@ import { Circles } from "react-loader-spinner";
 import Sidebar from "../Components/Sidebar";
 import DashTimePeriod from "../Components/DashTimePeriod";
 export default function Tracks({ code }) {
-  const {
-    access,
-    setAccess,
-    apiCode,
-    setApiCode,
-    getCurrentPlayingTrack,
-    loggedIn,
-    setLoggedIn,
-    logout,
-    dashLoading,
-    setDashLoading,
-  } = useContext(SpoofyContext);
+  const { access, showTopTracks, dashLoading, setDashLoading, setActivePage } =
+    useContext(SpoofyContext);
 
   useEffect(() => {
+    showTopTracks();
+    setActivePage("Tracks");
     setTimeout(() => {
       setDashLoading(false);
     }, 1000);
