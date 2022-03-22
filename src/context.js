@@ -44,6 +44,7 @@ const SpoofyProvider = ({ children }) => {
   const [artist, setArtist] = useState();
   const [artistAlbums, setArtistAlbums] = useState([]);
   const [artistTopTracks, setArtistTopTracks] = useState([]);
+  const [activePage, setActivePage] = useState("Artists");
 
   let nav = useNavigate();
 
@@ -220,6 +221,10 @@ const SpoofyProvider = ({ children }) => {
     getArtistTopTracks(artistID);
   }, [artistID]);
 
+  useEffect(() => {
+    setDashLoading(true);
+  }, [activePage]);
+
   return (
     <SpoofyContext.Provider
       value={{
@@ -261,6 +266,8 @@ const SpoofyProvider = ({ children }) => {
         setDashLoading,
         getArtistTopTracks,
         artistTopTracks,
+        activePage,
+        setActivePage,
       }}
     >
       {children}

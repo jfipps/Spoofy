@@ -24,8 +24,6 @@ export default function Tracks({ code }) {
     setDashLoading,
   } = useContext(SpoofyContext);
 
-  setAccess(useAuth(code));
-
   useEffect(() => {
     setTimeout(() => {
       setDashLoading(false);

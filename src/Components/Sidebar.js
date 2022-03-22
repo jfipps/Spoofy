@@ -1,9 +1,12 @@
 import React from "react";
+import { useContext } from "react";
+import { SpoofyContext } from "../context";
 import { Link } from "react-router-dom";
 import { FaHeadphonesAlt } from "react-icons/fa";
 import "../CSS/Dashboard.css";
 
 export default function Sidebar({ show }) {
+  const { activePage, setActivePage, setLoading } = useContext(SpoofyContext);
   return (
     <section className="sidenav">
       <ul id="sidebar-list">
@@ -16,19 +19,37 @@ export default function Sidebar({ show }) {
           </a>
         </li>
         <li>
-          <a id="sidebar-link" href="/Artists">
+          <Link
+            id={
+              activePage === "Artists" ? "sidebar-link-active" : "sidebar-link"
+            }
+            to={{ pathname: "/dashboard" }}
+            onClick={() => setActivePage("Artists")}
+          >
             Artists
-          </a>
+          </Link>
         </li>
         <li>
-          <Link id="sidebar-link" to={{ pathname: "/tracks" }}>
+          <Link
+            id={
+              activePage === "Tracks" ? "sidebar-link-active" : "sidebar-link"
+            }
+            to={{ pathname: "/tracks" }}
+            onClick={() => setActivePage("Tracks")}
+          >
             Tracks
           </Link>
         </li>
         <li>
-          <a id="sidebar-link" href="/Recents">
-            Recents
-          </a>
+          <Link
+            id={
+              activePage === "Recents" ? "sidebar-link-active" : "sidebar-link"
+            }
+            to={{ pathname: "/recents" }}
+            onClick={() => setActivePage("Recents")}
+          >
+            Tracks
+          </Link>
         </li>
       </ul>
     </section>
