@@ -274,3 +274,66 @@ th {
 tr:nth-child(even) {
   background-color: var(--spotify-black);
 }
+
+/* RecentTracks.js */
+
+.RecentTracks {
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  padding-left: 50px;
+}
+
+.RecentTracksTitle {
+  padding-left: 20px;
+}
+
+.RecentTracksRow {
+  display: flex;
+  flex-direction: row;
+  overflow: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+  max-width: 95%;
+}
+
+.RecentTracksRow::-webkit-scrollbar {
+  display: none;
+}
+
+.TrackCard {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  color: white;
+  background: none;
+  border: none;
+}
+
+.TrackCard:hover {
+  border-bottom: 1px solid var(--list-header);
+}
+
+#recent-tracks-row {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+#track-name {
+  font-size: 18px;
+  text-align: center;
+  padding-top: 10px;
+}
+
+#track-artist {
+  font-size: 16px;
+  padding-top: 10px;
+}
+
+#album-image {
+  width: 200px;
+  height: 200px;
+}

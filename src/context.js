@@ -39,6 +39,8 @@ const SpoofyProvider = ({ children }) => {
   const [scrollEndArtists, setScrollEndArtists] = useState(false);
   const [scrollXTracks, setScrollXTracks] = useState(0);
   const [scrollEndTracks, setScrollEndTracks] = useState(false);
+  const [scrollXRecents, setScrollXRecents] = useState(0);
+  const [scrollEndRecents, setScrollEndRecents] = useState(false);
   const [trackURI, setTrackURI] = useState();
   const [artistID, setArtistID] = useState();
   const [artist, setArtist] = useState();
@@ -280,6 +282,10 @@ const SpoofyProvider = ({ children }) => {
         setScrollXTracks,
         scrollEndTracks,
         setScrollEndTracks,
+        scrollXRecents,
+        setScrollXRecents,
+        scrollEndRecents,
+        setScrollEndRecents,
         trackURI,
         setTrackURI,
         getCurrentPlayingTrack,

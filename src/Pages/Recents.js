@@ -5,12 +5,14 @@ import { Circles } from "react-loader-spinner";
 import Sidebar from "../Components/Sidebar";
 import DashTimePeriod from "../Components/DashTimePeriod";
 import Player from "../Components/Player";
+import RecentTracks from "../Components/RecentTracks";
 import RecentTracksTable from "../Components/RecentTracksTable";
 import "../CSS/Dashboard.css";
 
 export default function Recents() {
   const {
     getRecentTracks,
+    recentTracks,
     dashLoading,
     setDashLoading,
     setActivePage,
@@ -26,6 +28,8 @@ export default function Recents() {
     clearTimeout();
   }, []);
 
+  console.log(recentTracks);
+
   return (
     <>
       <section className="DashPage">
@@ -38,6 +42,7 @@ export default function Recents() {
           ) : (
             <>
               <div className="Body">
+                <RecentTracks></RecentTracks>
                 <RecentTracksTable></RecentTracksTable>
               </div>
               <div className="Player">
