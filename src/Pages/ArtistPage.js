@@ -21,6 +21,7 @@ export default function ArtistPage() {
     setLoading,
     getAlbumTracks,
     artistTopTracks,
+    setTrackURI,
   } = useContext(SpoofyContext);
 
   const [albumTracks, setAlbumTracks] = useState([]);

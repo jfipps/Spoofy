@@ -2,8 +2,24 @@ import React, { useState, useEffect, useContext } from "react";
 import SpotifyPlayer from "react-spotify-web-playback";
 import { SpoofyContext } from "../context";
 
+// map for localStorage keys
+const LOCALSTORAGE_KEYS = {
+  accessToken: "accessToken",
+  refreshToken: "refreshToken",
+  expireTime: "expiresIn",
+  timestamp: "currentTime",
+};
+
+// map to retrieve localStorage values
+const LOCALSTORAGE_VALUES = {
+  accessToken: window.localStorage.getItem(LOCALSTORAGE_KEYS.accessToken),
+  refreshToken: window.localStorage.getItem(LOCALSTORAGE_KEYS.refreshToken),
+  expireTime: window.localStorage.getItem(LOCALSTORAGE_KEYS.expireTime),
+  timestamp: window.localStorage.getItem(LOCALSTORAGE_KEYS.timestamp),
+};
+
 export default function Player({ accessToken }) {
-  const { trackURI } = useContext(SpoofyContext);
+  const { trackURI, setAccess } = useContext(SpoofyContext);
   const [play, setPlay] = useState(false);
 
   useEffect(() => {
@@ -11,7 +27,18 @@ export default function Player({ accessToken }) {
     console.log(play);
   }, [trackURI]);
 
-  if (!accessToken) return null;
+  if (!accessToken) {
+    if (LOCALSTORAGE_VALUES.accessToken !== null) {
+      setAccess(LOCALSTORAGE_VALUES.accessToken);
+    } else {
+      console.log("No Access");
+      return null;
+    }
+  }
+  if (!trackURI) {
+    console.log("No Track");
+    return null;
+  }
 
   console.log(trackURI);
 
@@ -26,7 +53,7 @@ export default function Player({ accessToken }) {
       }}
       token={accessToken}
       callback={(state) => {
-        if (!state.isPlaying) setPlay(false);
+        if (!state.isPlaying && !trackURI) setPlay(false);
       }}
       play={play}
       uris={trackURI ? trackURI : []}
