@@ -89,7 +89,6 @@
   flex-direction: row;
   padding-top: 15px;
   padding-bottom: 15px;
-  border: 1px solid white;
 }
 
 .ArtistImage {
@@ -115,12 +114,10 @@
 .ArtistAlbums {
   display: flex;
   flex-direction: column;
-  border: 1px solid white;
   width: 50%;
 }
 
 .ArtistTopTracks {
-  border: 1px solid blue;
   width: 50%;
 }
 
@@ -129,10 +126,19 @@
   flex-direction: column;
 }
 
+.AlbumList {
+  padding-left: 15px;
+}
+
+.AlbumTitle {
+  padding-left: 15px;
+}
+
 .AlbumHeader {
   display: flex;
   flex-direction: row;
   align-items: center;
+  padding-bottom: 10px;
 }
 
 .Divider {
@@ -140,6 +146,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  padding-left: 10px;
 }
 
 .AlbumImage {
@@ -153,11 +160,6 @@
 
 .Rotate {
   transform: rotate(90deg);
-}
-.TopTrack {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
 }
 
 .SongListHidden {
@@ -174,4 +176,32 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.AlbumTrack {
+  padding: 5px;
+}
+
+.AlbumTrack:hover {
+  cursor: pointer;
+  border-bottom: 1px solid var(--hover-text);
+}
+
+.TopTrackName {
+  margin-left: 15px;
+}
+
+.TopTrack {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.TopTrack:hover {
+  cursor: pointer;
+}
+
+.TopTrack:hover h2 {
+  border-bottom: 1px solid var(--hover-text);
 }

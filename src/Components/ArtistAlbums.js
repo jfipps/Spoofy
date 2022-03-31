@@ -25,9 +25,15 @@ export default function ArtistAlbums({ albumTracks }) {
     setTrackURI(tracklist);
   };
 
+  const millisToMinutesAndSeconds = (millis) => {
+    var minutes = Math.floor(millis / 60000);
+    var seconds = ((millis % 60000) / 1000).toFixed(0);
+    return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+  };
+
   return (
     <section className="ArtistAlbums">
-      <h1>Albums</h1>
+      <h1 className="AlbumTitle">Albums</h1>
       <div className="Albums">
         {artistAlbums && (
           <div className="AlbumList">
@@ -61,8 +67,9 @@ export default function ArtistAlbums({ albumTracks }) {
                   >
                     {albumTracks[index].map((currAlbum) => {
                       return (
-                        <h4 onClick={() => console.log(currAlbum.uri)}>
-                          {currAlbum.name}
+                        <h4 className="AlbumTrack">
+                          {currAlbum.track_number} - {currAlbum.name} -{" "}
+                          {millisToMinutesAndSeconds(currAlbum.duration_ms)}
                         </h4>
                       );
                     })}
