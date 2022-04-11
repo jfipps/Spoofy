@@ -107,6 +107,9 @@
 
 .NameDiv {
   padding-left: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 /* ArtistAlbums.js */
@@ -158,6 +161,11 @@
   transition: all 2 linear;
 }
 
+.ExpandIcon:hover {
+  cursor: pointer;
+  color: var(--hover-text);
+}
+
 .Rotate {
   transform: rotate(90deg);
 }
@@ -184,7 +192,7 @@
 
 .AlbumTrack:hover {
   cursor: pointer;
-  border-bottom: 1px solid var(--hover-text);
+  color: var(--hover-text);
 }
 
 .TopTrackName {
@@ -203,5 +211,5 @@
 }
 
 .TopTrack:hover h2 {
-  border-bottom: 1px solid var(--hover-text);
+  color: var(--hover-text);
 }

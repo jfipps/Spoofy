@@ -18,7 +18,7 @@ export default function ArtistTopTracks() {
       <div className="Tracks">
         {artistTopTracks.map((track) => {
           return (
-            <article className="TopTrack">
+            <article className="TopTrack" onClick={() => console.log(track)}>
               <img
                 className="AlbumImage"
                 onClick={() => console.log(track)}
