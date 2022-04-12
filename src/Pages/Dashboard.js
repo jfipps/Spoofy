@@ -9,6 +9,7 @@ import Sidebar from "../Components/Sidebar";
 import DashTimePeriod from "../Components/DashTimePeriod";
 import TopArtists from "../Components/TopArtists";
 import TopArtistTable from "../Components/TopArtistTable";
+import PlayerFooter from "../Components/PlayerFooter";
 
 export default function Dashboard({ code }) {
   const {
@@ -51,9 +52,7 @@ export default function Dashboard({ code }) {
               {/* <TopTracks></TopTracks> */}
               <TopArtistTable></TopArtistTable>
             </div>
-            {/* <div className="Player">
-                <Player accessToken={access} />
-              </div> */}
+            <PlayerFooter></PlayerFooter>
           </>
         )}
       </section>
