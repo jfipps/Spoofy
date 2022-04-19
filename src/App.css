@@ -18,6 +18,7 @@ body {
   padding: 0;
   font-family: "Montserrat", sans-serif !important;
   color: white;
+  overflow-y: hidden;
 }
 
 header {
