@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import "../CSS/Dashboard.css";
 import Humbug from "../Resources/Humbug.jpg";
-import Slider from "@material-ui/core/Slider";
+import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
+import Slider from "@mui/material/Slider";
+import VolumeDown from "@mui/icons-material/VolumeDown";
+import VolumeUp from "@mui/icons-material/VolumeUp";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 // icons
 import {
@@ -13,6 +18,14 @@ import {
   BiPause,
 } from "react-icons/bi";
 
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#beb5b3",
+    },
+  },
+});
+
 function PlayerFooter() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [value, setValue] = useState(30);
@@ -23,7 +36,8 @@ function PlayerFooter() {
   };
 
   // Changing State when volume increases/decreases
-  const changeVolume = (newValue) => {
+
+  const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
@@ -58,7 +72,23 @@ function PlayerFooter() {
           <BiRepeat className="PlayerButton" size={28}></BiRepeat>
         </div>
         <div className="PlayerLeft">
-          <Slider value={value} onChange={changeVolume} />
+          <Box sx={{ width: 200 }}>
+            <Stack
+              spacing={2}
+              direction="row"
+              sx={{ mb: 1 }}
+              alignItems="center"
+            >
+              <VolumeDown />
+              <Slider
+                theme={theme}
+                aria-label="Volume"
+                value={value}
+                onChange={handleChange}
+              />
+              <VolumeUp />
+            </Stack>
+          </Box>
         </div>
       </div>
     </>
