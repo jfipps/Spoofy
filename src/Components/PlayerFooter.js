@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { SpoofyContext } from "../context";
 import "../CSS/Dashboard.css";
 import Humbug from "../Resources/Humbug.jpg";
 import Box from "@mui/material/Box";
@@ -27,12 +28,15 @@ const theme = createTheme({
 });
 
 function PlayerFooter() {
+  const { currentTrack } = useContext(SpoofyContext);
+
   const [isPlaying, setIsPlaying] = useState(false);
   const [value, setValue] = useState(30);
 
   const PlayPause = () => {
     setIsPlaying(!isPlaying);
     console.log(isPlaying);
+    console.log(currentTrack);
   };
 
   // Changing State when volume increases/decreases
@@ -46,10 +50,14 @@ function PlayerFooter() {
       <div className="Phantom"></div>
       <div className="Footer">
         <div className="PlayerLeft">
-          <img className="PlayerAlbumImage" src={Humbug} alt="Humbug" />
+          <img
+            className="PlayerAlbumImage"
+            src={currentTrack.album.images[0].url}
+            alt="Album Image"
+          />
           <div className="PlayerInfo">
-            <span>Song Name</span>
-            <span id="player-artist-name">Artist Name</span>
+            <span>{currentTrack.name}</span>
+            <span id="player-artist-name">{currentTrack.artists[0].name}</span>
           </div>
         </div>
         <div className="PlayerCenter">

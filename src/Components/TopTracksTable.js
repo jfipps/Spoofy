@@ -4,7 +4,8 @@ import { SpoofyContext } from "../context";
 import "../CSS/Dashboard.css";
 
 export default function TopTracksTable() {
-  const { topTracks } = useContext(SpoofyContext);
+  const { topTracks, trackURIs, setTrackURIs, PlayTracks } =
+    useContext(SpoofyContext);
 
   const millisToMinutesAndSeconds = (millis) => {
     var minutes = Math.floor(millis / 60000);
@@ -12,7 +13,10 @@ export default function TopTracksTable() {
     return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
   };
 
-  console.log(topTracks);
+  const TrackClick = (track) => {
+    setTrackURIs([...trackURIs, track.name]);
+  };
+
   return (
     <section className="TopTable">
       <table className="Table">
@@ -25,7 +29,7 @@ export default function TopTracksTable() {
         </tr>
         {topTracks.map((track, index) => {
           return (
-            <tr>
+            <tr onClick={() => TrackClick(track)}>
               <td>{index + 1}</td>
               <td>{track.name}</td>
               <td>{track.album.name}</td>

@@ -4,7 +4,7 @@ import useAuth from "../Components/useAuth";
 import { SpoofyContext } from "../context";
 import TopTracks from "../Components/TopTracks";
 import TopTracksTable from "../Components/TopTracksTable";
-import Player from "../Components/Player";
+import PlayerFooter from "../Components/PlayerFooter";
 import "../CSS/Dashboard.css";
 import "../App.css";
 import { Circles } from "react-loader-spinner";
@@ -38,9 +38,7 @@ export default function Tracks({ code }) {
               <TopTracks></TopTracks>
               <TopTracksTable></TopTracksTable>
             </div>
-            <div className="Player">
-              <Player accessToken={access} />
-            </div>
+            <PlayerFooter></PlayerFooter>
           </>
         )}
       </section>

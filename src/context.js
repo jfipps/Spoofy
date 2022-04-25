@@ -48,6 +48,8 @@ const SpoofyProvider = ({ children }) => {
   const [artistTopTracks, setArtistTopTracks] = useState([]);
   const [activePage, setActivePage] = useState("Artists");
   const [recentTracks, setRecentTracks] = useState([]);
+  const [trackURIs, setTrackURIs] = useState([]);
+  const [currentTrack, setCurrentTrack] = useState();
 
   let nav = useNavigate();
 
@@ -245,6 +247,28 @@ const SpoofyProvider = ({ children }) => {
     );
   };
 
+  const PlayTracks = () => {
+    if (!access) {
+      if (LOCALSTORAGE_VALUES.accessToken !== null) {
+        spotifyWebApi.setAccessToken(LOCALSTORAGE_VALUES.accessToken);
+      } else {
+        console.log("No Access");
+        return;
+      }
+    } else {
+      spotifyWebApi.setAccessToken(access);
+    }
+
+    spotifyWebApi.getMyCurrentPlayingTrack().then(
+      function (data) {
+        setCurrentTrack(data.body.item);
+      },
+      function (err) {
+        console.log("Something went wrong!", err);
+      }
+    );
+  };
+
   useEffect(() => {
     showTop();
     showTopTracks();
@@ -258,6 +282,7 @@ const SpoofyProvider = ({ children }) => {
 
   useEffect(() => {
     setDashLoading(true);
+    PlayTracks();
   }, [activePage]);
 
   return (
@@ -310,6 +335,10 @@ const SpoofyProvider = ({ children }) => {
         setActivePage,
         getRecentTracks,
         recentTracks,
+        trackURIs,
+        setTrackURIs,
+        PlayTracks,
+        currentTrack,
       }}
     >
       {children}
