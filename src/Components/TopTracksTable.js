@@ -14,7 +14,7 @@ export default function TopTracksTable() {
   };
 
   const TrackClick = (track) => {
-    setTrackURIs([...trackURIs, track.name]);
+    setTrackURIs(track.uri);
   };
 
   return (

@@ -28,7 +28,7 @@ const theme = createTheme({
 });
 
 function PlayerFooter() {
-  const { currentTrack } = useContext(SpoofyContext);
+  const { currentTrack, trackURIs } = useContext(SpoofyContext);
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [value, setValue] = useState(30);
@@ -44,6 +44,14 @@ function PlayerFooter() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  // Changes button to play on song click
+
+  useEffect(() => {
+    if (trackURIs) {
+      setIsPlaying(true);
+    }
+  }, [trackURIs]);
 
   return (
     <>
