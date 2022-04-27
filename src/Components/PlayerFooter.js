@@ -28,15 +28,14 @@ const theme = createTheme({
 });
 
 function PlayerFooter() {
-  const { currentTrack, trackURIs } = useContext(SpoofyContext);
+  const { currentTrack, trackURIs, playbackState } = useContext(SpoofyContext);
 
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(playbackState.is_playing);
   const [value, setValue] = useState(30);
 
   const PlayPause = () => {
     setIsPlaying(!isPlaying);
-    console.log(isPlaying);
-    console.log(currentTrack);
+    console.log(playbackState);
   };
 
   // Changing State when volume increases/decreases

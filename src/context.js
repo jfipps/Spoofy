@@ -50,6 +50,7 @@ const SpoofyProvider = ({ children }) => {
   const [recentTracks, setRecentTracks] = useState([]);
   const [trackURIs, setTrackURIs] = useState();
   const [currentTrack, setCurrentTrack] = useState();
+  const [playbackState, setPlaybackState] = useState();
 
   let nav = useNavigate();
 
@@ -281,12 +282,28 @@ const SpoofyProvider = ({ children }) => {
       spotifyWebApi.setAccessToken(access);
     }
 
-    spotifyWebApi.play({ context_uri: trackURI }).then(
-      function () {
-        console.log("Playing Track");
+    spotifyWebApi.play({ uris: trackURIs });
+  };
+
+  const GetIsPlaying = () => {
+    if (!access) {
+      if (LOCALSTORAGE_VALUES.accessToken !== null) {
+        spotifyWebApi.setAccessToken(LOCALSTORAGE_VALUES.accessToken);
+      } else {
+        console.log("No Access");
+        return;
+      }
+    } else {
+      spotifyWebApi.setAccessToken(access);
+    }
+    spotifyWebApi.getMyCurrentPlaybackState().then(
+      function (data) {
+        if (data.body) {
+          setPlaybackState(data.body);
+        }
       },
       function (err) {
-        console.log("Something went wrong: ", err);
+        console.log("Something went wrong!", err);
       }
     );
   };
@@ -305,6 +322,7 @@ const SpoofyProvider = ({ children }) => {
   useEffect(() => {
     setDashLoading(true);
     GetCurrentTrack();
+    GetIsPlaying();
   }, [activePage]);
 
   useEffect(() => {
@@ -365,6 +383,8 @@ const SpoofyProvider = ({ children }) => {
         setTrackURIs,
         GetCurrentTrack,
         currentTrack,
+        GetIsPlaying,
+        playbackState,
       }}
     >
       {children}

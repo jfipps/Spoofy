@@ -266,6 +266,10 @@
   width: 100%;
 }
 
+.TrackTable:hover {
+  cursor: pointer;
+}
+
 td,
 th {
   border: 1px solid #dddddd;

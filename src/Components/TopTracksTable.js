@@ -29,7 +29,7 @@ export default function TopTracksTable() {
         </tr>
         {topTracks.map((track, index) => {
           return (
-            <tr onClick={() => TrackClick(track)}>
+            <tr className="TrackTable" onClick={() => TrackClick(track)}>
               <td>{index + 1}</td>
               <td>{track.name}</td>
               <td>{track.album.name}</td>
