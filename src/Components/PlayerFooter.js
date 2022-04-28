@@ -28,14 +28,22 @@ const theme = createTheme({
 });
 
 function PlayerFooter() {
-  const { currentTrack, trackURIs, playbackState } = useContext(SpoofyContext);
+  const {
+    currentTrack,
+    trackURIs,
+    playbackState,
+    PlayPause,
+    SkipSong,
+    PrevSong,
+    SetShuffle,
+  } = useContext(SpoofyContext);
 
   const [isPlaying, setIsPlaying] = useState(playbackState.is_playing);
   const [value, setValue] = useState(30);
 
-  const PlayPause = () => {
+  const SetPlayPause = () => {
     setIsPlaying(!isPlaying);
-    console.log(playbackState);
+    PlayPause(isPlaying);
   };
 
   // Changing State when volume increases/decreases
@@ -68,22 +76,34 @@ function PlayerFooter() {
           </div>
         </div>
         <div className="PlayerCenter">
-          <BiShuffle className="PlayerButton" size={28}></BiShuffle>
-          <BiSkipPrevious className="PlayerButton" size={40}></BiSkipPrevious>
+          <BiShuffle
+            className="PlayerButton"
+            size={28}
+            onClick={() => SetShuffle()}
+          ></BiShuffle>
+          <BiSkipPrevious
+            className="PlayerButton"
+            size={40}
+            onClick={() => PrevSong()}
+          ></BiSkipPrevious>
           {isPlaying ? (
             <BiPause
               className="PlayerButton"
               size={40}
-              onClick={() => PlayPause()}
+              onClick={() => SetPlayPause()}
             ></BiPause>
           ) : (
             <BiPlay
               className="PlayerButton"
               size={40}
-              onClick={() => PlayPause()}
+              onClick={() => SetPlayPause()}
             ></BiPlay>
           )}
-          <BiSkipNext className="PlayerButton" size={40}></BiSkipNext>
+          <BiSkipNext
+            className="PlayerButton"
+            size={40}
+            onClick={() => SkipSong()}
+          ></BiSkipNext>
           <BiRepeat className="PlayerButton" size={28}></BiRepeat>
         </div>
         <div className="PlayerLeft">

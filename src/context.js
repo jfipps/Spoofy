@@ -48,7 +48,7 @@ const SpoofyProvider = ({ children }) => {
   const [artistTopTracks, setArtistTopTracks] = useState([]);
   const [activePage, setActivePage] = useState("Artists");
   const [recentTracks, setRecentTracks] = useState([]);
-  const [trackURIs, setTrackURIs] = useState();
+  const [trackURIs, setTrackURIs] = useState([]);
   const [currentTrack, setCurrentTrack] = useState();
   const [playbackState, setPlaybackState] = useState();
 
@@ -270,7 +270,7 @@ const SpoofyProvider = ({ children }) => {
     );
   };
 
-  const PlayTrack = () => {
+  const PlayTrack = (tracks) => {
     if (!access) {
       if (LOCALSTORAGE_VALUES.accessToken !== null) {
         spotifyWebApi.setAccessToken(LOCALSTORAGE_VALUES.accessToken);
@@ -285,7 +285,7 @@ const SpoofyProvider = ({ children }) => {
     spotifyWebApi.play({ uris: trackURIs });
   };
 
-  const GetIsPlaying = () => {
+  const GetPlaybackState = () => {
     if (!access) {
       if (LOCALSTORAGE_VALUES.accessToken !== null) {
         spotifyWebApi.setAccessToken(LOCALSTORAGE_VALUES.accessToken);
@@ -308,6 +308,69 @@ const SpoofyProvider = ({ children }) => {
     );
   };
 
+  const PlayPause = (isPlaying) => {
+    if (!access) {
+      if (LOCALSTORAGE_VALUES.accessToken !== null) {
+        spotifyWebApi.setAccessToken(LOCALSTORAGE_VALUES.accessToken);
+      } else {
+        console.log("No Access");
+        return;
+      }
+    } else {
+      spotifyWebApi.setAccessToken(access);
+    }
+    if (isPlaying) {
+      spotifyWebApi.pause();
+    } else {
+      spotifyWebApi.play();
+    }
+  };
+
+  const SkipSong = () => {
+    if (!access) {
+      if (LOCALSTORAGE_VALUES.accessToken !== null) {
+        spotifyWebApi.setAccessToken(LOCALSTORAGE_VALUES.accessToken);
+      } else {
+        console.log("No Access");
+        return;
+      }
+    } else {
+      spotifyWebApi.setAccessToken(access);
+    }
+    spotifyWebApi.skipToNext();
+    GetCurrentTrack();
+  };
+
+  const PrevSong = () => {
+    if (!access) {
+      if (LOCALSTORAGE_VALUES.accessToken !== null) {
+        spotifyWebApi.setAccessToken(LOCALSTORAGE_VALUES.accessToken);
+      } else {
+        console.log("No Access");
+        return;
+      }
+    } else {
+      spotifyWebApi.setAccessToken(access);
+    }
+    spotifyWebApi.skipToPrevious();
+    GetCurrentTrack();
+  };
+
+  const SetShuffle = () => {
+    if (!access) {
+      if (LOCALSTORAGE_VALUES.accessToken !== null) {
+        spotifyWebApi.setAccessToken(LOCALSTORAGE_VALUES.accessToken);
+      } else {
+        console.log("No Access");
+        return;
+      }
+    } else {
+      spotifyWebApi.setAccessToken(access);
+    }
+    spotifyWebApi.setShuffle(!playbackState.shuffle_state);
+    GetPlaybackState();
+  };
+
   useEffect(() => {
     showTop();
     showTopTracks();
@@ -322,12 +385,8 @@ const SpoofyProvider = ({ children }) => {
   useEffect(() => {
     setDashLoading(true);
     GetCurrentTrack();
-    GetIsPlaying();
+    GetPlaybackState();
   }, [activePage]);
-
-  useEffect(() => {
-    PlayTrack();
-  }, trackURIs);
 
   return (
     <SpoofyContext.Provider
@@ -383,8 +442,13 @@ const SpoofyProvider = ({ children }) => {
         setTrackURIs,
         GetCurrentTrack,
         currentTrack,
-        GetIsPlaying,
+        GetPlaybackState,
         playbackState,
+        PlayTrack,
+        PlayPause,
+        SkipSong,
+        PrevSong,
+        SetShuffle,
       }}
     >
       {children}

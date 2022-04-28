@@ -4,7 +4,7 @@ import { SpoofyContext } from "../context";
 import "../CSS/Dashboard.css";
 
 export default function TopTracksTable() {
-  const { topTracks, trackURIs, setTrackURIs, PlayTracks } =
+  const { topTracks, trackURIs, setTrackURIs, PlayTrack, playbackState } =
     useContext(SpoofyContext);
 
   const millisToMinutesAndSeconds = (millis) => {
@@ -14,8 +14,14 @@ export default function TopTracksTable() {
   };
 
   const TrackClick = (track) => {
-    setTrackURIs(track.uri);
+    setTrackURIs([...trackURIs, track.uri]);
   };
+
+  useEffect(() => {
+    if (trackURIs.length > 0 && !playbackState.is_playing) {
+      PlayTrack();
+    }
+  }, [trackURIs]);
 
   return (
     <section className="TopTable">
