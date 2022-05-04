@@ -65,15 +65,33 @@ function PlayerFooter() {
       <div className="Phantom"></div>
       <div className="Footer">
         <div className="PlayerLeft">
-          <img
-            className="PlayerAlbumImage"
-            src={currentTrack.album.images[0].url}
-            alt="Album Image"
-          />
-          <div className="PlayerInfo">
-            <span>{currentTrack.name}</span>
-            <span id="player-artist-name">{currentTrack.artists[0].name}</span>
-          </div>
+          {isPlaying ? (
+            <>
+              <img
+                className="PlayerAlbumImage"
+                src={currentTrack.album.images[0].url}
+                alt="Album Image"
+              />
+              <div className="PlayerInfo">
+                <span id="player-track-name">{currentTrack.name}</span>
+                <span id="player-artist-name">
+                  {currentTrack.artists[0].name}
+                </span>
+              </div>
+            </>
+          ) : (
+            <div className="Invis">
+              <img
+                className="PlayerAlbumImage"
+                src={Humbug}
+                alt="Album Image"
+              />
+              <div className="PlayerInfo">
+                <span>Not Playing</span>
+                <span id="player-artist-name">Not Playing</span>
+              </div>
+            </div>
+          )}
         </div>
         <div className="PlayerCenter">
           <BiShuffle
