@@ -5,7 +5,6 @@ import "../CSS/Dashboard.css";
 
 export default function TopArtistTable() {
   const { topArtists } = useContext(SpoofyContext);
-  console.log(topArtists);
   return (
     <section className="TopTable">
       <table className="Table">

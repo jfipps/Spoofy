@@ -24,12 +24,15 @@ export default function Dashboard({ code }) {
     dashLoading,
     setDashLoading,
     setActivePage,
+    GetPlaybackState,
+    GetCurrentTrack,
   } = useContext(SpoofyContext);
 
   setAccess(useAuth(code));
 
   useEffect(() => {
     setActivePage("Artists");
+    GetCurrentTrack();
     setTimeout(() => {
       setDashLoading(false);
     }, 1000);
@@ -49,7 +52,6 @@ export default function Dashboard({ code }) {
             <div className="Body">
               <DashTimePeriod></DashTimePeriod>
               <TopArtists></TopArtists>
-              {/* <TopTracks></TopTracks> */}
               <TopArtistTable></TopArtistTable>
             </div>
             <PlayerFooter></PlayerFooter>

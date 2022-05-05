@@ -18,6 +18,7 @@ import {
   BiRepeat,
   BiPause,
 } from "react-icons/bi";
+import { logDOM } from "@testing-library/react";
 
 const theme = createTheme({
   palette: {
@@ -31,14 +32,13 @@ function PlayerFooter() {
   const {
     currentTrack,
     trackURIs,
-    playbackState,
+    isPlaying,
+    setIsPlaying,
     PlayPause,
     SkipSong,
     PrevSong,
-    SetShuffle,
   } = useContext(SpoofyContext);
 
-  const [isPlaying, setIsPlaying] = useState(playbackState.is_playing);
   const [value, setValue] = useState(30);
 
   const SetPlayPause = () => {
@@ -60,12 +60,14 @@ function PlayerFooter() {
     }
   }, [trackURIs]);
 
+  console.log(currentTrack);
+
   return (
     <>
       <div className="Phantom"></div>
       <div className="Footer">
         <div className="PlayerLeft">
-          {isPlaying ? (
+          {isPlaying && currentTrack ? (
             <>
               <img
                 className="PlayerAlbumImage"
@@ -97,7 +99,7 @@ function PlayerFooter() {
           <BiShuffle
             className="PlayerButton"
             size={28}
-            onClick={() => SetShuffle()}
+            // onClick={() => SetShuffle()}
           ></BiShuffle>
           <BiSkipPrevious
             className="PlayerButton"

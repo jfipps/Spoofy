@@ -50,7 +50,7 @@ const SpoofyProvider = ({ children }) => {
   const [recentTracks, setRecentTracks] = useState([]);
   const [trackURIs, setTrackURIs] = useState([]);
   const [currentTrack, setCurrentTrack] = useState();
-  const [playbackState, setPlaybackState] = useState();
+  const [isPlaying, setIsPlaying] = useState(false);
 
   let nav = useNavigate();
 
@@ -299,7 +299,12 @@ const SpoofyProvider = ({ children }) => {
     spotifyWebApi.getMyCurrentPlaybackState().then(
       function (data) {
         if (data.body) {
-          setPlaybackState(data.body);
+          console.log("Found");
+          console.log(data.body);
+          setIsPlaying(data.body.is_playing);
+        } else {
+          console.log("Not Found");
+          setIsPlaying(false);
         }
       },
       function (err) {
@@ -356,20 +361,20 @@ const SpoofyProvider = ({ children }) => {
     GetCurrentTrack();
   };
 
-  const SetShuffle = () => {
-    if (!access) {
-      if (LOCALSTORAGE_VALUES.accessToken !== null) {
-        spotifyWebApi.setAccessToken(LOCALSTORAGE_VALUES.accessToken);
-      } else {
-        console.log("No Access");
-        return;
-      }
-    } else {
-      spotifyWebApi.setAccessToken(access);
-    }
-    spotifyWebApi.setShuffle(!playbackState.shuffle_state);
-    GetPlaybackState();
-  };
+  // const SetShuffle = () => {
+  //   if (!access) {
+  //     if (LOCALSTORAGE_VALUES.accessToken !== null) {
+  //       spotifyWebApi.setAccessToken(LOCALSTORAGE_VALUES.accessToken);
+  //     } else {
+  //       console.log("No Access");
+  //       return;
+  //     }
+  //   } else {
+  //     spotifyWebApi.setAccessToken(access);
+  //   }
+  //   spotifyWebApi.setShuffle(!playbackState.shuffle_state);
+  //   GetPlaybackState();
+  // };
 
   useEffect(() => {
     showTop();
@@ -443,12 +448,12 @@ const SpoofyProvider = ({ children }) => {
         GetCurrentTrack,
         currentTrack,
         GetPlaybackState,
-        playbackState,
+        isPlaying,
+        setIsPlaying,
         PlayTrack,
         PlayPause,
         SkipSong,
         PrevSong,
-        SetShuffle,
       }}
     >
       {children}
