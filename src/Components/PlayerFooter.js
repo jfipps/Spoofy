@@ -37,6 +37,7 @@ function PlayerFooter() {
     PlayPause,
     SkipSong,
     PrevSong,
+    SetShuffle,
   } = useContext(SpoofyContext);
 
   const [value, setValue] = useState(30);
@@ -59,8 +60,6 @@ function PlayerFooter() {
       setIsPlaying(true);
     }
   }, [trackURIs]);
-
-  console.log(currentTrack);
 
   return (
     <>
@@ -99,7 +98,7 @@ function PlayerFooter() {
           <BiShuffle
             className="PlayerButton"
             size={28}
-            // onClick={() => SetShuffle()}
+            onClick={() => SetShuffle()}
           ></BiShuffle>
           <BiSkipPrevious
             className="PlayerButton"
