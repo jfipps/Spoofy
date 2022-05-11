@@ -38,9 +38,14 @@ function PlayerFooter() {
     SkipSong,
     PrevSong,
     SetShuffle,
+    GetPlaybackState,
   } = useContext(SpoofyContext);
 
   const [value, setValue] = useState(30);
+
+  useEffect(() => {
+    GetPlaybackState();
+  }, []);
 
   const SetPlayPause = () => {
     setIsPlaying(!isPlaying);
@@ -66,7 +71,7 @@ function PlayerFooter() {
       <div className="Phantom"></div>
       <div className="Footer">
         <div className="PlayerLeft">
-          {isPlaying && currentTrack ? (
+          {currentTrack ? (
             <>
               <img
                 className="PlayerAlbumImage"
@@ -123,7 +128,11 @@ function PlayerFooter() {
             size={40}
             onClick={() => SkipSong()}
           ></BiSkipNext>
-          <BiRepeat className="PlayerButton" size={28}></BiRepeat>
+          <BiRepeat
+            className="PlayerButton"
+            size={28}
+            onClick={() => GetPlaybackState()}
+          ></BiRepeat>
         </div>
         <div className="PlayerLeft">
           <Box sx={{ width: 200 }}>
