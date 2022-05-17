@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { SpoofyContext } from "../context";
-import "../CSS/Dashboard.css";
+import "../CSS/Player.css";
 import Humbug from "../Resources/Humbug.jpg";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";

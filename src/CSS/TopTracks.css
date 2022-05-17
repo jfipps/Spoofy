@@ -1,0 +1,83 @@
+/* Variables */
+:root {
+  --spotify-green: #1dbc55;
+  --login-hover: #32cd32;
+  --spotify-black: #191414;
+  --list-header: #ddd9d9;
+  --hover-text: #beb5b3;
+  --player-color: #1c1c1c;
+}
+
+.TopTracks {
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  padding-left: 50px;
+}
+
+.TopTracksTitle {
+  padding-left: 20px;
+}
+
+.TopTracksRow {
+  display: flex;
+  flex-direction: row;
+  overflow: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+  max-width: 95%;
+}
+
+.TopTracksRow::-webkit-scrollbar {
+  display: none;
+}
+
+.TrackCard {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  color: white;
+  background: none;
+  border: none;
+  height: 345px;
+  max-height: 345px;
+}
+
+.TrackCard:hover {
+  border-bottom: 1px solid var(--list-header);
+}
+
+#top-tracks-row {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+#track-name {
+  font-size: 18px;
+  text-align: center;
+  padding-top: 10px;
+}
+
+#track-artist {
+  font-size: 16px;
+  padding-top: 10px;
+}
+
+#album-image {
+  width: 200px;
+  height: 200px;
+}
+
+/* Scroll Buttons */
+.ArrowDiv {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.scrollBtn:hover {
+  cursor: pointer;
+  color: var(--spotify-green);
+}

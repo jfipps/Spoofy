@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect, useContext } from "react";
 import { SpoofyContext } from "../context";
-import "../CSS/Dashboard.css";
+import "../CSS/TopArtistTable.css";
 
 export default function TopArtistTable() {
   const { topArtists } = useContext(SpoofyContext);

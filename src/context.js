@@ -260,11 +260,8 @@ const SpoofyProvider = ({ children }) => {
       spotifyWebApi.setAccessToken(access);
     }
 
-    console.log("Current Track");
-
     spotifyWebApi.getMyCurrentPlayingTrack().then(
       function (data) {
-        console.log(data.body.item);
         setCurrentTrack(data.body.item);
       },
       function (err) {
@@ -392,6 +389,13 @@ const SpoofyProvider = ({ children }) => {
       }
     );
   };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      GetCurrentTrack();
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     showTop();

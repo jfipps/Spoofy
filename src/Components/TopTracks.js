@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { SpoofyContext } from "../context";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
-import "../CSS/Dashboard.css";
+import "../CSS/TopTracks.css";
 
 export default function TopTracks() {
   const {

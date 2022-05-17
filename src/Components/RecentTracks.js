@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect, useContext } from "react";
 import { SpoofyContext } from "../context";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
-import "../CSS/Dashboard.css";
+import "../CSS/RecentTracks.css";
 
 export default function RecentTracks() {
   const {

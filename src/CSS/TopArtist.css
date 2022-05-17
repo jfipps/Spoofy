@@ -1,0 +1,87 @@
+/* Variables */
+:root {
+  --spotify-green: #1dbc55;
+  --login-hover: #32cd32;
+  --spotify-black: #191414;
+  --list-header: #ddd9d9;
+  --hover-text: #beb5b3;
+  --player-color: #1c1c1c;
+}
+
+.TopArtists {
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  padding-left: 50px;
+}
+
+.TopArtistsTitle {
+  padding-left: 20px;
+}
+
+.TopArtistsRow {
+  display: flex;
+  flex-direction: row;
+  overflow: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  max-width: 95%;
+  scroll-behavior: smooth;
+}
+
+.TopArtistsRow::-webkit-scrollbar {
+  display: none;
+}
+
+.ArtistCard {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  color: white;
+  background: none;
+  border: none;
+  height: 345px;
+  max-height: 345px;
+}
+
+.ArtistCard:hover {
+  border-bottom: 1px solid var(--list-header);
+}
+
+#top-artists-row {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+#artist-link {
+  text-decoration: none;
+}
+
+#artist-image {
+  width: 200px;
+  height: 200px;
+}
+
+#artist-name {
+  font-size: 18px;
+  text-align: center;
+  padding-top: 10px;
+}
+
+#artist-followers {
+  font-size: 16px;
+  padding-top: 10px;
+}
+
+/* Scroll Buttons */
+.ArrowDiv {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.scrollBtn:hover {
+  cursor: pointer;
+  color: var(--spotify-green);
+}

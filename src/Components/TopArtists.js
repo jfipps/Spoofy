@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { SpoofyContext } from "../context";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
-import "../CSS/Dashboard.css";
+import "../CSS/TopArtist.css";
 
 export default function TopContent() {
   const {

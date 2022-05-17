@@ -1,0 +1,73 @@
+/* Variables */
+:root {
+  --spotify-green: #1dbc55;
+  --login-hover: #32cd32;
+  --spotify-black: #191414;
+  --list-header: #ddd9d9;
+  --hover-text: #beb5b3;
+  --player-color: #1c1c1c;
+}
+
+.Phantom {
+  padding: 20px;
+  height: 75px;
+  width: 100%;
+}
+
+.Footer {
+  background-color: var(--player-color);
+  font-size: 20px;
+  color: white;
+  text-align: center;
+  position: fixed;
+  padding: 20px;
+  left: 0;
+  bottom: 0;
+  height: 75px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.PlayerLeft {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+}
+
+.PlayerInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
+  font-size: 16px;
+  padding-left: 15px;
+}
+
+#player-artist-name {
+  color: var(--hover-text);
+}
+
+#player-track-name {
+  width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.PlayerAlbumImage {
+  height: 60px;
+  width: 60px;
+}
+
+.PlayerButton:hover {
+  color: var(--spotify-green);
+  cursor: pointer;
+}
+
+.Invis {
+  visibility: hidden;
+}
