@@ -85,9 +85,6 @@ function PlayerFooter() {
                 <span id="player-artist-name">
                   {currentTrack.artists[0].name}
                 </span>
-                <span id="track-duration">
-                  {progressMS}/{trackLength}
-                </span>
               </div>
             </>
           ) : (
@@ -105,6 +102,7 @@ function PlayerFooter() {
           )}
         </div>
         <div className="PlayerCenter">
+          <span id="progress-ms">{progressMS}</span>
           <BiShuffle
             className="PlayerButton"
             size={28}
@@ -138,6 +136,7 @@ function PlayerFooter() {
             size={28}
             onClick={() => GetPlaybackState()}
           ></BiRepeat>
+          <span id="track-length">{trackLength}</span>
         </div>
         <div className="PlayerLeft">
           <Box sx={{ width: 200 }}>

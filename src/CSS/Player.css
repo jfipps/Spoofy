@@ -51,9 +51,18 @@
   color: var(--hover-text);
 }
 
-#track-duration {
+#progress-ms {
   color: var(--hover-text);
   font-size: 12px;
+  margin-right: 20px;
+  min-width: 50px;
+}
+
+#track-length {
+  color: var(--hover-text);
+  font-size: 12px;
+  margin-left: 20px;
+  min-width: 50px;
 }
 
 #player-track-name {
