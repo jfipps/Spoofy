@@ -39,6 +39,8 @@ function PlayerFooter() {
     PrevSong,
     SetShuffle,
     GetPlaybackState,
+    progressMS,
+    trackLength,
   } = useContext(SpoofyContext);
 
   const [value, setValue] = useState(30);
@@ -82,6 +84,9 @@ function PlayerFooter() {
                 <span id="player-track-name">{currentTrack.name}</span>
                 <span id="player-artist-name">
                   {currentTrack.artists[0].name}
+                </span>
+                <span id="track-duration">
+                  {progressMS}/{trackLength}
                 </span>
               </div>
             </>

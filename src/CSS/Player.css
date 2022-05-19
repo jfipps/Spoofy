@@ -51,6 +51,11 @@
   color: var(--hover-text);
 }
 
+#track-duration {
+  color: var(--hover-text);
+  font-size: 12px;
+}
+
 #player-track-name {
   width: 200px;
   white-space: nowrap;

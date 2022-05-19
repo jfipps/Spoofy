@@ -51,6 +51,8 @@ const SpoofyProvider = ({ children }) => {
   const [trackURIs, setTrackURIs] = useState([]);
   const [currentTrack, setCurrentTrack] = useState();
   const [isPlaying, setIsPlaying] = useState(false);
+  const [progressMS, setProgressMS] = useState();
+  const [trackLength, setTrackLength] = useState();
 
   let nav = useNavigate();
 
@@ -79,6 +81,12 @@ const SpoofyProvider = ({ children }) => {
     }
     spotifyWebApi.setAccessToken(access);
   }, [access, activeTab]);
+
+  const MillisToMinutesAndSeconds = (millis) => {
+    var minutes = Math.floor(millis / 60000);
+    var seconds = ((millis % 60000) / 1000).toFixed(0);
+    return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+  };
 
   const showTop = () => {
     if (!access) return;
@@ -262,6 +270,7 @@ const SpoofyProvider = ({ children }) => {
 
     spotifyWebApi.getMyCurrentPlayingTrack().then(
       function (data) {
+        setTrackLength(MillisToMinutesAndSeconds(data.body.item.duration_ms));
         setCurrentTrack(data.body.item);
       },
       function (err) {
@@ -299,7 +308,7 @@ const SpoofyProvider = ({ children }) => {
     spotifyWebApi.getMyCurrentPlaybackState().then(
       function (data) {
         if (data.body) {
-          console.log(data.body);
+          setProgressMS(MillisToMinutesAndSeconds(data.body.progress_ms));
           setIsPlaying(data.body.is_playing);
         } else {
           console.log("Not Found");
@@ -392,7 +401,11 @@ const SpoofyProvider = ({ children }) => {
 
   useEffect(() => {
     const interval = setInterval(() => {
+      if (!access) {
+        setAccess(LOCALSTORAGE_VALUES.accessToken);
+      }
       GetCurrentTrack();
+      GetPlaybackState();
     }, 1000);
     return () => clearInterval(interval);
   }, []);
@@ -477,6 +490,8 @@ const SpoofyProvider = ({ children }) => {
         SkipSong,
         PrevSong,
         SetShuffle,
+        progressMS,
+        trackLength,
       }}
     >
       {children}
