@@ -47,22 +47,30 @@
   padding-left: 15px;
 }
 
+.PlayerCenter {
+  min-width: 270px;
+}
+
 #player-artist-name {
   color: var(--hover-text);
 }
 
 #progress-ms {
   color: var(--hover-text);
+  display: inline-block;
   font-size: 12px;
-  margin-right: 20px;
-  min-width: 50px;
+  padding-right: 10px;
+  padding-left: 10px;
+  width: 60px;
 }
 
 #track-length {
   color: var(--hover-text);
+  display: inline-block;
   font-size: 12px;
-  margin-left: 20px;
-  min-width: 50px;
+  margin-left: 10px;
+  margin-right: 10px;
+  min-width: 60px;
 }
 
 #player-track-name {
@@ -84,4 +92,8 @@
 
 .Invis {
   visibility: hidden;
+}
+
+.On {
+  color: var(--spotify-green);
 }

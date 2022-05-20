@@ -53,6 +53,7 @@ const SpoofyProvider = ({ children }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [progressMS, setProgressMS] = useState();
   const [trackLength, setTrackLength] = useState();
+  const [shuffleState, setShuffleState] = useState();
 
   let nav = useNavigate();
 
@@ -310,6 +311,8 @@ const SpoofyProvider = ({ children }) => {
         if (data.body) {
           setProgressMS(MillisToMinutesAndSeconds(data.body.progress_ms));
           setIsPlaying(data.body.is_playing);
+          setShuffleState(data.body.shuffle_state);
+          console.log(data.body.shuffle_state);
         } else {
           console.log("Not Found");
           setIsPlaying(false);
@@ -368,9 +371,21 @@ const SpoofyProvider = ({ children }) => {
     } else {
       spotifyWebApi.setAccessToken(access);
     }
-    spotifyWebApi.skipToPrevious();
-    await delay(500);
-    GetCurrentTrack();
+    if (progressMS === "0:00") {
+      spotifyWebApi.skipToPrevious();
+      await delay(500);
+      GetCurrentTrack();
+    } else {
+      spotifyWebApi.seek(0).then(
+        function () {
+          console.log("Restarting Song");
+        },
+        function (err) {
+          //if the user making the request is non-premium, a 403 FORBIDDEN response code will be returned
+          console.log("Something went wrong!", err);
+        }
+      );
+    }
   };
 
   const SetShuffle = () => {
@@ -490,6 +505,7 @@ const SpoofyProvider = ({ children }) => {
         SkipSong,
         PrevSong,
         SetShuffle,
+        shuffleState,
         progressMS,
         trackLength,
       }}

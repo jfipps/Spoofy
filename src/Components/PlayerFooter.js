@@ -38,6 +38,7 @@ function PlayerFooter() {
     SkipSong,
     PrevSong,
     SetShuffle,
+    shuffleState,
     GetPlaybackState,
     progressMS,
     trackLength,
@@ -104,7 +105,7 @@ function PlayerFooter() {
         <div className="PlayerCenter">
           <span id="progress-ms">{progressMS}</span>
           <BiShuffle
-            className="PlayerButton"
+            className={shuffleState ? "PlayerButton On" : "PlayerButton"}
             size={28}
             onClick={() => SetShuffle()}
           ></BiShuffle>
