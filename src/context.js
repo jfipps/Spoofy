@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import SpotifyWebApi from "spotify-web-api-node";
 import useAuth from "./Components/useAuth";
 
+//#region LocalStorage
 // map for localStorage keys
 const LOCALSTORAGE_KEYS = {
   accessToken: "accessToken",
@@ -19,6 +20,8 @@ const LOCALSTORAGE_VALUES = {
   timestamp: window.localStorage.getItem(LOCALSTORAGE_KEYS.timestamp),
 };
 
+//#endregion
+
 const SpoofyContext = React.createContext();
 
 const SpoofyProvider = ({ children }) => {
@@ -26,7 +29,13 @@ const SpoofyProvider = ({ children }) => {
     clientId: "fd1fb953c28a42ab9fbe07099618dc50",
   });
 
-  // state variables
+  const MillisToMinutesAndSeconds = (millis) => {
+    var minutes = Math.floor(millis / 60000);
+    var seconds = ((millis % 60000) / 1000).toFixed(0);
+    return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+  };
+
+  //#region StateVariables
   const [loading, setLoading] = useState(true);
   const [dashLoading, setDashLoading] = useState(true);
   const [loggedIn, setLoggedIn] = useState(false);
@@ -54,9 +63,12 @@ const SpoofyProvider = ({ children }) => {
   const [progressMS, setProgressMS] = useState();
   const [trackLength, setTrackLength] = useState();
   const [shuffleState, setShuffleState] = useState();
+  const [repeatState, setRepeatState] = useState();
+  const [volume, setVolume] = useState();
+  //#endregion
 
+  //#region Inits
   let nav = useNavigate();
-
   // checks to see if expiresIn time for API has been reached
   useEffect(() => {
     if (
@@ -80,15 +92,13 @@ const SpoofyProvider = ({ children }) => {
     if (!access) {
       return;
     }
+    console.log("Setting Access Token");
     spotifyWebApi.setAccessToken(access);
   }, [access, activeTab]);
 
-  const MillisToMinutesAndSeconds = (millis) => {
-    var minutes = Math.floor(millis / 60000);
-    var seconds = ((millis % 60000) / 1000).toFixed(0);
-    return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
-  };
+  //#endregion
 
+  //#region ArtistFunctions
   const showTop = () => {
     if (!access) return;
     spotifyWebApi
@@ -99,39 +109,6 @@ const SpoofyProvider = ({ children }) => {
       .catch((err) => {
         console.log("Failure " + err);
       });
-  };
-
-  const showTopTracks = () => {
-    if (!access) {
-      if (LOCALSTORAGE_VALUES.accessToken !== null) {
-        spotifyWebApi.setAccessToken(LOCALSTORAGE_VALUES.accessToken);
-      } else {
-        console.log("No Access");
-        return;
-      }
-    } else {
-      spotifyWebApi.setAccessToken(access);
-    }
-    spotifyWebApi
-      .getMyTopTracks({ time_range: activeTab })
-      .then((data) => {
-        setTopTracks(data.body.items);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  const getCurrentPlayingTrack = () => {
-    if (!access) return;
-    spotifyWebApi.getMyCurrentPlayingTrack().then(
-      function (data) {
-        console.log(data.body.item);
-      },
-      function (err) {
-        console.log("Something went wrong!", err);
-      }
-    );
   };
 
   const getArtistAlbums = (id) => {
@@ -233,6 +210,29 @@ const SpoofyProvider = ({ children }) => {
       }
     );
   };
+  //#endregion
+
+  //#region TrackFunctions
+  const showTopTracks = () => {
+    if (!access) {
+      if (LOCALSTORAGE_VALUES.accessToken !== null) {
+        spotifyWebApi.setAccessToken(LOCALSTORAGE_VALUES.accessToken);
+      } else {
+        console.log("No Access");
+        return;
+      }
+    } else {
+      spotifyWebApi.setAccessToken(access);
+    }
+    spotifyWebApi
+      .getMyTopTracks({ time_range: activeTab })
+      .then((data) => {
+        setTopTracks(data.body.items);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const getRecentTracks = () => {
     if (!access) {
@@ -280,7 +280,11 @@ const SpoofyProvider = ({ children }) => {
     );
   };
 
-  const PlayTrack = (tracks) => {
+  //#endregion
+
+  //#region PlayerFunctions
+
+  const GetUserVolume = () => {
     if (!access) {
       if (LOCALSTORAGE_VALUES.accessToken !== null) {
         spotifyWebApi.setAccessToken(LOCALSTORAGE_VALUES.accessToken);
@@ -292,7 +296,20 @@ const SpoofyProvider = ({ children }) => {
       spotifyWebApi.setAccessToken(access);
     }
 
-    spotifyWebApi.play({ uris: trackURIs });
+    spotifyWebApi.getMyCurrentPlaybackState().then(
+      function (data) {
+        if (data.body) {
+          console.log("Got Volume" + data.body.device.volume_percent);
+          setVolume(data.body.device.volume_percent);
+        } else {
+          console.log("Not Found");
+          setIsPlaying(false);
+        }
+      },
+      function (err) {
+        console.log("Something went wrong!", err);
+      }
+    );
   };
 
   const GetPlaybackState = () => {
@@ -312,7 +329,7 @@ const SpoofyProvider = ({ children }) => {
           setProgressMS(MillisToMinutesAndSeconds(data.body.progress_ms));
           setIsPlaying(data.body.is_playing);
           setShuffleState(data.body.shuffle_state);
-          console.log(data.body.shuffle_state);
+          setRepeatState(data.body.repeat_state);
         } else {
           console.log("Not Found");
           setIsPlaying(false);
@@ -322,6 +339,21 @@ const SpoofyProvider = ({ children }) => {
         console.log("Something went wrong!", err);
       }
     );
+  };
+
+  const PlayTrack = (tracks) => {
+    if (!access) {
+      if (LOCALSTORAGE_VALUES.accessToken !== null) {
+        spotifyWebApi.setAccessToken(LOCALSTORAGE_VALUES.accessToken);
+      } else {
+        console.log("No Access");
+        return;
+      }
+    } else {
+      spotifyWebApi.setAccessToken(access);
+    }
+
+    spotifyWebApi.play({ uris: trackURIs });
   };
 
   const PlayPause = (isPlaying) => {
@@ -354,8 +386,10 @@ const SpoofyProvider = ({ children }) => {
     } else {
       spotifyWebApi.setAccessToken(access);
     }
+    setProgressMS("0:00");
+    await delay(250);
     spotifyWebApi.skipToNext();
-    await delay(500);
+    await delay(250);
     GetCurrentTrack();
   };
 
@@ -376,6 +410,8 @@ const SpoofyProvider = ({ children }) => {
       await delay(500);
       GetCurrentTrack();
     } else {
+      setProgressMS("0:00");
+      await delay(500);
       spotifyWebApi.seek(0).then(
         function () {
           console.log("Restarting Song");
@@ -414,6 +450,81 @@ const SpoofyProvider = ({ children }) => {
     );
   };
 
+  const SetRepeat = () => {
+    if (!access) {
+      if (LOCALSTORAGE_VALUES.accessToken !== null) {
+        spotifyWebApi.setAccessToken(LOCALSTORAGE_VALUES.accessToken);
+      } else {
+        console.log("No Access");
+        return;
+      }
+    } else {
+      spotifyWebApi.setAccessToken(access);
+    }
+
+    switch (repeatState) {
+      case "off": {
+        spotifyWebApi.setRepeat("context").then(
+          function () {
+            console.log("Repeat track.");
+          },
+          function (err) {
+            //if the user making the request is non-premium, a 403 FORBIDDEN response code will be returned
+            console.log("Something went wrong!", err);
+          }
+        );
+      }
+      case "context": {
+        spotifyWebApi.setRepeat("track").then(
+          function () {
+            console.log("Repeat one.");
+          },
+          function (err) {
+            //if the user making the request is non-premium, a 403 FORBIDDEN response code will be returned
+            console.log("Something went wrong!", err);
+          }
+        );
+      }
+      case "track": {
+        spotifyWebApi.setRepeat("off").then(
+          function () {
+            console.log("Repeat off.");
+          },
+          function (err) {
+            //if the user making the request is non-premium, a 403 FORBIDDEN response code will be returned
+            console.log("Something went wrong!", err);
+          }
+        );
+      }
+    }
+  };
+
+  const ChangeVolume = () => {
+    if (!access) {
+      if (LOCALSTORAGE_VALUES.accessToken !== null) {
+        spotifyWebApi.setAccessToken(LOCALSTORAGE_VALUES.accessToken);
+      } else {
+        console.log("No Access");
+        return;
+      }
+    } else {
+      spotifyWebApi.setAccessToken(access);
+    }
+
+    spotifyWebApi.setVolume(volume).then(
+      function () {
+        console.log("Setting volume to " + volume);
+      },
+      function (err) {
+        //if the user making the request is non-premium, a 403 FORBIDDEN response code will be returned
+        console.log("Something went wrong!", err);
+      }
+    );
+  };
+
+  //#endregion
+
+  //#region UseEffects
   useEffect(() => {
     const interval = setInterval(() => {
       if (!access) {
@@ -429,6 +540,7 @@ const SpoofyProvider = ({ children }) => {
     showTop();
     showTopTracks();
     GetCurrentTrack();
+    GetUserVolume();
   }, [access, activeTab]);
 
   useEffect(() => {
@@ -442,6 +554,12 @@ const SpoofyProvider = ({ children }) => {
     GetCurrentTrack();
     GetPlaybackState();
   }, [activePage]);
+
+  useEffect(() => {
+    ChangeVolume(volume);
+  }, [volume]);
+
+  //#endregion
 
   return (
     <SpoofyContext.Provider
@@ -471,7 +589,6 @@ const SpoofyProvider = ({ children }) => {
         setScrollEndRecents,
         trackURI,
         setTrackURI,
-        getCurrentPlayingTrack,
         loggingOut,
         setLoggingOut,
         getArtistAlbums,
@@ -508,6 +625,10 @@ const SpoofyProvider = ({ children }) => {
         shuffleState,
         progressMS,
         trackLength,
+        repeatState,
+        SetRepeat,
+        volume,
+        setVolume,
       }}
     >
       {children}

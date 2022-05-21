@@ -18,6 +18,7 @@ import {
   BiRepeat,
   BiPause,
 } from "react-icons/bi";
+import { MdRepeat, MdRepeatOne, MdShuffle } from "react-icons/md";
 import { logDOM } from "@testing-library/react";
 
 const theme = createTheme({
@@ -39,9 +40,13 @@ function PlayerFooter() {
     PrevSong,
     SetShuffle,
     shuffleState,
+    repeatState,
     GetPlaybackState,
     progressMS,
     trackLength,
+    SetRepeat,
+    volume,
+    setVolume,
   } = useContext(SpoofyContext);
 
   const [value, setValue] = useState(30);
@@ -58,7 +63,7 @@ function PlayerFooter() {
   // Changing State when volume increases/decreases
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    setVolume(newValue);
   };
 
   // Changes button to play on song click
@@ -104,11 +109,11 @@ function PlayerFooter() {
         </div>
         <div className="PlayerCenter">
           <span id="progress-ms">{progressMS}</span>
-          <BiShuffle
+          <MdShuffle
             className={shuffleState ? "PlayerButton On" : "PlayerButton"}
             size={28}
             onClick={() => SetShuffle()}
-          ></BiShuffle>
+          ></MdShuffle>
           <BiSkipPrevious
             className="PlayerButton"
             size={40}
@@ -132,11 +137,31 @@ function PlayerFooter() {
             size={40}
             onClick={() => SkipSong()}
           ></BiSkipNext>
-          <BiRepeat
-            className="PlayerButton"
-            size={28}
-            onClick={() => GetPlaybackState()}
-          ></BiRepeat>
+          {
+            {
+              context: (
+                <MdRepeat
+                  className="PlayerButton On"
+                  size={28}
+                  onClick={() => SetRepeat()}
+                ></MdRepeat>
+              ),
+              track: (
+                <MdRepeatOne
+                  className="PlayerButton On"
+                  size={28}
+                  onClick={() => SetRepeat()}
+                ></MdRepeatOne>
+              ),
+              off: (
+                <MdRepeat
+                  className="PlayerButton"
+                  size={28}
+                  onClick={() => SetRepeat()}
+                ></MdRepeat>
+              ),
+            }[repeatState]
+          }
           <span id="track-length">{trackLength}</span>
         </div>
         <div className="PlayerLeft">
@@ -147,14 +172,14 @@ function PlayerFooter() {
               sx={{ mb: 1 }}
               alignItems="center"
             >
-              <VolumeDown />
+              <VolumeDown onClick={() => setVolume(0)} />
               <Slider
                 theme={theme}
                 aria-label="Volume"
-                value={value}
+                value={volume}
                 onChange={handleChange}
               />
-              <VolumeUp />
+              <VolumeUp onClick={() => setVolume(100)} />
             </Stack>
           </Box>
         </div>
