@@ -4,7 +4,7 @@ import { SpoofyContext } from "../context";
 import { Circles } from "react-loader-spinner";
 import Sidebar from "../Components/Sidebar";
 import DashTimePeriod from "../Components/DashTimePeriod";
-import Player from "../Components/Player";
+import PlayerFooter from "../Components/PlayerFooter";
 import RecentTracks from "../Components/RecentTracks";
 import RecentTracksTable from "../Components/RecentTracksTable";
 import "../CSS/Dashboard.css";
@@ -45,9 +45,7 @@ export default function Recents() {
                 <RecentTracks></RecentTracks>
                 <RecentTracksTable></RecentTracksTable>
               </div>
-              <div className="Player">
-                <Player accessToken={access} />
-              </div>
+              <PlayerFooter></PlayerFooter>
             </>
           )}
         </section>
