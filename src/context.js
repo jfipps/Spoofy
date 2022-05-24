@@ -94,6 +94,8 @@ const SpoofyProvider = ({ children }) => {
     }
     console.log("Setting Access Token");
     spotifyWebApi.setAccessToken(access);
+    console.log("Setting Local");
+    localStorage.setItem(LOCALSTORAGE_KEYS.accessToken, access);
   }, [access, activeTab]);
 
   //#endregion
@@ -299,7 +301,6 @@ const SpoofyProvider = ({ children }) => {
     spotifyWebApi.getMyCurrentPlaybackState().then(
       function (data) {
         if (data.body) {
-          console.log("Got Volume" + data.body.device.volume_percent);
           setVolume(data.body.device.volume_percent);
         } else {
           console.log("Not Found");
@@ -314,13 +315,17 @@ const SpoofyProvider = ({ children }) => {
 
   const GetPlaybackState = () => {
     if (!access) {
-      if (LOCALSTORAGE_VALUES.accessToken !== null) {
+      console.log(localStorage.getItem(LOCALSTORAGE_KEYS.accessToken));
+      if (localStorage.getItem(LOCALSTORAGE_KEYS.accessToken) !== null) {
+        console.log("From Local");
         spotifyWebApi.setAccessToken(LOCALSTORAGE_VALUES.accessToken);
       } else {
         console.log("No Access");
         return;
       }
     } else {
+      console.log("Bark bark");
+      console.log(access);
       spotifyWebApi.setAccessToken(access);
     }
     spotifyWebApi.getMyCurrentPlaybackState().then(
@@ -526,14 +531,18 @@ const SpoofyProvider = ({ children }) => {
 
   //#region UseEffects
   useEffect(() => {
-    const interval = setInterval(() => {
-      if (!access) {
-        setAccess(LOCALSTORAGE_VALUES.accessToken);
-      }
-      GetCurrentTrack();
-      GetPlaybackState();
-    }, 1000);
-    return () => clearInterval(interval);
+    setTimeout(() => {
+      console.log("------Loading------");
+      const interval = setInterval(() => {
+        if (!access) {
+          setAccess(LOCALSTORAGE_VALUES.accessToken);
+        }
+        GetCurrentTrack();
+        GetPlaybackState();
+      }, 1000);
+      return () => clearInterval(interval);
+    }, 500);
+    clearTimeout();
   }, []);
 
   useEffect(() => {
