@@ -94,6 +94,7 @@ const SpoofyProvider = ({ children }) => {
     }
     console.log("Setting Access Token");
     spotifyWebApi.setAccessToken(access);
+    console.log(spotifyWebApi);
     console.log("Setting Local");
     localStorage.setItem(LOCALSTORAGE_KEYS.accessToken, access);
   }, [access, activeTab]);
@@ -315,17 +316,13 @@ const SpoofyProvider = ({ children }) => {
 
   const GetPlaybackState = () => {
     if (!access) {
-      console.log(localStorage.getItem(LOCALSTORAGE_KEYS.accessToken));
       if (localStorage.getItem(LOCALSTORAGE_KEYS.accessToken) !== null) {
-        console.log("From Local");
         spotifyWebApi.setAccessToken(LOCALSTORAGE_VALUES.accessToken);
       } else {
         console.log("No Access");
         return;
       }
     } else {
-      console.log("Bark bark");
-      console.log(access);
       spotifyWebApi.setAccessToken(access);
     }
     spotifyWebApi.getMyCurrentPlaybackState().then(
@@ -530,40 +527,45 @@ const SpoofyProvider = ({ children }) => {
   //#endregion
 
   //#region UseEffects
+  // starts track current position counter
   useEffect(() => {
-    setTimeout(() => {
-      console.log("------Loading------");
-      const interval = setInterval(() => {
-        if (!access) {
-          setAccess(LOCALSTORAGE_VALUES.accessToken);
-        }
-        GetCurrentTrack();
-        GetPlaybackState();
-      }, 1000);
-      return () => clearInterval(interval);
-    }, 500);
-    clearTimeout();
-  }, []);
+    const interval = setInterval(() => {
+      if (!access) {
+        setAccess(LOCALSTORAGE_VALUES.accessToken);
+      }
+      GetCurrentTrack();
+      GetPlaybackState();
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [access, activeTab]);
 
+  // grabs current track and volume for player information
   useEffect(() => {
-    showTop();
-    showTopTracks();
     GetCurrentTrack();
     GetUserVolume();
   }, [access, activeTab]);
 
+  // grabs top artist or top tracks on init load of page
+  useEffect(() => {
+    showTop();
+    showTopTracks();
+  }, [access, activeTab]);
+
+  // grabs artist information on artist card click
   useEffect(() => {
     getArtist(artistID);
     getArtistAlbums(artistID);
     getArtistTopTracks(artistID);
   }, [artistID]);
 
+  // init load for page navigation
   useEffect(() => {
     setDashLoading(true);
     GetCurrentTrack();
     GetPlaybackState();
   }, [activePage]);
 
+  // changes volume
   useEffect(() => {
     ChangeVolume(volume);
   }, [volume]);
