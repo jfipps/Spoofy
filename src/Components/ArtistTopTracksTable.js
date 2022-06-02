@@ -1,11 +1,9 @@
 import React from "react";
 import { useState, useEffect, useContext } from "react";
 import { SpoofyContext } from "../context";
-import "../CSS/Dashboard.css";
 
-export default function TopTracksTable() {
-  const { topTracks, trackURIs, setTrackURIs, PlayTrack, playbackState } =
-    useContext(SpoofyContext);
+function ArtistTopTracksTable() {
+  const { artistTopTracks } = useContext(SpoofyContext);
 
   const millisToMinutesAndSeconds = (millis) => {
     var minutes = Math.floor(millis / 60000);
@@ -14,22 +12,20 @@ export default function TopTracksTable() {
   };
 
   return (
-    <section className="TopTable">
+    <section className="TopTracksTable">
       <table className="Table">
         <tr>
           <th>Rank</th>
           <th>Track</th>
           <th>Album</th>
-          <th>Artist</th>
           <th>Duration</th>
         </tr>
-        {topTracks.map((track, index) => {
+        {artistTopTracks.map((track, index) => {
           return (
             <tr className="TrackTable">
               <td>{index + 1}</td>
               <td>{track.name}</td>
               <td>{track.album.name}</td>
-              <td>{track.artists[0].name}</td>
               <td>{millisToMinutesAndSeconds(track.duration_ms)}</td>
             </tr>
           );
@@ -38,3 +34,5 @@ export default function TopTracksTable() {
     </section>
   );
 }
+
+export default ArtistTopTracksTable;

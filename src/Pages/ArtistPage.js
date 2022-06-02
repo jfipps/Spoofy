@@ -5,10 +5,11 @@ import { useSearchParams } from "react-router-dom";
 import { Circles } from "react-loader-spinner";
 import "../CSS/Artist.css";
 import Sidebar from "../Components/Sidebar";
-import Player from "../Components/Player";
+import PlayerFooter from "../Components/PlayerFooter";
 import ArtistHeader from "../Components/ArtistHeader";
 import ArtistAlbums from "../Components/ArtistAlbums";
 import ArtistTopTracks from "../Components/ArtistTopTracks";
+import ArtistTopTracksTable from "../Components/ArtistTopTracksTable";
 
 export default function ArtistPage() {
   const {
@@ -57,13 +58,11 @@ export default function ArtistPage() {
               <ArtistHeader></ArtistHeader>
               <div className="Content">
                 <ArtistAlbums albumTracks={albumTracks}></ArtistAlbums>
-                <ArtistTopTracks></ArtistTopTracks>
+                <ArtistTopTracksTable></ArtistTopTracksTable>
               </div>
+              <PlayerFooter></PlayerFooter>
             </div>
           )}
-          <div className="Player">
-            <Player accessToken={access}></Player>
-          </div>
         </section>
       </section>
     </>
