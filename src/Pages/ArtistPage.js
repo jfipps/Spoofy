@@ -57,8 +57,8 @@ export default function ArtistPage() {
             <div>
               <ArtistHeader></ArtistHeader>
               <div className="Content">
-                <ArtistAlbums albumTracks={albumTracks}></ArtistAlbums>
                 <ArtistTopTracksTable></ArtistTopTracksTable>
+                <ArtistAlbums albumTracks={albumTracks}></ArtistAlbums>
               </div>
               <PlayerFooter></PlayerFooter>
             </div>

@@ -213,3 +213,15 @@
 .TopTrack:hover h2 {
   color: var(--hover-text);
 }
+
+/* ArtistAlbums */
+.AlbumCell {
+  display: flex;
+  flex-direction: row;
+}
+
+/* tr,
+td,
+th {
+  border: 0;
+} */

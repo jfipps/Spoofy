@@ -3,6 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import { SpoofyContext } from "../context";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import "../CSS/Artist.css";
+import { Album } from "@mui/icons-material";
 
 export default function ArtistAlbums({ albumTracks }) {
   const { artistAlbums, getAlbumTracks, loading, setLoading, setTrackURI } =
@@ -31,56 +32,49 @@ export default function ArtistAlbums({ albumTracks }) {
     return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
   };
 
+  console.log(artistAlbums);
+
   return (
     <section className="ArtistAlbums">
       <h1 className="AlbumTitle">Albums</h1>
       <div className="Albums">
-        {artistAlbums && (
-          <div className="AlbumList">
-            {artistAlbums.map((album, index) => {
+        <table className="Table">
+          {artistAlbums.map((album, index) => {
+            if (album.album_group === "album") {
               return (
-                <article key={index}>
-                  <div className="AlbumHeader">
-                    <img
-                      onClick={() => addAlbumToPlayer(albumTracks[index])}
-                      className="AlbumImage"
-                      src={album.images[0].url}
-                      alt={album.name}
-                    />
-                    <div className="Divider">
-                      <h2>{album.name}</h2>
-                      <MdKeyboardArrowRight
-                        size={30}
-                        className={
-                          activeItem === index
-                            ? "ExpandIcon Rotate"
-                            : "ExpandIcon"
-                        }
-                        onClick={() => handleRotate(index)}
-                      />
-                    </div>
-                  </div>
+                <>
+                  <tr className="AlbumTable">
+                    <td className="AlbumCell">
+                      <img src={album.images[2].url} alt={album.name} />
+                      <div>
+                        <h3>{album.name}</h3>
+                        <h5>{album.release_date.split("-")[0]}</h5>
+                      </div>
+                    </td>
+                  </tr>
                   <div
-                    className={
-                      activeItem === index ? "SongListShown" : "SongListHidden"
-                    }
+                  // className={
+                  //   activeItem === index ? "SongListShown" : "SongListHidden"
+                  // }
                   >
-                    {albumTracks[index].map((currAlbum) => {
+                    {albumTracks[index].map((currTrack) => {
                       return (
-                        <h4 className="AlbumTrack">
-                          {currAlbum.track_number} - {currAlbum.name} -{" "}
-                          {millisToMinutesAndSeconds(currAlbum.duration_ms)}
-                        </h4>
+                        <tr>
+                          <td>{currTrack.track_number}</td>
+                          <td>{currTrack.name}</td>
+                          <td>
+                            {millisToMinutesAndSeconds(currTrack.duration_ms)}
+                          </td>
+                        </tr>
                       );
                     })}
                   </div>
-                </article>
+                </>
               );
-            })}
-          </div>
-        )}
+            }
+          })}
+        </table>
       </div>
-      )
     </section>
   );
 }
