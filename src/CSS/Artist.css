@@ -102,7 +102,7 @@
 }
 
 .ImageDiv {
-  padding-left: 50px;
+  padding-left: 15px;
 }
 
 .NameDiv {
@@ -177,6 +177,7 @@
 .SongListShown {
   display: flex;
   flex-direction: column;
+  border-top: 1px solid var(--hover-text);
 }
 
 .Loader {
@@ -215,13 +216,54 @@
 }
 
 /* ArtistAlbums */
+
+.Albums {
+  padding-left: 15px;
+}
+
+.AlbumsHeader {
+  padding-left: 15px;
+  font-weight: bold;
+}
+
 .AlbumCell {
   display: flex;
   flex-direction: row;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
-/* tr,
+.AlbumCell:hover {
+  cursor: pointer;
+  color: var(--hover-text);
+}
+
+.AlbumInfo {
+  margin-left: 20px;
+}
+
+.ArrowSelect {
+  margin-left: 30px;
+}
+
+.Rotate {
+  animation: 0.5;
+  transform: (90deg);
+}
+
+tr,
 td,
 th {
   border: 0;
-} */
+}
+
+/* ArtistTopTracksTable */
+.TopTracksTable {
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 15px;
+}
+
+.ArtistTracksHeader {
+  font-weight: bold;
+}

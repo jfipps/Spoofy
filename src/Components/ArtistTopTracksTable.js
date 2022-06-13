@@ -13,6 +13,7 @@ function ArtistTopTracksTable() {
 
   return (
     <section className="TopTracksTable">
+      <h1 className="ArtistTracksHeader">Top Tracks</h1>
       <table className="Table">
         <tr>
           <th>Rank</th>
