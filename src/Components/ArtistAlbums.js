@@ -3,11 +3,16 @@ import { useState, useEffect, useContext } from "react";
 import { SpoofyContext } from "../context";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import "../CSS/Artist.css";
-import { Album } from "@mui/icons-material";
 
 export default function ArtistAlbums({ albumTracks }) {
-  const { artistAlbums, getAlbumTracks, loading, setLoading, setTrackURI } =
-    useContext(SpoofyContext);
+  const {
+    artistAlbums,
+    getAlbumTracks,
+    loading,
+    setLoading,
+    setTrackURI,
+    AddToQueue,
+  } = useContext(SpoofyContext);
   const [activeItem, setActiveItem] = useState();
 
   const handleRotate = (index) => {
@@ -32,7 +37,11 @@ export default function ArtistAlbums({ albumTracks }) {
     return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
   };
 
-  console.log(albumTracks);
+  const QueueAdd = (uri) => {
+    AddToQueue(uri);
+  };
+
+  // console.log(albumTracks);
 
   return (
     <section className="ArtistAlbums">
@@ -81,7 +90,10 @@ export default function ArtistAlbums({ albumTracks }) {
                       </tr>
                       {albumTracks[index].map((currTrack) => {
                         return (
-                          <tr className="TrackRow">
+                          <tr
+                            className="TrackRow"
+                            onClick={() => QueueAdd(currTrack.uri)}
+                          >
                             <td>{currTrack.track_number}</td>
                             <td>{currTrack.name}</td>
                             <td>

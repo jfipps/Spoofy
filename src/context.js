@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import SpotifyWebApi from "spotify-web-api-node";
 import useAuth from "./Components/useAuth";
+import { ToastContainer, toast } from "react-toastify";
 
 //#region LocalStorage
 // map for localStorage keys
@@ -524,6 +525,28 @@ const SpoofyProvider = ({ children }) => {
     );
   };
 
+  const AddToQueue = (uri) => {
+    if (!access) {
+      if (LOCALSTORAGE_VALUES.accessToken !== null) {
+        spotifyWebApi.setAccessToken(LOCALSTORAGE_VALUES.accessToken);
+      } else {
+        console.log("No Access");
+        return;
+      }
+    } else {
+      spotifyWebApi.setAccessToken(access);
+    }
+
+    spotifyWebApi.addToQueue(uri).then(
+      function () {
+        console.log("Added to queue");
+      },
+      function (err) {
+        console.log("Something went wrong!", err);
+      }
+    );
+  };
+
   //#endregion
 
   //#region UseEffects
@@ -640,6 +663,7 @@ const SpoofyProvider = ({ children }) => {
         SetRepeat,
         volume,
         setVolume,
+        AddToQueue,
       }}
     >
       {children}

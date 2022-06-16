@@ -1,8 +1,10 @@
 import React from "react";
 import { useState, useEffect, useContext } from "react";
 import { SpoofyContext } from "../context";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-function ArtistTopTracksTable() {
+function ArtistTopTracksTable({ toast }) {
   const { artistTopTracks } = useContext(SpoofyContext);
 
   const millisToMinutesAndSeconds = (millis) => {
@@ -23,7 +25,7 @@ function ArtistTopTracksTable() {
         </tr>
         {artistTopTracks.map((track, index) => {
           return (
-            <tr className="TrackTable">
+            <tr className="TrackTable" onClick={() => toast(track.name)}>
               <td>{index + 1}</td>
               <td>{track.name}</td>
               <td>{track.album.name}</td>

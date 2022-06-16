@@ -11,7 +11,6 @@ export default function ArtistHeader() {
       <div className="ImageDiv">
         {artist && (
           <img
-            onClick={() => getArtistTopTracks(artist.id)}
             className="ArtistImage"
             src={artist.images[0].url}
             alt={artist.name}

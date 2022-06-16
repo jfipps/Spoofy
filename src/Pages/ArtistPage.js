@@ -3,12 +3,13 @@ import { useState, useEffect, useContext } from "react";
 import { SpoofyContext } from "../context";
 import { useSearchParams } from "react-router-dom";
 import { Circles } from "react-loader-spinner";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "../CSS/Artist.css";
 import Sidebar from "../Components/Sidebar";
 import PlayerFooter from "../Components/PlayerFooter";
 import ArtistHeader from "../Components/ArtistHeader";
 import ArtistAlbums from "../Components/ArtistAlbums";
-import ArtistTopTracks from "../Components/ArtistTopTracks";
 import ArtistTopTracksTable from "../Components/ArtistTopTracksTable";
 
 export default function ArtistPage() {
@@ -44,6 +45,10 @@ export default function ArtistPage() {
     clearTimeout();
   }, [artistAlbums]);
 
+  const showToast = (trackName) => {
+    toast('"' + trackName + '"' + " added to queue");
+  };
+
   return (
     <>
       <section className="ArtistPage">
@@ -57,9 +62,20 @@ export default function ArtistPage() {
             <div>
               <ArtistHeader></ArtistHeader>
               <div className="Content">
-                <ArtistTopTracksTable></ArtistTopTracksTable>
+                <ArtistTopTracksTable toast={showToast}></ArtistTopTracksTable>
                 <ArtistAlbums albumTracks={albumTracks}></ArtistAlbums>
               </div>
+              <ToastContainer
+                position="top-center"
+                autoClose={1500}
+                hideProgressBar={true}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+              />
               <PlayerFooter></PlayerFooter>
             </div>
           )}

@@ -251,6 +251,11 @@
   transform: (90deg);
 }
 
+.TrackRow:hover {
+  cursor: pointer;
+  color: var(--hover-text);
+}
+
 tr,
 td,
 th {
