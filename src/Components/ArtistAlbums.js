@@ -2,9 +2,10 @@ import React from "react";
 import { useState, useEffect, useContext } from "react";
 import { SpoofyContext } from "../context";
 import { MdKeyboardArrowRight } from "react-icons/md";
+import { BiAddToQueue } from "react-icons/bi";
 import "../CSS/Artist.css";
 
-export default function ArtistAlbums({ albumTracks }) {
+export default function ArtistAlbums({ albumTracks, toast }) {
   const {
     artistAlbums,
     getAlbumTracks,
@@ -37,7 +38,8 @@ export default function ArtistAlbums({ albumTracks }) {
     return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
   };
 
-  const QueueAdd = (uri) => {
+  const QueueAdd = (uri, trackName) => {
+    toast(trackName);
     AddToQueue(uri);
   };
 
@@ -90,14 +92,35 @@ export default function ArtistAlbums({ albumTracks }) {
                       </tr>
                       {albumTracks[index].map((currTrack) => {
                         return (
-                          <tr
-                            className="TrackRow"
-                            onClick={() => QueueAdd(currTrack.uri)}
-                          >
-                            <td>{currTrack.track_number}</td>
-                            <td>{currTrack.name}</td>
-                            <td>
+                          <tr className="TrackRow">
+                            <td
+                              onClick={() =>
+                                QueueAdd(currTrack.uri, currTrack.name)
+                              }
+                            >
+                              {currTrack.track_number}
+                            </td>
+                            <td
+                              onClick={() =>
+                                QueueAdd(currTrack.uri, currTrack.name)
+                              }
+                            >
+                              {currTrack.name}
+                            </td>
+                            <td
+                              onClick={() =>
+                                QueueAdd(currTrack.uri, currTrack.name)
+                              }
+                            >
                               {millisToMinutesAndSeconds(currTrack.duration_ms)}
+                            </td>
+                            <td
+                              className="AddQueue"
+                              onClick={() =>
+                                AddToQueue(currTrack.uri, currTrack.name)
+                              }
+                            >
+                              <BiAddToQueue></BiAddToQueue>
                             </td>
                           </tr>
                         );

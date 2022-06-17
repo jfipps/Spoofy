@@ -256,6 +256,10 @@
   color: var(--hover-text);
 }
 
+.AddQueue:hover {
+  color: var(--spotify-green);
+}
+
 tr,
 td,
 th {
@@ -267,6 +271,10 @@ th {
   padding-left: 15px;
   padding-right: 15px;
   padding-bottom: 15px;
+}
+
+.TrackTable:hover {
+  color: var(--hover-text);
 }
 
 .ArtistTracksHeader {

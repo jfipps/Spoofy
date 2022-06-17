@@ -63,7 +63,10 @@ export default function ArtistPage() {
               <ArtistHeader></ArtistHeader>
               <div className="Content">
                 <ArtistTopTracksTable toast={showToast}></ArtistTopTracksTable>
-                <ArtistAlbums albumTracks={albumTracks}></ArtistAlbums>
+                <ArtistAlbums
+                  albumTracks={albumTracks}
+                  toast={showToast}
+                ></ArtistAlbums>
               </div>
               <ToastContainer
                 position="top-center"
