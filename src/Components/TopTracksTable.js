@@ -1,16 +1,28 @@
 import React from "react";
 import { useState, useEffect, useContext } from "react";
 import { SpoofyContext } from "../context";
+import { BiAddToQueue } from "react-icons/bi";
 import "../CSS/Dashboard.css";
 
-export default function TopTracksTable() {
-  const { topTracks, trackURIs, setTrackURIs, PlayTrack, playbackState } =
-    useContext(SpoofyContext);
+export default function TopTracksTable({ toast }) {
+  const {
+    topTracks,
+    trackURIs,
+    setTrackURIs,
+    PlayTrack,
+    playbackState,
+    AddToQueue,
+  } = useContext(SpoofyContext);
 
   const millisToMinutesAndSeconds = (millis) => {
     var minutes = Math.floor(millis / 60000);
     var seconds = ((millis % 60000) / 1000).toFixed(0);
     return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+  };
+
+  const QueueAdd = (uri, trackName) => {
+    toast(trackName);
+    AddToQueue(uri);
   };
 
   return (
@@ -31,6 +43,12 @@ export default function TopTracksTable() {
               <td>{track.album.name}</td>
               <td>{track.artists[0].name}</td>
               <td>{millisToMinutesAndSeconds(track.duration_ms)}</td>
+              <td
+                className="AddQueue"
+                onClick={() => AddToQueue(track.uri, track.name)}
+              >
+                <BiAddToQueue></BiAddToQueue>
+              </td>
             </tr>
           );
         })}

@@ -6,7 +6,7 @@ import { BiAddToQueue } from "react-icons/bi";
 import "react-toastify/dist/ReactToastify.css";
 
 function ArtistTopTracksTable({ toast }) {
-  const { artistTopTracks, AddToQueue } = useContext(SpoofyContext);
+  const { artistTopTracks, AddToQueue, SkipSong } = useContext(SpoofyContext);
 
   const millisToMinutesAndSeconds = (millis) => {
     var minutes = Math.floor(millis / 60000);
@@ -14,7 +14,12 @@ function ArtistTopTracksTable({ toast }) {
     return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
   };
 
-  const QueueAdd = (uri, trackName) => {
+  const PlaySong = (uri) => {
+    AddToQueue(uri);
+    SkipSong();
+  };
+
+  const QueueAdd = (uri, trackName, event) => {
     toast(trackName);
     AddToQueue(uri);
   };
@@ -31,22 +36,14 @@ function ArtistTopTracksTable({ toast }) {
         </tr>
         {artistTopTracks.map((track, index) => {
           return (
-            <tr className="TrackTable">
-              <td onClick={() => QueueAdd(track.uri, track.name)}>
-                {index + 1}
-              </td>
-              <td onClick={() => QueueAdd(track.uri, track.name)}>
-                {track.name}
-              </td>
-              <td onClick={() => QueueAdd(track.uri, track.name)}>
-                {track.album.name}
-              </td>
-              <td onClick={() => QueueAdd(track.uri, track.name)}>
-                {millisToMinutesAndSeconds(track.duration_ms)}
-              </td>
+            <tr className="TrackTable" onClick={() => PlaySong(track.uri)}>
+              <td>{index + 1}</td>
+              <td>{track.name}</td>
+              <td>{track.album.name}</td>
+              <td>{millisToMinutesAndSeconds(track.duration_ms)}</td>
               <td
                 className="AddQueue"
-                onClick={() => AddToQueue(track.uri, track.name)}
+                onClick={() => QueueAdd(track.uri, track.name)}
               >
                 <BiAddToQueue></BiAddToQueue>
               </td>

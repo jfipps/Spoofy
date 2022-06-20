@@ -356,7 +356,7 @@ const SpoofyProvider = ({ children }) => {
       spotifyWebApi.setAccessToken(access);
     }
 
-    spotifyWebApi.play({ uris: trackURIs });
+    spotifyWebApi.play({ uris: tracks });
   };
 
   const PlayPause = (isPlaying) => {

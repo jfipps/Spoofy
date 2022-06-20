@@ -8,6 +8,8 @@ import PlayerFooter from "../Components/PlayerFooter";
 import "../CSS/Dashboard.css";
 import "../App.css";
 import { Circles } from "react-loader-spinner";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Sidebar from "../Components/Sidebar";
 import DashTimePeriod from "../Components/DashTimePeriod";
 export default function Tracks({ code }) {
@@ -23,6 +25,10 @@ export default function Tracks({ code }) {
     clearTimeout();
   }, []);
 
+  const showToast = (trackName) => {
+    toast('"' + trackName + '"' + " added to queue");
+  };
+
   return (
     <section className="DashPage">
       <Sidebar></Sidebar>
@@ -35,9 +41,20 @@ export default function Tracks({ code }) {
           <>
             <div className="Body">
               <DashTimePeriod></DashTimePeriod>
-              <TopTracks></TopTracks>
-              <TopTracksTable></TopTracksTable>
+              <TopTracks toast={showToast}></TopTracks>
+              <TopTracksTable toast={showToast}></TopTracksTable>
             </div>
+            <ToastContainer
+              position="top-center"
+              autoClose={1500}
+              hideProgressBar={true}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+            />
             <PlayerFooter></PlayerFooter>
           </>
         )}
