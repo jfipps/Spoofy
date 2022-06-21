@@ -20,6 +20,7 @@ function ArtistTopTracksTable({ toast }) {
   };
 
   const QueueAdd = (uri, trackName, event) => {
+    event.stopPropagation();
     toast(trackName);
     AddToQueue(uri);
   };
@@ -43,7 +44,7 @@ function ArtistTopTracksTable({ toast }) {
               <td>{millisToMinutesAndSeconds(track.duration_ms)}</td>
               <td
                 className="AddQueue"
-                onClick={() => QueueAdd(track.uri, track.name)}
+                onClick={(event) => QueueAdd(track.uri, track.name, event)}
               >
                 <BiAddToQueue></BiAddToQueue>
               </td>

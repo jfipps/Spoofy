@@ -2,6 +2,8 @@ import React from "react";
 import { useEffect, useContext } from "react";
 import { SpoofyContext } from "../context";
 import { Circles } from "react-loader-spinner";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Sidebar from "../Components/Sidebar";
 import DashTimePeriod from "../Components/DashTimePeriod";
 import PlayerFooter from "../Components/PlayerFooter";
@@ -28,7 +30,9 @@ export default function Recents() {
     clearTimeout();
   }, []);
 
-  console.log(recentTracks);
+  const showToast = (trackName) => {
+    toast('"' + trackName + '"' + " added to queue");
+  };
 
   return (
     <>
@@ -43,8 +47,19 @@ export default function Recents() {
             <>
               <div className="Body">
                 <RecentTracks></RecentTracks>
-                <RecentTracksTable></RecentTracksTable>
+                <RecentTracksTable toast={showToast}></RecentTracksTable>
               </div>
+              <ToastContainer
+                position="top-center"
+                autoClose={1500}
+                hideProgressBar={true}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+              />
               <PlayerFooter></PlayerFooter>
             </>
           )}

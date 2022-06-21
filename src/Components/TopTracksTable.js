@@ -12,6 +12,7 @@ export default function TopTracksTable({ toast }) {
     PlayTrack,
     playbackState,
     AddToQueue,
+    SkipSong,
   } = useContext(SpoofyContext);
 
   const millisToMinutesAndSeconds = (millis) => {
@@ -20,7 +21,13 @@ export default function TopTracksTable({ toast }) {
     return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
   };
 
-  const QueueAdd = (uri, trackName) => {
+  const PlaySong = (uri) => {
+    AddToQueue(uri);
+    SkipSong();
+  };
+
+  const QueueAdd = (uri, trackName, event) => {
+    event.stopPropation();
     toast(trackName);
     AddToQueue(uri);
   };
@@ -37,7 +44,7 @@ export default function TopTracksTable({ toast }) {
         </tr>
         {topTracks.map((track, index) => {
           return (
-            <tr className="TrackTable">
+            <tr className="TrackTable" onClick={() => PlaySong(track.uri)}>
               <td>{index + 1}</td>
               <td>{track.name}</td>
               <td>{track.album.name}</td>
@@ -45,7 +52,7 @@ export default function TopTracksTable({ toast }) {
               <td>{millisToMinutesAndSeconds(track.duration_ms)}</td>
               <td
                 className="AddQueue"
-                onClick={() => AddToQueue(track.uri, track.name)}
+                onClick={(event) => QueueAdd(track.uri, track.name, event)}
               >
                 <BiAddToQueue></BiAddToQueue>
               </td>

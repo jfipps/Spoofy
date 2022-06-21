@@ -41,7 +41,7 @@ export default function Tracks({ code }) {
           <>
             <div className="Body">
               <DashTimePeriod></DashTimePeriod>
-              <TopTracks toast={showToast}></TopTracks>
+              <TopTracks></TopTracks>
               <TopTracksTable toast={showToast}></TopTracksTable>
             </div>
             <ToastContainer

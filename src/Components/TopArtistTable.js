@@ -4,7 +4,7 @@ import { SpoofyContext } from "../context";
 import "../CSS/TopArtistTable.css";
 
 export default function TopArtistTable() {
-  const { topArtists } = useContext(SpoofyContext);
+  const { topArtists, SkipSong, AddToQueue } = useContext(SpoofyContext);
   return (
     <section className="TopTable">
       <table className="Table">

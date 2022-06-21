@@ -11,6 +11,8 @@ export default function RecentTracks() {
     setScrollXRecents,
     scrollEndRecents,
     setScrollEndRecents,
+    SkipSong,
+    AddToQueue,
   } = useContext(SpoofyContext);
 
   const [initRend, setInitRend] = useState(false);
@@ -30,6 +32,11 @@ export default function RecentTracks() {
     scrollRow.scroll(scrollXRecents, 0);
   }, [scrollXRecents]);
 
+  const PlaySong = (uri) => {
+    AddToQueue(uri);
+    SkipSong();
+  };
+
   return (
     <section className="RecentTracks">
       <h1 className="RecentTracksTitle">Recent Tracks</h1>
@@ -41,17 +48,20 @@ export default function RecentTracks() {
         ></MdKeyboardArrowLeft>
         <ul id="recent-tracks-row" className="RecentTracksRow">
           {/* Creates cards for Top Artists */}
-          {recentTracks.map((item, index) => {
+          {recentTracks.map((track, index) => {
             return (
               <li key={index}>
-                <button className="TrackCard">
+                <button
+                  className="TrackCard"
+                  onClick={() => PlaySong(track.track.uri)}
+                >
                   <img
                     id="album-image"
-                    src={item.track.album.images[0].url}
-                    alt={item.track.name}
+                    src={track.track.album.images[0].url}
+                    alt={track.track.name}
                   />
-                  <h2 id="track-name">{item.track.name}</h2>
-                  <h3 id="track-artist">{item.track.artists[0].name}</h3>
+                  <h2 id="track-name">{track.track.name}</h2>
+                  <h3 id="track-artist">{track.track.artists[0].name}</h3>
                 </button>
               </li>
             );

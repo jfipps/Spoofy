@@ -12,10 +12,17 @@ export default function TopTracks() {
     setScrollEndTracks,
     trackURI,
     setTrackURI,
+    SkipSong,
+    AddToQueue,
   } = useContext(SpoofyContext);
 
   const [initRend, setInitRend] = useState(false);
   const scrollRow = document.getElementById("top-tracks-row");
+
+  const PlaySong = (uri) => {
+    AddToQueue(uri);
+    SkipSong();
+  };
 
   useEffect(() => {
     if (!initRend) {
@@ -42,20 +49,20 @@ export default function TopTracks() {
         ></MdKeyboardArrowLeft>
         <ul id="top-tracks-row" className="TopTracksRow">
           {/* Creates cards for Top Tracks */}
-          {topTracks.map((item, index) => {
+          {topTracks.map((track, index) => {
             return (
               <li key={index}>
                 <button
                   className="TrackCard"
-                  onClick={() => setTrackURI(item.uri)}
+                  onClick={() => PlaySong(track.uri)}
                 >
                   <img
                     id="album-image"
-                    src={item.album.images[0].url}
-                    alt={item.album.name}
+                    src={track.album.images[0].url}
+                    alt={track.album.name}
                   />
-                  <h2 id="track-name">{item.name}</h2>
-                  <h3 id="track-artist">{item.artists[0].name}</h3>
+                  <h2 id="track-name">{track.name}</h2>
+                  <h3 id="track-artist">{track.artists[0].name}</h3>
                 </button>
               </li>
             );
