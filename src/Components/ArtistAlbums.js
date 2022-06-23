@@ -13,6 +13,7 @@ export default function ArtistAlbums({ albumTracks, toast }) {
     setLoading,
     setTrackURI,
     AddToQueue,
+    SkipSong,
   } = useContext(SpoofyContext);
   const [activeItem, setActiveItem] = useState();
 
@@ -38,12 +39,16 @@ export default function ArtistAlbums({ albumTracks, toast }) {
     return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
   };
 
-  const QueueAdd = (uri, trackName) => {
+  const PlaySong = (uri) => {
+    AddToQueue(uri);
+    SkipSong();
+  };
+
+  const QueueAdd = (uri, trackName, event) => {
+    event.stopPropagation();
     toast(trackName);
     AddToQueue(uri);
   };
-
-  // console.log(albumTracks);
 
   return (
     <section className="ArtistAlbums">
@@ -92,32 +97,19 @@ export default function ArtistAlbums({ albumTracks, toast }) {
                       </tr>
                       {albumTracks[index].map((currTrack) => {
                         return (
-                          <tr className="TrackRow">
-                            <td
-                              onClick={() =>
-                                QueueAdd(currTrack.uri, currTrack.name)
-                              }
-                            >
-                              {currTrack.track_number}
-                            </td>
-                            <td
-                              onClick={() =>
-                                QueueAdd(currTrack.uri, currTrack.name)
-                              }
-                            >
-                              {currTrack.name}
-                            </td>
-                            <td
-                              onClick={() =>
-                                QueueAdd(currTrack.uri, currTrack.name)
-                              }
-                            >
+                          <tr
+                            className="TrackRow"
+                            onClick={() => PlaySong(currTrack.uri)}
+                          >
+                            <td>{currTrack.track_number}</td>
+                            <td>{currTrack.name}</td>
+                            <td>
                               {millisToMinutesAndSeconds(currTrack.duration_ms)}
                             </td>
                             <td
                               className="AddQueue"
-                              onClick={() =>
-                                AddToQueue(currTrack.uri, currTrack.name)
+                              onClick={(event) =>
+                                QueueAdd(currTrack.uri, currTrack.name, event)
                               }
                             >
                               <BiAddToQueue></BiAddToQueue>

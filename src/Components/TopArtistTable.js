@@ -1,10 +1,21 @@
 import React from "react";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useCallback } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { SpoofyContext } from "../context";
 import "../CSS/TopArtistTable.css";
 
 export default function TopArtistTable() {
   const { topArtists, SkipSong, AddToQueue } = useContext(SpoofyContext);
+
+  const navigate = useNavigate();
+  const HandleClick = useCallback(
+    (name, id) =>
+      navigate(`/artistpage/?name=${name}&id=${id}`, {
+        replace: false,
+      }),
+    [navigate]
+  );
+
   return (
     <section className="TopTable">
       <table className="Table">
@@ -16,7 +27,7 @@ export default function TopArtistTable() {
         </tr>
         {topArtists.map((artist, index) => {
           return (
-            <tr>
+            <tr onClick={() => HandleClick(artist.name, artist.id)}>
               <td>{index + 1}</td>
               <td>{artist.name}</td>
               <td>
