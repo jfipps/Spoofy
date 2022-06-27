@@ -8,6 +8,7 @@ import Graduation from "../Resources/Graduation.jpg";
 import Innerspeaker from "../Resources/Innerspeaker.jpg";
 import IsThisIt from "../Resources/IsThisIt.jpg";
 import Zeppelin2 from "../Resources/Zeppelin2.jpg";
+import Example from "../Resources/Example.JPG";
 import {
   FaHome,
   FaTwitter,
@@ -83,6 +84,7 @@ export default function LoginLanding() {
           <section id="Example" className="ExampleSection">
             <div className="Example">
               <h1>Track your personal favorite songs and artists</h1>
+              <img className="ExampleImage" src={Example} alt="Example" />
             </div>
           </section>
         </Container>

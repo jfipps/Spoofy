@@ -1,15 +1,27 @@
 import React from "react";
-import { useContext } from "react";
+import { useContext, useCallback } from "react";
 import { SpoofyContext } from "../context";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaHeadphonesAlt } from "react-icons/fa";
 import "../CSS/Dashboard.css";
 
 export default function Sidebar({ show }) {
   const { activePage, setActivePage, setLoading } = useContext(SpoofyContext);
+
+  const navigate = useNavigate();
+
+  const HandleLogout = useCallback(
+    window.localStorage.clear(),
+    () =>
+      navigate(`/`, {
+        replace: false,
+      }),
+    [navigate]
+  );
+
   return (
     <section className="sidenav">
-      <ul id="sidebar-list">
+      <ul className="SidebarList">
         <li className="ListHeader">
           <a id="sidebar-link" href="/Dashboard">
             <h1>
@@ -44,7 +56,7 @@ export default function Sidebar({ show }) {
             Tracks
           </Link>
         </li>
-        <li>
+        <li className="RecentsLink">
           <Link
             id={
               activePage === "Recents" ? "sidebar-link-active" : "sidebar-link"
@@ -53,6 +65,15 @@ export default function Sidebar({ show }) {
             onClick={() => setActivePage("Recents")}
           >
             Recents
+          </Link>
+        </li>
+        <li className="LogoutLink">
+          <Link
+            id="sidebar-link"
+            to={{ pathname: "/" }}
+            onClick={() => HandleLogout()}
+          >
+            Logout
           </Link>
         </li>
       </ul>
