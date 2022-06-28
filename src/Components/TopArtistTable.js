@@ -27,7 +27,10 @@ export default function TopArtistTable() {
         </tr>
         {topArtists.map((artist, index) => {
           return (
-            <tr onClick={() => HandleClick(artist.name, artist.id)}>
+            <tr
+              className="TopArtistTable"
+              onClick={() => HandleClick(artist.name, artist.id)}
+            >
               <td>{index + 1}</td>
               <td>{artist.name}</td>
               <td>

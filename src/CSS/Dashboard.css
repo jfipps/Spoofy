@@ -127,6 +127,11 @@
 
 /* ---Artists/Tracks Rows--- */
 
+.TopArtistTable:hover {
+  cursor: pointer;
+  color: var(--hover-text);
+}
+
 /* Scroll Buttons */
 .ArrowDiv {
   display: flex;

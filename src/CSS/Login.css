@@ -93,6 +93,19 @@
   margin-left: 20px;
 }
 
+.Example {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.ExampleImage {
+  padding-top: 20px;
+  width: 100%;
+  height: auto;
+}
+
 .ExampleSection {
   display: flex;
   justify-content: center;
@@ -200,9 +213,4 @@
 
 .SocialIcons > a:hover {
   color: var(--spotify-green);
-}
-
-.ExampleImage {
-  width: 100%;
-  height: auto;
 }

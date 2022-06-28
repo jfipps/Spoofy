@@ -6,18 +6,18 @@ import { FaHeadphonesAlt } from "react-icons/fa";
 import "../CSS/Dashboard.css";
 
 export default function Sidebar({ show }) {
-  const { activePage, setActivePage, setLoading } = useContext(SpoofyContext);
+  const { activePage, setActivePage, setLoading, setLoggedIn } =
+    useContext(SpoofyContext);
 
   const navigate = useNavigate();
 
-  const HandleLogout = useCallback(
-    window.localStorage.clear(),
-    () =>
-      navigate(`/`, {
-        replace: false,
-      }),
-    [navigate]
-  );
+  const HandleLogout = () => {
+    window.localStorage.clear();
+    setLoggedIn(false);
+    navigate(`/`, {
+      replace: false,
+    });
+  };
 
   return (
     <section className="sidenav">
