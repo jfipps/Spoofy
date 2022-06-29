@@ -8,10 +8,10 @@ import LoginFooter from "../Components/LoginFooter";
 
 export default function login() {
   return (
-    <>
+    <section className="LoginSection">
       <LoginLanding></LoginLanding>
       <LoginInfo></LoginInfo>
       <LoginFooter></LoginFooter>
-    </>
+    </section>
   );
 }

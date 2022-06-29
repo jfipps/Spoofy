@@ -6,7 +6,7 @@ import { FaHome, FaTwitter, FaGithub, FaLinkedinIn } from "react-icons/fa";
 
 export default function LoginFooter() {
   return (
-    <footer id="About" className="Footer">
+    <section id="About" className="LoginFooter">
       <Container>
         <div className="FooterRow">
           <div className="FooterItem">
@@ -70,6 +70,6 @@ export default function LoginFooter() {
           </div>
         </div>
       </Container>
-    </footer>
+    </section>
   );
 }

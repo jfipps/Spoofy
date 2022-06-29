@@ -144,7 +144,7 @@
   color: var(--spotify-green);
 }
 
-.Footer {
+.LoginFooter {
   display: flex;
   flex-direction: column;
   background-color: var(--spotify-black);
