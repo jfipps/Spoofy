@@ -48,19 +48,24 @@ export default function useAuth(code) {
       return;
     }
     // server.js call with code to get AccessToken, RefreshToken, and ExpiresIn time
-    axios
-      .post("http://localhost:3001/login", {
-        code,
+    fetch("http://localhost:5000/login", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({code: code})
       })
       .then((res) => {
-        setAccessToken(res.data.accessToken);
-        setRefreshToken(res.data.refreshToken);
-        setExpiresIn(70);
-        localStorage.setItem("accessToken", res.data.accessToken);
-        localStorage.setItem("refreshToken", res.data.refreshToken);
-        localStorage.setItem("expiresIn", res.data.expiresIn);
-        localStorage.setItem("currentTime", Math.floor(Date.now() / 1000));
-        window.history.pushState({}, null, "/Dashboard");
+        res.json().then(data => {
+          setAccessToken(data.accessToken);
+          setRefreshToken(data.refreshToken);
+          setExpiresIn(70);
+          localStorage.setItem("accessToken", data.accessToken);
+          localStorage.setItem("refreshToken", data.refreshToken);
+          localStorage.setItem("expiresIn", data.expiresIn);
+          localStorage.setItem("currentTime", Math.floor(Date.now() / 1000));
+          window.history.pushState({}, null, "/Dashboard");
+        })
       })
       .catch(() => {
         window.location = "/";
@@ -73,7 +78,7 @@ export default function useAuth(code) {
     // sets up interval to trigger for refresh when time is up
     const interval = setInterval(() => {
       axios
-        .post("http://localhost:3001/refresh", {
+        .post("http://localhost:5000/refresh", {
           refreshToken,
         })
         .then((res) => {

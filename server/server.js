@@ -37,6 +37,7 @@ app.post("/refresh", (req, res) => {
 });
 
 app.post("/login", (req, res) => {
+  console.log(req)
   const code = req.body.code;
   const spotifyApi = new spotifyWebApi({
     redirectUri: process.env.REDIRECT_URI,

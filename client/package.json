@@ -1,5 +1,6 @@
 {
   "name": "spoofy",
+  "proxy": "http://localhost:5000",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -14,7 +15,7 @@
     "axios": "^0.24.0",
     "bootstrap": "^5.1.3",
     "concurrently": "^7.2.2",
-    "dotenv": "^16.0.0",
+    "dotenv": "^16.0.1",
     "material-ui": "^0.20.2",
     "react": "^17.0.2",
     "react-bootstrap": "^2.1.1",
@@ -34,7 +35,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "serverStart": "cd server && npm run devStart && cd ..\\client",
+    "serverStart": "cd ..\\server && npm run devStart && cd ..\\client",
     "launch": "concurrently \"npm run serverStart\" \"npm start\""
   },
   "eslintConfig": {
