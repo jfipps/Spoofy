@@ -1,11 +1,13 @@
 require("dotenv").config();
 
+// Imports
 const express = require("express");
 const spotifyWebApi = require("spotify-web-api-node");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
 const app = express();
+const PORT = process.env.PORT || 5000
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -56,4 +58,4 @@ app.post("/login", (req, res) => {
     });
 });
 
-app.listen(3001, () => {console.log("Server running on port 3001")});
+app.listen(PORT, () => {console.log(`Server running on port ${PORT}`)});
