@@ -34,7 +34,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "serverStart": "cd server && npm run devStart && cd ..",
+    "serverStart": "cd ..\\server && npm run devStart && cd ..",
     "launch": "concurrently \"npm run serverStart\" \"npm start\""
   },
   "eslintConfig": {
