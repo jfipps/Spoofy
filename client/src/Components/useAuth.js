@@ -77,21 +77,40 @@ export default function useAuth(code) {
     if (!refreshToken || !expiresIn) return;
     // sets up interval to trigger for refresh when time is up
     const interval = setInterval(() => {
-      axios
-        .post("http://localhost:5000/refresh", {
-          refreshToken,
-        })
-        .then((res) => {
+      fetch("http://localhost:5000/refresh", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({refreshToken: refreshToken})
+      }).then((res) => {
+        res.json.then(data => {
           console.log("Refresh");
-          setAccessToken(res.data.accessToken);
-          setExpiresIn(res.data.expiresIn);
-          localStorage.setItem("accessToken", res.data.accessToken);
+          setAccessToken(data.accessToken);
+          setExpiresIn(data.expiresIn);
+          localStorage.setItem("accessToken", data.accessToken);
           localStorage.setItem("currentTime", Math.floor(Date.now() / 1000));
           window.history.pushState({}, null, "/Dashboard");
         })
-        .catch(() => {
-          window.location = "/";
-        });
+      });
+
+
+
+      // axios
+      //   .post("http://localhost:5000/refresh", {
+      //     refreshToken,
+      //   })
+      //   .then((res) => {
+      //     console.log("Refresh");
+      //     setAccessToken(res.data.accessToken);
+      //     setExpiresIn(res.data.expiresIn);
+      //     localStorage.setItem("accessToken", res.data.accessToken);
+      //     localStorage.setItem("currentTime", Math.floor(Date.now() / 1000));
+      //     window.history.pushState({}, null, "/Dashboard");
+      //   })
+      //   .catch(() => {
+      //     window.location = "/";
+      //   });
     }, (expiresIn - 60) * 1000);
     return () => clearInterval(interval);
   }, [refreshToken, expiresIn]);
