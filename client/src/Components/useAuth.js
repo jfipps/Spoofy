@@ -47,8 +47,8 @@ export default function useAuth(code) {
       setLoggingOut(true);
       return;
     }
-    // server.js call with code to get AccessToken, RefreshToken, and ExpiresIn time
-    fetch("http://localhost:5000/login", {
+    // server.js call with code to get AccessToken, RefreshToken, and ExpiresIn time http://localhost:5000
+    fetch("/login", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -75,9 +75,9 @@ export default function useAuth(code) {
   // runs when refresh token is about to expire, resets auth token
   useEffect(() => {
     if (!refreshToken || !expiresIn) return;
-    // sets up interval to trigger for refresh when time is up
+    // sets up interval to trigger for refresh when time is up http://localhost:5000
     const interval = setInterval(() => {
-      fetch("http://localhost:5000/refresh", {
+      fetch("/refresh", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
