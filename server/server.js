@@ -60,4 +60,8 @@ app.post("/login", (req, res) => {
     });
 });
 
+if (process.env.NODE_END === 'production') {
+  app.use(express.static('client/build'))
+}
+
 app.listen(PORT, () => {console.log(`Server running on port ${PORT}`)});
