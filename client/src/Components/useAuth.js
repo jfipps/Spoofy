@@ -49,6 +49,7 @@ export default function useAuth(code) {
     }
     // server.js call with code to get AccessToken, RefreshToken, and ExpiresIn time http://localhost:5000
     fetch("/login", {
+<<<<<<< HEAD
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -57,6 +58,16 @@ export default function useAuth(code) {
       })
       .then((res) => {
         res.json().then(data => {
+=======
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ code: code }),
+    })
+      .then((res) => {
+        res.json().then((data) => {
+>>>>>>> 905d206 (Final Commit)
           setAccessToken(data.accessToken);
           setRefreshToken(data.refreshToken);
           setExpiresIn(70);
@@ -65,7 +76,11 @@ export default function useAuth(code) {
           localStorage.setItem("expiresIn", data.expiresIn);
           localStorage.setItem("currentTime", Math.floor(Date.now() / 1000));
           window.history.pushState({}, null, "/Dashboard");
+<<<<<<< HEAD
         })
+=======
+        });
+>>>>>>> 905d206 (Final Commit)
       })
       .catch(() => {
         window.location = "/";
@@ -78,6 +93,7 @@ export default function useAuth(code) {
     // sets up interval to trigger for refresh when time is up http://localhost:5000
     const interval = setInterval(() => {
       fetch("/refresh", {
+<<<<<<< HEAD
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -85,12 +101,22 @@ export default function useAuth(code) {
         body: JSON.stringify({refreshToken: refreshToken})
       }).then((res) => {
         res.json.then(data => {
+=======
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ refreshToken: refreshToken }),
+      }).then((res) => {
+        res.json.then((data) => {
+>>>>>>> 905d206 (Final Commit)
           console.log("Refresh");
           setAccessToken(data.accessToken);
           setExpiresIn(data.expiresIn);
           localStorage.setItem("accessToken", data.accessToken);
           localStorage.setItem("currentTime", Math.floor(Date.now() / 1000));
           window.history.pushState({}, null, "/Dashboard");
+<<<<<<< HEAD
         })
       });
 
@@ -111,6 +137,10 @@ export default function useAuth(code) {
       //   .catch(() => {
       //     window.location = "/";
       //   });
+=======
+        });
+      });
+>>>>>>> 905d206 (Final Commit)
     }, (expiresIn - 60) * 1000);
     return () => clearInterval(interval);
   }, [refreshToken, expiresIn]);

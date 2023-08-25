@@ -1,8 +1,14 @@
 {
   "files": {
+<<<<<<< HEAD
     "main.css": "/static/css/main.8317bb3b.css",
     "main.js": "/static/js/main.c4f3eadf.js",
     "static/js/787.cb775668.chunk.js": "/static/js/787.cb775668.chunk.js",
+=======
+    "main.css": "/static/css/main.40e91858.css",
+    "main.js": "/static/js/main.87535c68.js",
+    "static/js/889.8590f223.chunk.js": "/static/js/889.8590f223.chunk.js",
+>>>>>>> 905d206 (Final Commit)
     "static/media/Dookie.jpg": "/static/media/Dookie.48b6d3d5f14181743112.jpg",
     "static/media/Innerspeaker.jpg": "/static/media/Innerspeaker.2b93a4cc8da2b72c91c3.jpg",
     "static/media/Example.JPG": "/static/media/Example.569707e5f4273a64b679.JPG",
@@ -12,6 +18,7 @@
     "static/media/Humbug.jpg": "/static/media/Humbug.aad263a9c30c66c6524d.jpg",
     "static/media/logo.svg": "/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/index.html",
+<<<<<<< HEAD
     "main.8317bb3b.css.map": "/static/css/main.8317bb3b.css.map",
     "main.c4f3eadf.js.map": "/static/js/main.c4f3eadf.js.map",
     "787.cb775668.chunk.js.map": "/static/js/787.cb775668.chunk.js.map"
@@ -19,5 +26,14 @@
   "entrypoints": [
     "static/css/main.8317bb3b.css",
     "static/js/main.c4f3eadf.js"
+=======
+    "main.40e91858.css.map": "/static/css/main.40e91858.css.map",
+    "main.87535c68.js.map": "/static/js/main.87535c68.js.map",
+    "889.8590f223.chunk.js.map": "/static/js/889.8590f223.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.40e91858.css",
+    "static/js/main.87535c68.js"
+>>>>>>> 905d206 (Final Commit)
   ]
 }

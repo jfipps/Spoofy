@@ -6,7 +6,11 @@ import { BiAddToQueue } from "react-icons/bi";
 import "react-toastify/dist/ReactToastify.css";
 
 function ArtistTopTracksTable({ toast }) {
+<<<<<<< HEAD
   const { artistTopTracks, AddToQueue, SkipSong } = useContext(SpoofyContext);
+=======
+  const { artistTopTracks, AddToQueue, SkipSong, GetDevices } = useContext(SpoofyContext);
+>>>>>>> 905d206 (Final Commit)
 
   const millisToMinutesAndSeconds = (millis) => {
     var minutes = Math.floor(millis / 60000);
@@ -15,6 +19,10 @@ function ArtistTopTracksTable({ toast }) {
   };
 
   const PlaySong = (uri) => {
+<<<<<<< HEAD
+=======
+    GetDevices()
+>>>>>>> 905d206 (Final Commit)
     AddToQueue(uri);
     SkipSong();
   };

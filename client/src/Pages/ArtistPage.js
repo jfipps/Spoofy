@@ -56,7 +56,11 @@ export default function ArtistPage() {
         <section className="ArtistBody">
           {loading ? (
             <div className="Loader">
+<<<<<<< HEAD
               <Circles type="Circles" color="#00BFFF" height={80} width={80} />
+=======
+              <Circles type="Circles" color="#ddd9d9" height={80} width={80} />
+>>>>>>> 905d206 (Final Commit)
             </div>
           ) : (
             <div>

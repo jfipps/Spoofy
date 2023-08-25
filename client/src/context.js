@@ -3,6 +3,10 @@ import { useNavigate } from "react-router-dom";
 import SpotifyWebApi from "spotify-web-api-node";
 import useAuth from "./Components/useAuth";
 import { ToastContainer, toast } from "react-toastify";
+<<<<<<< HEAD
+=======
+import "react-toastify/dist/ReactToastify.css";
+>>>>>>> 905d206 (Final Commit)
 
 //#region LocalStorage
 // map for localStorage keys
@@ -100,6 +104,13 @@ const SpoofyProvider = ({ children }) => {
     localStorage.setItem(LOCALSTORAGE_KEYS.accessToken, access);
   }, [access, activeTab]);
 
+<<<<<<< HEAD
+=======
+  const showToast = (trackName) => {
+    toast("No active sessions. Please start a session in a Spotify app. ");
+  };
+
+>>>>>>> 905d206 (Final Commit)
   //#endregion
 
   //#region ArtistFunctions
@@ -334,7 +345,10 @@ const SpoofyProvider = ({ children }) => {
           setShuffleState(data.body.shuffle_state);
           setRepeatState(data.body.repeat_state);
         } else {
+<<<<<<< HEAD
           console.log("Not Found");
+=======
+>>>>>>> 905d206 (Final Commit)
           setIsPlaying(false);
         }
       },
@@ -595,6 +609,31 @@ const SpoofyProvider = ({ children }) => {
 
   //#endregion
 
+<<<<<<< HEAD
+=======
+  const GetDevices = () => {
+    if (!access) {
+      if (LOCALSTORAGE_VALUES.accessToken !== null) {
+        spotifyWebApi.setAccessToken(LOCALSTORAGE_VALUES.accessToken);
+      } else {
+        console.log("No Access");
+        return;
+      }
+    } else {
+      spotifyWebApi.setAccessToken(access);
+    }
+    spotifyWebApi.getMyDevices()
+  .then(function(data) {
+    let availableDevices = data.body.devices;
+    if (availableDevices.length === 0) {
+      showToast()
+    }
+  }, function(err) {
+    console.log('No Active Devices', err);
+  });
+  }
+
+>>>>>>> 905d206 (Final Commit)
   return (
     <SpoofyContext.Provider
       value={{
@@ -664,6 +703,10 @@ const SpoofyProvider = ({ children }) => {
         volume,
         setVolume,
         AddToQueue,
+<<<<<<< HEAD
+=======
+        GetDevices
+>>>>>>> 905d206 (Final Commit)
       }}
     >
       {children}

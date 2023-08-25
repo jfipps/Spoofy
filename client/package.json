@@ -14,6 +14,10 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.24.0",
     "bootstrap": "^5.1.3",
+<<<<<<< HEAD
+=======
+    "chmod": "^0.2.1",
+>>>>>>> 905d206 (Final Commit)
     "concurrently": "^7.2.2",
     "dotenv": "^16.0.1",
     "material-ui": "^0.20.2",
